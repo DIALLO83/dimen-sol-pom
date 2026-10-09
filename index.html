@@ -181,7 +181,14 @@ textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8
 
 <script>
 /* ================= Données de référence ================= */
-const CITIES={"Conakry":[4.9,9.5],"Kindia":[5.1,10.1],"Boké":[5.0,10.9],"Mamou":[5.2,10.4],"Labé":[5.3,11.3],"Faranah":[5.4,10.0],"Kankan":[5.6,10.4],"Siguiri":[5.8,11.4],"N'Zérékoré":[4.8,7.8],"Bamako":[5.7,12.6],"Dakar":[5.6,14.7],"Bissau":[5.3,11.9],"Freetown":[4.8,8.5],"Monrovia":[4.6,6.3],"Abidjan":[4.6,5.3],"Ouagadougou":[5.8,12.4],"Niamey":[6.0,13.5],"Lomé":[5.0,6.1],"Cotonou":[5.0,6.4],"Nouakchott":[5.9,18.1]};
+const CITY_GROUPS={
+  "Guinée":{"Conakry":[4.9,9.5],"Kindia":[5.1,10.1],"Boké":[5.0,10.9],"Mamou":[5.2,10.4],"Labé":[5.3,11.3],"Faranah":[5.4,10.0],"Kankan":[5.6,10.4],"Siguiri":[5.8,11.4],"N'Zérékoré":[4.8,7.8]},
+  "Sénégal":{"Dakar":[5.6,14.7],"Thiès":[5.7,14.8],"Saint-Louis":[5.6,16.0],"Louga":[5.8,15.6],"Diourbel":[5.8,14.7],"Touba":[5.8,14.9],"Kaolack":[5.8,14.1],"Fatick":[5.7,14.3],"Kaffrine":[5.8,14.1],"Matam":[6.0,15.6],"Tambacounda":[5.7,13.8],"Kédougou":[5.6,12.6],"Kolda":[5.5,12.9],"Sédhiou":[5.5,12.7],"Ziguinchor":[5.4,12.6]},
+  "Autres pays":{"Bamako":[5.7,12.6],"Bissau":[5.3,11.9],"Freetown":[4.8,8.5],"Monrovia":[4.6,6.3],"Abidjan":[4.6,5.3],"Ouagadougou":[5.8,12.4],"Niamey":[6.0,13.5],"Lomé":[5.0,6.1],"Cotonou":[5.0,6.4],"Nouakchott":[5.9,18.1]}};
+let MY_CITIES={};try{MY_CITIES=JSON.parse(localStorage.getItem("sd.cities")||"{}")||{}}catch(e){}
+let CITIES={};
+function buildCities(){CITIES={};for(const g in CITY_GROUPS)Object.assign(CITIES,CITY_GROUPS[g]);Object.assign(CITIES,MY_CITIES)}
+buildCities();
 const PANELS={
   p100:{n:"100 W (12 V)",p:100,voc:22.5,vmp:18.5,isc:5.8,imp:5.4,L:1.01,W:0.67},
   p330:{n:"330 W polycristallin",p:330,voc:46,vmp:37.6,isc:9.3,imp:8.8,L:1.956,W:0.992},
@@ -428,10 +435,15 @@ function fieldHTML(x,scope){
   if(x.o)return `<label class="f" for="${id}"><span>${x.l}</span><div class="in"><select id="${id}" data-k="${x.k}">${x.o.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("")}</select></div></label>`;
   return `<label class="f" for="${id}"><span>${x.l}</span><div class="in"><input id="${id}" data-k="${x.k}" type="number" step="${x.step}" inputmode="decimal">${x.u?`<em>${x.u}</em>`:""}</div></label>`;
 }
+function citySelectHTML(){
+  const grp=(label,obj)=>Object.keys(obj).length?`<optgroup label="${esc(label)}">${Object.keys(obj).map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("")}</optgroup>`:"";
+  return `<label class="f" for="in-site-site-city"><span>Ville</span><div class="in"><select id="in-site-site-city" data-k="site.city">${
+    Object.entries(CITY_GROUPS).map(([g,o])=>grp(g,o)).join("")+grp("Mes villes",MY_CITIES)}<option value="custom">Autre lieu…</option></select></div></label>`;
+}
 function buildForms(){
-  $("siteBar").innerHTML=[sel("site.city","Ville",[...Object.keys(CITIES).map(c=>[c,c]),["custom","Autre lieu"]]),
-    num("site.hsp","Ensoleillement","kWh/m²/j",0.1),num("site.lat","Latitude","°",0.1)].map(x=>fieldHTML(x,"site")).join("")+
-    `<div class="hint">Ensoleillement moyen annuel indicatif. Pour un site autonome, prenez de préférence la valeur du mois le moins ensoleillé (PVGIS).</div>`;
+  $("siteBar").innerHTML=citySelectHTML()+[num("site.hsp","Ensoleillement","kWh/m²/j",0.1),num("site.lat","Latitude","°",0.1)].map(x=>fieldHTML(x,"site")).join("")+
+    `<div class="row" id="citySave" style="grid-column:1/-1" hidden><label class="f" for="city-name"><span>Nom du lieu à enregistrer</span><div class="in"><input id="city-name" placeholder="Ex. : Podor"></div></label><button class="btn sm" id="citySaveBtn">Enregistrer cette ville</button></div>`+
+    `<div class="hint">Ensoleillement moyen annuel indicatif. Pour un site autonome, prenez de préférence la valeur du mois le moins ensoleillé (PVGIS). Pour une nouvelle ville : choisissez « Autre lieu… », entrez son ensoleillement et sa latitude, puis enregistrez-la.</div>`;
   for(const tab of ["pv","pump"]){
     $("f-"+tab).innerHTML=FORMS[tab].map((s,i)=>`<details class="sec" ${s.open?"open":""}><summary>${s.t}</summary>${s.loads?`<div class="loads" id="loads"></div>`:`<div class="fields">${s.f.map(x=>fieldHTML(x,tab)).join("")}</div>`}</details>`).join("");
   }
@@ -719,6 +731,7 @@ function renderProj(){
 
 /* ================= Navigation et événements ================= */
 function refresh(){
+  $("citySave").hidden=S.site.city!=="custom";
   saveDraft();
   if(S.tab==="pv")renderPV();else if(S.tab==="pump")renderPump();else if(S.tab==="bom")renderBom();else renderProj();
 }
@@ -752,6 +765,9 @@ document.addEventListener("click",e=>{
   if(b.id==="addLoad"){S.pv.loads.push(["Nouvel appareil",100,1,4,1]);renderLoads();refresh();$(`ld-${S.pv.loads.length-1}-0`).select();return}
   if(b.dataset.quick!==undefined){S.pv.loads.push([...QUICK[+b.dataset.quick]]);renderLoads();refresh();return}
   if(b.dataset.src){S.bomSrc=b.dataset.src;refresh();return}
+  if(b.id==="citySaveBtn"){const n=$("city-name").value.trim();if(!n){toast("Entrez le nom de la ville");$("city-name").focus();return}
+    MY_CITIES[n]=[+S.site.hsp,+S.site.lat];try{localStorage.setItem("sd.cities",JSON.stringify(MY_CITIES))}catch(e){}
+    buildCities();S.site.city=n;buildForms();syncInputs();refresh();toast(`Ville « ${n} » enregistrée`);return}
   if(b.id==="addExtra"){S.extra.push(["Autre",1,"u"]);refresh();return}
   if(b.dataset.exdel!==undefined){S.extra.splice(+b.dataset.exdel,1);refresh();return}
   if(b.id==="copyBom")return copyText(bomText());
