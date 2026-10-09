@@ -1053,7 +1053,7 @@ function loadLogo(file){
   fr.readAsDataURL(file);
 }
 const coLine=()=>[CO.tel,CO.email,CO.addr].filter(Boolean).join(" · ");
-const coTitle=()=>CO.name?CO.name+(coLine()?" — "+coLine():""):"SOL ELECTRO";
+const coTitle=()=>"SOL ELECTRO"+(CO.name?"\n"+CO.name:"");
 function logoBytes(){if(!CO.logo)return null;const b=atob(CO.logo.split(",")[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
 function wLogo(){
   if(!CO.logo||!CO.lw)return "";
@@ -1061,14 +1061,13 @@ function wLogo(){
   return `<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${w}" cy="${h}"/><wp:docPr id="1" name="Logo"/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="1" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rIdLogo"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${w}" cy="${h}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>`;
 }
 function wCompany(){
-  if(!CO.name&&!CO.logo)return wP("SOL ELECTRO",{style:"Title"});
-  const lines=[CO.slogan,CO.ids,[CO.tel&&("Tél. : "+CO.tel),CO.email].filter(Boolean).join(" · "),CO.addr].filter(Boolean).join("\n");
-  if(!CO.logo)return wP(CO.name,{b:true,sz:34,color:"1D2A24",after:20})+(lines?wP(lines,{sz:18,color:"5B6A62",after:0}):"")+wP("",{after:0,border:true});
+  const sub=CO.name?wP(CO.name,{b:true,sz:24,color:"5B6A62",after:0}):"";
+  if(!CO.logo)return wP("SOL ELECTRO",{style:"Title"})+sub+wP("",{after:0,border:true});
   const cellP=(inner,right)=>`<w:p><w:pPr><w:spacing w:after="0"/>${right?'<w:jc w:val="right"/>':""}</w:pPr>${inner}</w:p>`;
   const none=["top","left","bottom","right","insideH","insideV"].map(b=>`<w:${b} w:val="nil"/>`).join("");
   return `<w:tbl><w:tblPr><w:tblW w:w="9638" w:type="dxa"/><w:tblBorders>${none}</w:tblBorders><w:tblCellMar><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="3800"/><w:gridCol w:w="5838"/></w:tblGrid><w:tr>
     <w:tc><w:tcPr><w:tcW w:w="3800" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${cellP(wLogo())}</w:tc>
-    <w:tc><w:tcPr><w:tcW w:w="5838" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${cellP(wRuns(CO.name||"",{b:true,sz:30,color:"1D2A24"}),true)}${lines?cellP(wRuns(lines,{sz:18,color:"5B6A62"}),true):""}</w:tc>
+    <w:tc><w:tcPr><w:tcW w:w="5838" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${cellP(wRuns("SOL ELECTRO",{b:true,sz:40,color:"1D2A24"}),true)}${CO.name?cellP(wRuns(CO.name,{b:true,sz:24,color:"5B6A62"}),true):""}</w:tc>
   </w:tr></w:tbl>`+wP("",{after:0,border:true});
 }
 function wordHeader(kind){
@@ -1141,9 +1140,9 @@ function renderProj(){
   const list=store.get("sd.projects",[]);
   $("v-proj").innerHTML=`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
    <div class="panel" style="grid-column:1/-1"><h2 style="font-size:1.4rem">Mon entreprise</h2>
-     <p class="note" style="margin-top:2px">Ces informations et votre logo apparaissent en haut du logiciel et sur vos études et devis Word. Elles sont enregistrées sur cet appareil.</p>
+     <p class="note" style="margin-top:2px">En haut du logiciel et de vos études et devis Word : <b>SOL ELECTRO</b>, avec en dessous le nom de votre entreprise.</p>
      <div class="fields" style="padding:10px 0 0;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))">
-       ${[["name","Nom de l'entreprise",""],["slogan","Activité",""],["tel","Téléphone","Ex. : +221 77 000 00 00"],["email","Email",""],["addr","Adresse","Ex. : Saint-Louis, Sénégal"],["ids","RC / NINEA",""]]
+       ${[["name","Nom de l'entreprise (sous SOL ELECTRO)",""]]
          .map(([k,l,ph])=>`<label class="f" for="co-${k}"><span>${l}</span><div class="in"><input id="co-${k}" data-co="${k}" value="${esc(CO[k])}" placeholder="${esc(ph)}" ${k==="email"?'type="email" inputmode="email"':k==="tel"?'type="tel" inputmode="tel"':""}></div></label>`).join("")}
      </div>
      <div class="co-prev">${CO.logo?`<img src="${CO.logo}" alt="Votre logo">`:`<span class="muted">Aucun logo</span>`}
