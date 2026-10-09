@@ -45,6 +45,9 @@ button{cursor:pointer}
 .brand{display:flex;align-items:center;gap:10px}
 .brand svg{flex:none}
 .brand h1{font-size:1.7rem;font-weight:700;line-height:1;letter-spacing:.03em}
+.brand #coLogo{height:40px;max-width:120px;object-fit:contain;background:#fff;border-radius:7px;padding:3px}
+.co-prev{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.co-prev img{max-height:70px;max-width:200px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px}
 .brand small{display:block;font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
 .tabs button{background:transparent;border:1px solid transparent;color:inherit;padding:7px 12px;border-radius:999px;font-weight:500;opacity:.75}
@@ -90,8 +93,8 @@ label.f>span{font-size:.8rem;color:var(--muted);line-height:1.25}
 
 /* Tableau des appareils */
 .loads{padding:0 14px 14px;display:grid;gap:8px}
-.lrow{display:grid;grid-template-columns:minmax(0,1fr) 64px 46px 50px 46px 30px;gap:5px;align-items:center}
-.lrow.head{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) 64px 46px 50px 62px 30px;gap:5px;align-items:center}
+.lrow.head{line-height:1.15;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 @media (max-width:520px){.lrow{grid-template-columns:repeat(4,minmax(0,1fr)) 28px}.lrow>input:first-child{grid-column:1/-1;font-weight:600}.lrow.head>span:first-child{display:none}.lrow{padding-bottom:6px;border-bottom:1px dashed var(--line)}.lrow.head{border:0;padding:0}}
 .lrow input{width:100%;min-width:0;padding:6px 7px;border:1px solid var(--line);border-radius:6px;background:var(--sunk)}
 .lrow .x{border:0;background:transparent;color:var(--muted);font-size:1.1rem;padding:0}
@@ -196,7 +199,7 @@ textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8
   <div class="wrap">
     <div class="brand">
       <svg width="42" height="42" viewBox="0 0 100 100" aria-hidden="true" style="border-radius:10px"><rect width="100" height="100" fill="#F5B301"/><circle cx="71" cy="27" r="14" fill="#FFFFFF"/><path d="M12 88 L25 47 H81 L92 88 Z" fill="#13231D"/><path d="M18 68 H87 M44 47 L40 88 M63 47 L66 88" stroke="#F5B301" stroke-width="4"/><path d="M52 6 L40 30 H50 L44 46 L62 20 H52 L58 6 Z" fill="#13231D"/></svg>
-      <div><h1>SOL ELECTRO</h1><small>Dimensionnement solaire · pompage · devis</small></div>
+      <div><h1>SOL ELECTRO</h1><small id="coLine">Dimensionnement solaire · pompage · devis</small></div><img id="coLogo" alt="Logo de l'entreprise" hidden>
     </div>
     <nav class="tabs" role="tablist">
       <button role="tab" data-tab="pv" id="tab-pv">Solaire</button>
@@ -285,7 +288,8 @@ if(S.pump.type==="tri"&&S.pump.vmpMin===500)S.pump.vmpMin=450; // anciens régla
 if(S.pump.type==="mono"&&S.pump.vmpMin===300)S.pump.vmpMin=250;
 if(S.pv.archi==="hybride"&&S.pv.vmpMin===120)S.pv.vmpMin=0; // MPPT minimal automatique selon la tension
 if(CITIES[S.site.city]&&!(Array.isArray(S.site.months)&&S.site.months.length===12)){const d=CITIES[S.site.city];Object.assign(S.site,{hsp:d[0],lat:d[1],lon:d[2]??"",months:Array.isArray(d[3])?d[3].slice():[]})} // anciennes valeurs indicatives
-let PRICES=store.get("sd.prices",{}), CUR=store.get("sd.cur","GNF");
+let PRICES=store.get("sd.prices",{}), CUR=store.get("sd.cur","FCFA");
+let CO=Object.assign({name:"ELECTRO TECH MULTI SERVICES",slogan:"Études et réalisations de systèmes électriques : domestique, solaire, industriel et pompage",tel:"77 405 53 09 / 76 659 57 75",email:"",addr:"Saint-Louis, Sénégal",ids:"RC : SN-STL-2015-A-0188 / NINEA : 005393 624 1K1",logo:"",lw:0,lh:0},store.get("sd.company",{}));
 
 /* ================= Utilitaires ================= */
 const $=id=>document.getElementById(id);
@@ -640,18 +644,18 @@ async function showMap(){
 /* Appareils */
 function renderLoads(){
   const L=S.pv.loads;
-  $("loads").innerHTML=`<div class="lrow head"><span>Appareil</span><span>Watts</span><span>Qté</span><span>h/jour</span><span title="Coefficient de démarrage (moteurs, compresseurs : 3)">Démar.</span><span></span></div>`+
+  $("loads").innerHTML=`<div class="lrow head"><span>Appareil</span><span>Watts</span><span>Qté</span><span>h/jour</span><span title="Combien de fois la puissance au démarrage">Pic démarrage (×)</span><span></span></div>`+
     L.map((l,i)=>`<div class="lrow">
       <input id="ld-${i}-0" aria-label="Appareil" value="${esc(l[0])}" data-l="${i},0">
       <input id="ld-${i}-1" aria-label="Puissance (W)" type="number" inputmode="decimal" value="${l[1]}" data-l="${i},1">
       <input id="ld-${i}-2" aria-label="Quantité" type="number" inputmode="numeric" value="${l[2]}" data-l="${i},2">
       <input id="ld-${i}-3" aria-label="Heures par jour" type="number" step="0.5" inputmode="decimal" value="${l[3]}" data-l="${i},3">
-      <input id="ld-${i}-4" aria-label="Coefficient de démarrage" type="number" step="0.5" inputmode="decimal" value="${l[4]}" data-l="${i},4">
+      <input id="ld-${i}-4" aria-label="Pic au démarrage (fois la puissance)" type="number" step="0.5" inputmode="decimal" value="${l[4]}" data-l="${i},4">
       <button class="x" data-del="${i}" aria-label="Supprimer ${esc(l[0])}">×</button></div>`).join("")+
     `<div class="ltot" id="ltot"></div>
      <div><button class="btn sm" id="addLoad">+ Ajouter un appareil</button></div>
      <div class="chips">${QUICK.map((q,i)=>`<button class="chip" data-quick="${i}">+ ${q[0]} ${q[1]} W</button>`).join("")}</div>
-     <p class="note">« Démar. » : pointe au démarrage (1 pour l'éclairage, 2 pour un ventilateur, 3 pour un réfrigérateur, une pompe ou un climatiseur).</p>`;
+     <p class="note"><b>Pic démarrage (×)</b> : combien de fois l'appareil consomme sa puissance pendant la seconde où il démarre. Mettez 1 pour l'éclairage, la télé ou l'ordinateur, 2 pour un ventilateur, 3 pour un frigo, un congélateur, un climatiseur, une pompe ou une machine à laver. Ce chiffre sert seulement à choisir la taille de l'onduleur.</p>`;
 }
 
 /* ================= Rendu des résultats ================= */
@@ -860,7 +864,7 @@ function renderPump(){
 const lieu=placeName;
 function reportPV(r){
   const pn=S.panel,b=r.b;
-  return ["SOL ELECTRO",`DIMENSIONNEMENT SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
+  return [coTitle(),`DIMENSIONNEMENT SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
   `Site : ${lieu()} · ${fmt(S.site.hsp,1)} kWh/m²/j · latitude ${fmt(S.site.lat,1)}°`,"",
   `Besoins : ${fmt(r.Ej)} Wh/jour · puissance simultanée ${fmt(r.Psim)} W · pointe ${fmt(r.Ppk)} W`,
   `Panneaux : ${r.N} × ${pn.p} Wc (${r.ns} série × ${r.np} parallèle) = ${fmt(r.Pinst)} Wc`,
@@ -873,7 +877,7 @@ function reportPV(r){
 }
 function reportPump(r){
   const pn=S.panel,u=S.pump;
-  return ["SOL ELECTRO",`POMPAGE SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
+  return [coTitle(),`POMPAGE SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
   `Site : ${lieu()} · ${fmt(S.site.hsp,1)} kWh/m²/j`,"",
   `Besoin : ${fmt(u.q)} m³/jour · HMT ${fmt(r.HMT,1)} m (niveau ${u.ndyn} m + réservoir ${u.hres} m + pertes ${fmt(r.J,1)} m)`,
   `Pompe : ${fmt(r.Pmot,2)} kW, ${fmt(r.Qh,2)} m³/h à ${fmt(r.HMT,1)} m`,
@@ -970,7 +974,7 @@ function renderBom(){
 function bomText(){
   const L=bom(S.bomSrc);let tot=0;
   const lines=L.map(it=>{const pr=+PRICES[it.key]||0,t=pr*it.q;tot+=t;return `- ${it.n} : ${fmt(it.q,it.q%1?1:0)} ${pl(it)}${pr?` × ${fmt(pr)} = ${fmt(t)} ${CUR}`:""}`});
-  return ["SOL ELECTRO",`DEVIS — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,`${S.bomSrc==="pv"?"Installation solaire autonome":"Pompage solaire"} · ${new Date().toLocaleDateString("fr-FR")}`,"",...lines,"",`TOTAL : ${fmt(tot)} ${CUR}`].join("\n");
+  return [coTitle(),`DEVIS — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,`${S.bomSrc==="pv"?"Installation solaire autonome":"Pompage solaire"} · ${new Date().toLocaleDateString("fr-FR")}`,"",...lines,"",`TOTAL : ${fmt(tot)} ${CUR}`].join("\n");
 }
 
 /* ================= Export Word (.docx), sans bibliothèque externe ================= */
@@ -981,7 +985,7 @@ function wRuns(text,o={}){
   return String(text??"").split("\n").map((t,i)=>`${i?`<w:r>${rp}<w:br/></w:r>`:""}<w:r>${rp}<w:t xml:space="preserve">${xe(t)}</w:t></w:r>`).join("");
 }
 function wP(text,o={}){
-  const pp=`<w:pPr>${o.style?`<w:pStyle w:val="${o.style}"/>`:""}${o.align?`<w:jc w:val="${o.align}"/>`:""}${o.after!=null?`<w:spacing w:after="${o.after}"/>`:""}${o.shade?`<w:shd w:val="clear" w:color="auto" w:fill="${o.shade}"/>`:""}</w:pPr>`;
+  const pp=`<w:pPr>${o.style?`<w:pStyle w:val="${o.style}"/>`:""}${o.border?`<w:pBdr><w:bottom w:val="single" w:sz="12" w:space="4" w:color="D98F00"/></w:pBdr>`:""}${o.align?`<w:jc w:val="${o.align}"/>`:""}${o.after!=null?`<w:spacing w:after="${o.after}"/>`:""}${o.shade?`<w:shd w:val="clear" w:color="auto" w:fill="${o.shade}"/>`:""}</w:pPr>`;
   return `<w:p>${pp}${wRuns(text,o)}</w:p>`;
 }
 function wTable(rows,o={}){
@@ -992,21 +996,23 @@ function wTable(rows,o={}){
 }
 const wKV=rows=>wTable(rows,{widths:[4600,5038]});
 const wH=(t,l=1)=>wP(t,{style:"Heading"+l});
-function docxBlob(bodyXml){
+function docxBlob(bodyXml,img){
   const enc=new TextEncoder();
   const files={
-    "[Content_Types].xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>`,
+    "[Content_Types].xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>${img?'<Default Extension="png" ContentType="image/png"/>':""}<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>`,
     "_rels/.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`,
-    "word/_rels/document.xml.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`,
+    "word/_rels/document.xml.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>${img?'<Relationship Id="rIdLogo" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/logo.png"/>':""}</Relationships>`,
     "word/styles.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles ${W_NS}><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:sz w:val="21"/><w:lang w:val="fr-FR"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="100" w:line="264" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>
       <w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style>
       <w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:basedOn w:val="Normal"/><w:pPr><w:spacing w:after="40"/></w:pPr><w:rPr><w:b/><w:color w:val="1D2A24"/><w:sz w:val="40"/></w:rPr></w:style>
       <w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:before="280" w:after="100"/><w:pBdr><w:bottom w:val="single" w:sz="8" w:space="2" w:color="D98F00"/></w:pBdr><w:outlineLvl w:val="0"/></w:pPr><w:rPr><w:b/><w:color w:val="1D2A24"/><w:sz w:val="28"/></w:rPr></w:style>
       <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:before="160" w:after="60"/><w:outlineLvl w:val="1"/></w:pPr><w:rPr><w:b/><w:color w:val="1743B3"/><w:sz w:val="23"/></w:rPr></w:style>
       </w:styles>`,
-    "word/document.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W_NS}><w:body>${bodyXml}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>`
+    "word/document.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W_NS} xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"><w:body>${bodyXml}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>`
   };
-  return zipStore(Object.entries(files).map(([name,s])=>({name,data:enc.encode(s.replace(/>\s+</g,"><"))})),"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+  const list=Object.entries(files).map(([name,s])=>({name,data:enc.encode(s.replace(/>\s+</g,"><"))}));
+  if(img)list.push({name:"word/media/logo.png",data:img});
+  return zipStore(list,"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 }
 const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
 function crc32(u){let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRC_T[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
@@ -1026,9 +1032,48 @@ function zipStore(files,type){
   return new Blob([...parts,...cen,new Uint8Array(e.buffer)],{type});
 }
 const cellTxt=el=>{const c=el.cloneNode(true);c.querySelectorAll("br").forEach(b=>b.replaceWith("\n"));return c.textContent.replace(/ /g," ").split("\n").map(s=>s.replace(/\s+/g," ").trim()).filter(Boolean).join("\n")};
+/* ---- Entreprise : logo et coordonnées ---- */
+function saveCompany(){try{localStorage.setItem("sd.company",JSON.stringify(CO));return true}catch(e){toast("Logo trop lourd pour être enregistré : choisissez une image plus petite.");return false}}
+function renderCompanyHeader(){
+  const l=$("coLine"),i=$("coLogo");if(!l)return;
+  l.textContent=CO.name||"Dimensionnement solaire · pompage · devis";
+  if(CO.logo){i.src=CO.logo;i.hidden=false}else{i.hidden=true;i.removeAttribute("src")}
+}
+function loadLogo(file){
+  if(!file)return;
+  if(!/^image\//.test(file.type)){toast("Choisissez une image (PNG ou JPG).");return}
+  const fr=new FileReader();
+  fr.onload=()=>{const im=new Image();im.onload=()=>{
+    const k=Math.min(1,600/im.width,240/im.height),w=Math.max(1,Math.round(im.width*k)),h=Math.max(1,Math.round(im.height*k));
+    const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);
+    const old={...CO};Object.assign(CO,{logo:c.toDataURL("image/png"),lw:w,lh:h});
+    if(!saveCompany())Object.assign(CO,old);else toast("Logo enregistré");
+    renderCompanyHeader();renderProj();
+  };im.onerror=()=>toast("Image illisible : essayez un autre fichier.");im.src=fr.result};
+  fr.readAsDataURL(file);
+}
+const coLine=()=>[CO.tel,CO.email,CO.addr].filter(Boolean).join(" · ");
+const coTitle=()=>CO.name?CO.name+(coLine()?" — "+coLine():""):"SOL ELECTRO";
+function logoBytes(){if(!CO.logo)return null;const b=atob(CO.logo.split(",")[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function wLogo(){
+  if(!CO.logo||!CO.lw)return "";
+  let h=648000,w=Math.round(h*CO.lw/CO.lh);if(w>2160000){w=2160000;h=Math.round(w*CO.lh/CO.lw)}
+  return `<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="${w}" cy="${h}"/><wp:docPr id="1" name="Logo"/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="1" name="logo.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rIdLogo"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${w}" cy="${h}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>`;
+}
+function wCompany(){
+  if(!CO.name&&!CO.logo)return wP("SOL ELECTRO",{style:"Title"});
+  const lines=[CO.slogan,CO.ids,[CO.tel&&("Tél. : "+CO.tel),CO.email].filter(Boolean).join(" · "),CO.addr].filter(Boolean).join("\n");
+  if(!CO.logo)return wP(CO.name,{b:true,sz:34,color:"1D2A24",after:20})+(lines?wP(lines,{sz:18,color:"5B6A62",after:0}):"")+wP("",{after:0,border:true});
+  const cellP=(inner,right)=>`<w:p><w:pPr><w:spacing w:after="0"/>${right?'<w:jc w:val="right"/>':""}</w:pPr>${inner}</w:p>`;
+  const none=["top","left","bottom","right","insideH","insideV"].map(b=>`<w:${b} w:val="nil"/>`).join("");
+  return `<w:tbl><w:tblPr><w:tblW w:w="9638" w:type="dxa"/><w:tblBorders>${none}</w:tblBorders><w:tblCellMar><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="3800"/><w:gridCol w:w="5838"/></w:tblGrid><w:tr>
+    <w:tc><w:tcPr><w:tcW w:w="3800" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${cellP(wLogo())}</w:tc>
+    <w:tc><w:tcPr><w:tcW w:w="5838" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${cellP(wRuns(CO.name||"",{b:true,sz:30,color:"1D2A24"}),true)}${lines?cellP(wRuns(lines,{sz:18,color:"5B6A62"}),true):""}</w:tc>
+  </w:tr></w:tbl>`+wP("",{after:0,border:true});
+}
 function wordHeader(kind){
   const today=new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
-  return wP("SOL ELECTRO",{style:"Title"})+wP(kind,{b:true,sz:26,color:"D98F00",after:200})+
+  return wCompany()+wP(kind,{b:true,sz:28,color:"D98F00",after:200})+
     wKV([["Projet",S.project.name||"—"],["Client",S.project.client||"—"],["Date de l'étude",today],["Lieu",placeName()],
       ["Coordonnées",`Latitude ${fmt(S.site.lat,2)}°`+(hasLon()?` · longitude ${fmt(S.site.lon,2)}°`:"")],
       ["Ensoleillement retenu",`${fmt(S.site.hsp,2)} kWh/m²/jour`+(monthsOK()?` (moyenne annuelle ${fmt(annual(),2)}, mois le plus faible ${fmt(worst().v,2)} en ${MOIS[worst().i]} — source NASA POWER)`:"")]]);
@@ -1082,7 +1127,7 @@ function downloadWord(kind){
     if(kind==="bom"){body=wordHeader(S.bomSrc==="pv"?"Devis – installation solaire autonome":"Devis – pompage solaire")+wH("Liste de matériel et devis")+bomDocx(S.bomSrc);label="Devis"}
     else{body=wordFromView(kind);label=kind==="pv"?"Etude_solaire":"Etude_pompage"}
     const name=`${label}_${(S.project.name||"projet").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^\w-]+/g,"_").slice(0,40)}_${new Date().toISOString().slice(0,10)}.docx`;
-    const blob=docxBlob(body),a=document.createElement("a");
+    const blob=docxBlob(body,logoBytes()),a=document.createElement("a");
     window.__lastDocx=blob;
     a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
     setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},5000);
@@ -1095,6 +1140,17 @@ let pendingDel=null;
 function renderProj(){
   const list=store.get("sd.projects",[]);
   $("v-proj").innerHTML=`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+   <div class="panel" style="grid-column:1/-1"><h2 style="font-size:1.4rem">Mon entreprise</h2>
+     <p class="note" style="margin-top:2px">Ces informations et votre logo apparaissent en haut du logiciel et sur vos études et devis Word. Elles sont enregistrées sur cet appareil.</p>
+     <div class="fields" style="padding:10px 0 0;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))">
+       ${[["name","Nom de l'entreprise",""],["slogan","Activité",""],["tel","Téléphone","Ex. : +221 77 000 00 00"],["email","Email",""],["addr","Adresse","Ex. : Saint-Louis, Sénégal"],["ids","RC / NINEA",""]]
+         .map(([k,l,ph])=>`<label class="f" for="co-${k}"><span>${l}</span><div class="in"><input id="co-${k}" data-co="${k}" value="${esc(CO[k])}" placeholder="${esc(ph)}" ${k==="email"?'type="email" inputmode="email"':k==="tel"?'type="tel" inputmode="tel"':""}></div></label>`).join("")}
+     </div>
+     <div class="co-prev">${CO.logo?`<img src="${CO.logo}" alt="Votre logo">`:`<span class="muted">Aucun logo</span>`}
+       <label class="btn sm" for="co-file" style="cursor:pointer">${CO.logo?"Changer le logo":"Choisir mon logo"}</label><input id="co-file" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+       ${CO.logo?`<button class="btn sm danger" id="coDel">Retirer le logo</button>`:""}</div>
+     <p class="note">Image PNG ou JPG. Un logo sur fond transparent ou blanc rend mieux.</p>
+   </div>
    <div class="panel"><h2 style="font-size:1.4rem">Projet en cours</h2>
      <div class="fields" style="padding:12px 0 0">
        <label class="f" for="pj-name"><span>Nom du projet</span><div class="in"><input id="pj-name" value="${esc(S.project.name)}"></div></label>
@@ -1134,12 +1190,14 @@ document.addEventListener("input",e=>{
   if(el.dataset.ex){const [i,j]=el.dataset.ex.split(",").map(Number);S.extra[i][j]=j===1?(parseFloat(el.value)||0):el.value;saveDraft();return}
   if(el.id==="pj-name"){S.project.name=el.value;saveDraft()}
   if(el.id==="pj-client"){S.project.client=el.value;saveDraft()}
+  if(el.dataset.co){CO[el.dataset.co]=el.value.trim();saveCompany();renderCompanyHeader()}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="loc-q"){e.preventDefault();locSearch()}});
 document.addEventListener("change",e=>{
   const el=e.target;
   if(el.dataset.k&&el.tagName==="SELECT")return onField(el);
   if(el.id==="cur"){CUR=el.value;store.set("sd.cur",CUR);renderBom()}
+  if(el.id==="co-file"){loadLogo(el.files[0]);el.value=""}
   if(el.dataset.ex)renderBom();
 });
 document.addEventListener("click",e=>{
@@ -1169,12 +1227,14 @@ document.addEventListener("click",e=>{
   if(b.dataset.load){const p=store.get("sd.projects",[]).find(x=>String(x.id)===b.dataset.load);if(p){S=merge(DEF,p.data);buildForms();syncInputs();showTab("pv");toast(`Projet « ${p.name} » ouvert`)}return}
   if(b.dataset.delP){if(pendingDel!==+b.dataset.delP){pendingDel=+b.dataset.delP;renderProj();return}
     store.set("sd.projects",store.get("sd.projects",[]).filter(x=>x.id!==pendingDel));pendingDel=null;toast("Projet supprimé");renderProj();return}
+  if(b.id==="coDel"){CO.logo="";CO.lw=CO.lh=0;saveCompany();renderCompanyHeader();renderProj();toast("Logo retiré");return}
   if(b.id==="pjCopy")return copyText("SOLAIRE1:"+btoa(unescape(encodeURIComponent(JSON.stringify(S)))));
   if(b.id==="pjImport"){try{const t=$("pj-import").value.trim().replace(/^SOLAIRE1:/,"");S=merge(DEF,JSON.parse(decodeURIComponent(escape(atob(t)))));buildForms();syncInputs();showTab("pv");toast("Projet importé")}
     catch(err){toast("Code invalide : copiez le code complet, il commence par SOLAIRE1:")}return}
 });
 
 buildForms();
+renderCompanyHeader();
 syncInputs();
 showTab(["pv","pump","bom","proj"].includes(S.tab)?S.tab:"pv");
 </script>

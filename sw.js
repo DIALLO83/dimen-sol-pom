@@ -1,5 +1,5 @@
 // Permet à l'application de fonctionner sans Internet une fois installée sur le téléphone
-const CACHE = "dimensionneur-solaire-v4";
+const CACHE = "dimensionneur-solaire-v5";
 const FILES = ["./", "./index.html", "./manifest.json", "./icone-192.png", "./icone-512.png"];
 
 self.addEventListener("install", e => {
