@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#17231e">
+<meta name="theme-color" content="#1d2a24">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icone-192.png">
 <link rel="apple-touch-icon" href="icone-192.png">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
-<body><title>DIALLO DIMEN SOL/POM</title>
+<body><title>SOL ELECTRO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -44,7 +44,7 @@ button{cursor:pointer}
 .top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-block:12px}
 .brand{display:flex;align-items:center;gap:10px}
 .brand svg{flex:none}
-.brand h1{font-size:1.55rem;font-weight:700;line-height:1}
+.brand h1{font-size:1.7rem;font-weight:700;line-height:1;letter-spacing:.03em}
 .brand small{display:block;font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
 .tabs button{background:transparent;border:1px solid transparent;color:inherit;padding:7px 12px;border-radius:999px;font-weight:500;opacity:.75}
@@ -52,7 +52,7 @@ button{cursor:pointer}
 .tabs button:hover{opacity:1}
 
 /* Site */
-.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.site{background:var(--surface);border-bottom:1px solid var(--line)}
 .site .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;padding-block:10px;align-items:end}
 .site .hint{font-size:.78rem;color:var(--muted);grid-column:1/-1;margin-top:-4px}
 
@@ -62,6 +62,18 @@ main.wrap{padding-block:18px 40px}
 
 /* Formulaire */
 .form{display:grid;gap:10px;min-width:0}
+.intro{font-size:.88rem;color:var(--muted);padding:2px 4px;display:grid;gap:8px}
+details.adv{border:1px dashed var(--line);border-radius:var(--r)}
+details.adv>summary{cursor:pointer;padding:11px 14px;font:600 1rem var(--f-disp);color:var(--muted)}
+details.adv>summary span{font:500 .75rem var(--f-body);margin-left:6px}
+details.adv[open]>summary{color:var(--ink)}
+details.adv>.form{padding:0 8px 8px}
+details.tech{border-top:1px solid var(--line)}
+details.tech>summary{cursor:pointer;padding:13px 16px;font:600 1.05rem var(--f-disp);display:flex;justify-content:space-between;gap:8px}
+details.tech>summary span{font:500 .8rem var(--f-body);color:var(--muted)}
+.next{display:flex;flex-wrap:wrap;gap:8px}
+.intro b{color:var(--ink)}
+.intro span{font:600 .72rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 details.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
 details.sec>summary{list-style:none;cursor:pointer;padding:11px 14px;font:600 1.05rem var(--f-disp);display:flex;justify-content:space-between;align-items:center;gap:8px}
 details.sec>summary::-webkit-details-marker{display:none}
@@ -80,6 +92,7 @@ label.f>span{font-size:.8rem;color:var(--muted);line-height:1.25}
 .loads{padding:0 14px 14px;display:grid;gap:8px}
 .lrow{display:grid;grid-template-columns:minmax(0,1fr) 64px 46px 50px 46px 30px;gap:5px;align-items:center}
 .lrow.head{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+@media (max-width:520px){.lrow{grid-template-columns:repeat(4,minmax(0,1fr)) 28px}.lrow>input:first-child{grid-column:1/-1;font-weight:600}.lrow.head>span:first-child{display:none}.lrow{padding-bottom:6px;border-bottom:1px dashed var(--line)}.lrow.head{border:0;padding:0}}
 .lrow input{width:100%;min-width:0;padding:6px 7px;border:1px solid var(--line);border-radius:6px;background:var(--sunk)}
 .lrow .x{border:0;background:transparent;color:var(--muted);font-size:1.1rem;padding:0}
 .lrow .x:hover{color:var(--bad)}
@@ -123,6 +136,37 @@ td.v{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
 .al.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
 .al.warn{border-color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent)}
 .al.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.al.tip{border-color:var(--pv);background:color-mix(in srgb,var(--pv) 9%,transparent)}
+.al{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.al .t{flex:1 1 220px;min-width:0}
+.al .lv{font:600 .68rem var(--f-mono);letter-spacing:.07em;text-transform:uppercase;margin-right:6px}
+.al.bad .lv{color:var(--bad)} .al.warn .lv{color:var(--warn)} .al.tip .lv{color:var(--pv)} .al.ok .lv{color:var(--ok)}
+.al .fix{border:1px solid currentColor;background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font-size:.82rem;font-weight:600}
+.al .fix:hover{background:var(--ink);color:var(--bg)}
+.alerts h4{margin:0 0 2px;font:600 .95rem var(--f-disp)}
+/* Recherche de lieu */
+.loc{grid-column:1/-1;display:grid;gap:8px}
+.loc .row{align-items:end}
+.loc .grow{flex:1 1 220px}
+.locmsg{font-size:.85rem;color:var(--muted)}
+.locres{display:flex;flex-wrap:wrap;gap:6px}
+.locres button{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 10px;font-size:.85rem;max-width:100%}
+.locres button small{display:block;color:var(--muted);font-size:.75rem}
+.locres button:hover{border-color:var(--pv)}
+details.locd{border:1px solid var(--line);border-radius:var(--r);background:var(--bg)}
+details.locd>summary{cursor:pointer;padding:8px 12px;font-weight:600;font-size:.9rem}
+.locbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:0 12px 12px}
+@media (max-width:700px){.locbody{grid-template-columns:minmax(0,1fr)}}
+#locMap{height:230px;border-radius:8px;border:1px solid var(--line);background:var(--sunk);z-index:0}
+.mbars{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;align-items:end;height:90px;margin:8px 0 2px}
+.mbars div{background:var(--sun);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.mbars div.min{background:var(--bad)}
+.mlab{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;font:500 .62rem var(--f-mono);color:var(--muted);text-align:center}
+.irr{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.irr button{flex:1 1 150px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;text-align:left}
+.irr button b{display:block;font:700 1.15rem var(--f-disp)}
+.irr button span{font-size:.75rem;color:var(--muted)}
+.irr button[aria-pressed="true"]{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
 .bar{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--sunk);margin:6px 0 2px}
 .bar>div{height:100%}
 .legend{font-size:.78rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
@@ -151,11 +195,11 @@ textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8
 <header class="top">
   <div class="wrap">
     <div class="brand">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="24" cy="10" r="6" fill="#f0b23a"/><path d="M3 30 L9 16 H27 L31 30 Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 23 H29 M15 16 L13 30 M21 16 L22 30" stroke="currentColor" stroke-width="1.4"/></svg>
-      <div><h1>DIALLO DIMEN SOL/POM</h1><small>Dimensionnement solaire · pompage · devis</small></div>
+      <svg width="42" height="42" viewBox="0 0 100 100" aria-hidden="true" style="border-radius:10px"><rect width="100" height="100" fill="#F5B301"/><circle cx="71" cy="27" r="14" fill="#FFFFFF"/><path d="M12 88 L25 47 H81 L92 88 Z" fill="#13231D"/><path d="M18 68 H87 M44 47 L40 88 M63 47 L66 88" stroke="#F5B301" stroke-width="4"/><path d="M52 6 L40 30 H50 L44 46 L62 20 H52 L58 6 Z" fill="#13231D"/></svg>
+      <div><h1>SOL ELECTRO</h1><small>Dimensionnement solaire · pompage · devis</small></div>
     </div>
     <nav class="tabs" role="tablist">
-      <button role="tab" data-tab="pv" id="tab-pv">Site autonome</button>
+      <button role="tab" data-tab="pv" id="tab-pv">Solaire</button>
       <button role="tab" data-tab="pump" id="tab-pump">Pompage solaire</button>
       <button role="tab" data-tab="bom" id="tab-bom">Matériel &amp; devis</button>
       <button role="tab" data-tab="proj" id="tab-proj">Projets</button>
@@ -182,9 +226,9 @@ textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8
 <script>
 /* ================= Données de référence ================= */
 const CITY_GROUPS={
-  "Guinée":{"Conakry":[4.9,9.5],"Kindia":[5.1,10.1],"Boké":[5.0,10.9],"Mamou":[5.2,10.4],"Labé":[5.3,11.3],"Faranah":[5.4,10.0],"Kankan":[5.6,10.4],"Siguiri":[5.8,11.4],"N'Zérékoré":[4.8,7.8]},
-  "Sénégal":{"Dakar":[5.6,14.7],"Thiès":[5.7,14.8],"Saint-Louis":[5.6,16.0],"Louga":[5.8,15.6],"Diourbel":[5.8,14.7],"Touba":[5.8,14.9],"Kaolack":[5.8,14.1],"Fatick":[5.7,14.3],"Kaffrine":[5.8,14.1],"Matam":[6.0,15.6],"Tambacounda":[5.7,13.8],"Kédougou":[5.6,12.6],"Kolda":[5.5,12.9],"Sédhiou":[5.5,12.7],"Ziguinchor":[5.4,12.6]},
-  "Autres pays":{"Bamako":[5.7,12.6],"Bissau":[5.3,11.9],"Freetown":[4.8,8.5],"Monrovia":[4.6,6.3],"Abidjan":[4.6,5.3],"Ouagadougou":[5.8,12.4],"Niamey":[6.0,13.5],"Lomé":[5.0,6.1],"Cotonou":[5.0,6.4],"Nouakchott":[5.9,18.1]}};
+  "Guinée":{"Conakry":[5.24,9.52,-13.70,[5.40,5.94,6.31,6.22,5.63,4.72,4.20,3.96,4.81,5.25,5.23,5.23]],"Kindia":[5.41,10.04,-12.83,[5.45,5.98,6.42,6.38,5.77,4.99,4.57,4.48,4.97,5.22,5.39,5.34]],"Boké":[5.46,10.95,-14.28,[5.53,6.11,6.65,6.61,6.02,5.06,4.42,4.19,4.93,5.34,5.37,5.33]],"Mamou":[5.41,10.37,-12.08,[5.45,5.98,6.42,6.38,5.77,4.99,4.57,4.48,4.97,5.22,5.39,5.34]],"Labé":[5.58,11.32,-12.28,[5.56,6.12,6.62,6.61,6.00,5.26,4.83,4.73,5.09,5.26,5.54,5.45]],"Faranah":[5.58,10.04,-10.74,[5.51,5.94,6.24,6.23,5.93,5.41,5.04,4.90,5.28,5.57,5.56,5.44]],"Kankan":[5.57,10.38,-9.31,[5.58,5.93,6.16,6.14,5.92,5.47,4.98,4.83,5.23,5.62,5.57,5.50]],"Siguiri":[5.74,11.42,-9.18,[5.64,6.14,6.44,6.40,6.04,5.68,5.23,5.02,5.42,5.67,5.65,5.55]],"N'Zérékoré":[4.76,7.76,-8.82,[5.12,5.21,5.26,5.11,4.96,4.40,4.02,4.02,4.58,4.92,4.74,4.80]]},
+  "Sénégal":{"Dakar":[5.80,14.69,-17.45,[5.11,5.71,6.57,6.85,6.70,6.21,5.71,5.60,5.45,5.65,5.19,4.86]],"Thiès":[5.80,14.83,-17.10,[5.11,5.71,6.57,6.85,6.70,6.21,5.71,5.60,5.45,5.65,5.19,4.86]],"Saint-Louis":[5.90,16.03,-16.50,[4.95,5.61,6.57,6.98,6.90,6.43,6.10,6.00,5.80,5.67,5.06,4.68]],"Louga":[6.02,15.61,-16.22,[5.23,5.91,6.80,7.16,7.02,6.47,6.05,5.85,5.69,5.82,5.31,4.93]],"Diourbel":[6.00,14.65,-16.23,[5.32,5.95,6.71,7.04,6.93,6.51,6.05,5.73,5.60,5.80,5.35,5.05]],"Touba":[6.00,14.86,-15.88,[5.28,5.90,6.65,6.98,6.90,6.48,6.10,5.82,5.71,5.78,5.34,5.05]],"Kaolack":[6.00,14.14,-16.08,[5.32,5.95,6.71,7.04,6.93,6.51,6.05,5.73,5.60,5.80,5.35,5.05]],"Fatick":[6.00,14.33,-16.40,[5.32,5.95,6.71,7.04,6.93,6.51,6.05,5.73,5.60,5.80,5.35,5.05]],"Kaffrine":[6.00,14.10,-15.55,[5.28,5.90,6.65,6.98,6.90,6.48,6.10,5.82,5.71,5.78,5.34,5.05]],"Matam":[6.07,15.66,-13.26,[5.25,5.91,6.76,7.16,7.03,6.59,6.20,5.93,5.91,5.82,5.33,5.01]],"Tambacounda":[5.84,13.77,-13.67,[5.32,5.97,6.66,6.96,6.69,6.13,5.56,5.29,5.44,5.60,5.38,5.14]],"Kédougou":[5.73,12.56,-12.19,[5.40,6.01,6.65,6.79,6.42,5.73,5.23,5.10,5.27,5.45,5.44,5.24]],"Kolda":[5.71,12.89,-14.94,[5.33,5.96,6.66,6.90,6.55,5.82,5.25,4.97,5.17,5.46,5.33,5.12]],"Sédhiou":[5.67,12.71,-15.56,[5.33,5.94,6.63,6.89,6.56,5.79,5.10,4.89,5.06,5.43,5.34,5.13]],"Ziguinchor":[5.60,12.56,-16.27,[5.35,5.94,6.62,6.80,6.50,5.71,4.88,4.68,4.96,5.38,5.30,5.10]]},
+  "Autres pays":{"Bamako":[5.83,12.65,-8.00,[5.56,6.10,6.51,6.50,6.17,5.90,5.45,5.24,5.59,5.75,5.66,5.51]],"Bissau":[5.50,11.86,-15.58,[5.41,5.98,6.62,6.71,6.27,5.32,4.61,4.56,4.89,5.27,5.25,5.19]],"Freetown":[4.93,8.48,-13.27,[5.19,5.65,5.94,5.86,5.24,4.38,3.84,3.76,4.57,5.02,4.86,4.96]],"Monrovia":[4.54,6.32,-10.81,[4.98,5.07,5.14,5.03,4.77,4.07,3.76,3.61,4.11,4.65,4.61,4.68]],"Abidjan":[4.67,5.32,-4.02,[4.90,4.84,5.16,5.28,4.80,4.02,4.14,4.03,4.29,4.76,5.01,4.78]],"Ouagadougou":[5.85,12.37,-1.53,[5.61,5.95,6.16,6.31,6.20,5.89,5.65,5.41,5.78,5.99,5.76,5.55]],"Niamey":[6.07,13.52,2.11,[5.69,6.21,6.53,6.59,6.46,6.16,5.91,5.67,6.07,6.11,5.87,5.58]],"Lomé":[4.85,6.13,1.22,[4.93,4.92,5.19,5.26,4.97,4.41,4.33,4.32,4.58,5.08,5.23,5.02]],"Cotonou":[4.65,6.37,2.43,[4.82,4.84,5.07,5.09,4.70,4.02,4.08,4.24,4.33,4.68,5.02,4.89]],"Nouakchott":[6.30,18.08,-15.98,[5.02,5.80,6.84,7.36,7.49,7.23,6.99,6.77,6.33,5.91,5.17,4.71]]}};
 let MY_CITIES={};try{MY_CITIES=JSON.parse(localStorage.getItem("sd.cities")||"{}")||{}}catch(e){}
 let CITIES={};
 function buildCities(){CITIES={};for(const g in CITY_GROUPS)Object.assign(CITIES,CITY_GROUPS[g]);Object.assign(CITIES,MY_CITIES)}
@@ -216,11 +260,11 @@ const CURRENCIES=["GNF","FCFA","EUR","USD"];
 const DEF={
   tab:"pv", bomSrc:"pv",
   project:{name:"Maison exemple",client:""},
-  site:{city:"Conakry",hsp:4.9,lat:9.5},
+  site:{city:"Conakry",hsp:5.24,lat:9.52,lon:-13.7,place:"",months:[5.40,5.94,6.31,6.22,5.63,4.72,4.20,3.96,4.81,5.25,5.23,5.23]},
   panel:{model:"p550",...PANELS.p550},
   pv:{loads:[["Ampoule LED",10,8,6,1],["Ventilateur",60,2,8,2],["Télévision",100,1,5,1],["Réfrigérateur",150,1,10,3],["Ordinateur portable",65,1,4,1],["Chargeur téléphone",10,4,3,1],["Routeur / box",15,1,24,1]],
-      simult:0.8,vsys:"auto",autonomie:1.5,pr:0.65,etaInv:0.92,archi:"hybride",vocMax:500,vmpMin:120,
-      bat:{model:"li48",v:51.2,ah:100,dod:80},
+      simult:0.8,vsys:"auto",autonomie:1.5,pr:0.65,etaInv:0.92,archi:"hybride",vocMax:500,vmpMin:0,
+      bat:{model:"auto",v:51.2,ah:100,dod:80},
       L:{str:12,pv:8,reg:2,bat:2,ac:15},du:{pv:3,bat:1,ac:3},
       st:{perRow:4,orient:"portrait",h0:0.5}},
   pump:{q:20,res:1.5,ndyn:40,inst:55,hres:6,dist:150,mat:"150",d:50,type:"mono",udc:72,eta:0.45,cos:0.82,fp:0.8,vmpMin:250,vocMax:450,lpv:15,lcab:10,du:3,
@@ -239,6 +283,8 @@ function merge(d,s){if(s===undefined||s===null)return clone(d);if(Array.isArray(
 let S=merge(DEF,store.get("sd.draft",null));
 if(S.pump.type==="tri"&&S.pump.vmpMin===500)S.pump.vmpMin=450; // anciens réglages
 if(S.pump.type==="mono"&&S.pump.vmpMin===300)S.pump.vmpMin=250;
+if(S.pv.archi==="hybride"&&S.pv.vmpMin===120)S.pv.vmpMin=0; // MPPT minimal automatique selon la tension
+if(CITIES[S.site.city]&&!(Array.isArray(S.site.months)&&S.site.months.length===12)){const d=CITIES[S.site.city];Object.assign(S.site,{hsp:d[0],lat:d[1],lon:d[2]??"",months:Array.isArray(d[3])?d[3].slice():[]})} // anciennes valeurs indicatives
 let PRICES=store.get("sd.prices",{}), CUR=store.get("sd.cur","GNF");
 
 /* ================= Utilitaires ================= */
@@ -278,7 +324,7 @@ function strings(Nmin,pn,vmpMin,vocMax){
 const uClass=v=>up(STD_U,v)||1500;
 const fs=s=>fmt(s,s%1?1:0);
 const pl=it=>it.q>1&&["barre","paire"].includes(it.u)?it.u+"s":it.u;
-function oversize(W,st,Nmin,what){if(!st.err&&st.tot>=Nmin*1.8&&st.tot-Nmin>=2)W.push(["warn",`La tension minimale ${what} impose ${st.ns} panneaux en série : ${st.tot} panneaux au lieu de ${Nmin} nécessaires. Choisissez un appareil acceptant une tension plus basse${what.includes("variateur")?" (variateur et pompe monophasés 220 V pour une petite pompe)":""}, ou des panneaux de plus forte tension.`])}
+function oversize(W,st,Nmin,what){if(!st.err&&st.tot>=Nmin*1.8&&st.tot-Nmin>=3){const pump=what.includes("variateur"),sug=pump?(S.pump.type==="tri"?"Pour une petite pompe, un variateur et une pompe monophasés 220 V demandent moins de panneaux en série.":S.pump.type==="mono"?"Vérifiez la plage MPPT réelle du variateur (certains démarrent dès 150 V), ou prenez une pompe DC basse tension.":"Vérifiez la plage de tension du contrôleur."):"Choisissez un onduleur ou un régulateur acceptant une tension plus basse, ou des panneaux de plus forte tension.";W.push(["warn",`La tension minimale ${what} impose ${st.ns} panneaux en série : ${st.tot} panneaux au lieu de ${Nmin} nécessaires. ${sug}`])}}
 
 /* Structure : portiques acier + rails alu */
 function calcStruct(n,pn,st,lat){
@@ -304,11 +350,17 @@ function calcStruct(n,pn,st,lat){
 
 /* ================= Calcul site autonome ================= */
 function calcPV(){
-  const p=S.pv,pn=S.panel,b=p.bat,hsp=+S.site.hsp||1,W=[];
+  const p0=S.pv,hsp=sv(S.site.hsp,5),W=[],pn=safePanel();
+  const p={...p0,pr:sv(p0.pr,0.65),etaInv:sv(p0.etaInv,0.92),simult:sv(p0.simult,0.8),autonomie:Math.max(0,+p0.autonomie||0),vocMax:sv(p0.vocMax,150),du:{pv:sv(p0.du.pv,3),bat:sv(p0.du.bat,1),ac:sv(p0.du.ac,3)}};
+  const b={...p0.bat,v:sv(p0.bat.v,12),ah:sv(p0.bat.ah,100),dod:Math.min(100,sv(p0.bat.dod,50))};
   let Ej=0,Pt=0,surge=0;
   p.loads.forEach(([,pw,q,h,k])=>{const P=(+pw||0)*(+q||0);Ej+=P*(+h||0);Pt+=P;surge=Math.max(surge,(+pw||0)*((+k||1)-1))});
   const Psim=Pt*p.simult, Ppk=Psim+surge;
   let vsys=p.vsys==="auto"?(Ej<=1500?12:Ej<=4500?24:48):+p.vsys;
+  if(p0.bat.model==="auto"){ // choix automatique de la batterie selon la tension du système
+    const key=vsys===12?(Ej*p.autonomie/(0.5*12*p.etaInv)<=100?"agm100":"gel200"):vsys===24?"li24":(Ej*p.autonomie/(0.8*48*p.etaInv)/100>3?"li48b":"li48");
+    const {n,...d}=BATS[key];Object.assign(b,d,{model:"auto",auto:BATS[key].n});
+  }
   const batNom=b.v>40?48:b.v>20?24:12;
   if(vsys<batNom){vsys=batNom;if(p.vsys!=="auto")W.push(["warn",`Tension système relevée à ${vsys} V pour correspondre à la batterie choisie.`])}
   const nbS=Math.max(1,Math.round(vsys/batNom));
@@ -316,23 +368,28 @@ function calcPV(){
   const nbP=Math.max(1,Math.ceil(Cneed/b.ah)), nbBat=nbS*nbP, Cinst=nbP*b.ah;
   const Ebat=nbBat*b.v*b.ah/1000, Eutil=Ebat*b.dod/100, autoReal=Ej?Eutil*1000*p.etaInv/Ej:0;
   const Pc=Ej/(hsp*p.pr), Nmin=Math.max(1,Math.ceil(Pc/pn.p));
-  const vmpMin=p.vmpMin>0?p.vmpMin:vsys*1.25;
+  const vmpMin=p.vmpMin>0?p.vmpMin:(p.archi==="hybride"?({12:30,24:60,48:120}[vsys]||120):vsys*1.25);
   const st=strings(Nmin,pn,vmpMin,p.vocMax);
   if(st.err)W.push(["bad",st.err]);
   oversize(W,st,Nmin,"du MPPT");
   const N=st.tot, Pinst=N*pn.p, prod=Pinst*hsp*p.pr;
   const Ireg=Pinst/vsys;
-  let nReg=1,reg=up(STD_REG,Ireg*1.1);if(!reg){nReg=Math.ceil(Ireg*1.1/100);reg=100}
   const hyb=p.archi==="hybride";
   const invMin=hyb?({12:1000,24:1500,48:3000}[vsys]||0):0; // plus petits onduleurs hybrides du commerce
-  const Pinv=up(STD_INV,Math.max(Psim*1.25,Ppk/2,invMin))||STD_INV.at(-1);
-  if(Psim*1.25>STD_INV.at(-1))W.push(["bad","Puissance trop élevée pour un seul onduleur : prévoyez plusieurs onduleurs en parallèle."]);
-  const Ibat=Pinv/(vsys*0.9), Iac=Pinv/230;
+  let need=Math.max(Psim*1.25,Ppk/2,invMin);
+  if(hyb)need=Math.max(need,Pinst/1.3); // le MPPT intégré accepte environ 1,3 fois la puissance de l'onduleur
+  const INV_MAX=12000, nInv=Math.max(1,Math.ceil(need/INV_MAX));
+  const Pinv=up(STD_INV,need/nInv)||INV_MAX;
+  let nReg=1,reg;
+  if(hyb){nReg=nInv;reg=up(STD_REG,Ireg/nInv*1.1)||Math.ceil(Ireg/nInv*1.1/10)*10}
+  else{reg=up(STD_REG,Ireg*1.1);if(!reg){nReg=Math.ceil(Ireg*1.1/100);reg=100}}
+  if(nInv>1)W.push(["ok",`Installation puissante : ${nInv} onduleurs ${hyb?"hybrides ":""}de ${fmt(Pinv)} W en parallèle (même modèle, compatibles avec la mise en parallèle).`]);
+  const Ibat=Pinv*nInv/(vsys*0.9), Iac=Pinv*nInv/230;
   const li=b.dod>=70, cRate=Ireg/Cinst;
-  if(cRate>(li?0.5:0.2))W.push(["warn",`Courant de charge élevé (${fmt(Ireg)} A pour ${fmt(Cinst)} Ah, soit ${fmt(cRate,2)} C). Augmentez la capacité des batteries ou limitez le courant de charge dans le régulateur.`]);
+  if(cRate>(li?0.5:0.25))W.push(["warn",`Courant de charge élevé (${fmt(Ireg)} A pour ${fmt(Cinst)} Ah, soit ${fmt(cRate,2)} C). Augmentez la capacité des batteries ou limitez le courant de charge dans le régulateur.`]);
   if(!li&&cRate<0.05)W.push(["warn","Courant de charge faible (moins de C/20) : des batteries plomb risquent de rester sous-chargées. Ajoutez des panneaux."]);
   if(vsys===12&&Pinv>1500)W.push(["warn","En 12 V, un onduleur de plus de 1 500 W demande des câbles très gros. Passez en 24 V ou 48 V."]);
-  if(!li&&nbP>4)W.push(["warn",`${nbP} rangées de batteries plomb en parallèle : préférez des batteries de plus grande capacité (4 en parallèle au maximum).`]);
+  if(!li&&nbP>4)W.push(["warn",`${nbP} rangées de batteries plomb en parallèle : au-delà de 4, elles se déchargent mal. Prenez des batteries plus grosses ou du lithium.`,b.ah<200?{label:"Appliquer : Gel 12 V 200 Ah",fn:()=>{const {n,...d}=BATS.gel200;Object.assign(S.pv.bat,{model:"gel200",...d})}}:{label:"Appliquer : lithium 51,2 V 200 Ah",fn:()=>{const {n,...d}=BATS.li48b;Object.assign(S.pv.bat,{model:"li48b",...d})}}]);
   // protections
   const ns=st.ns,np=st.np,isc=pn.isc,Udc=uClass(1.2*ns*pn.voc);
   const fuse=np>=3?up(STD_FUSE,1.5*isc):null;
@@ -346,7 +403,7 @@ function calcPV(){
   C.forEach(c=>{if(!c.s)W.push(["bad",`Câble « ${c.nom} » : aucune section standard ne convient. Raccourcissez la liaison ou augmentez la tension.`])});
   const P=[
     ...(fuse?[["Fusibles gPV par chaîne",`${fuse} A · 1000 V DC`,`${np*2} fusibles (+ et −) avec porte-fusibles`]]:[["Fusibles de chaîne","Non obligatoires",`${np} chaîne(s) en parallèle (obligatoires à partir de 3)`]]),
-    ["Interrupteur-sectionneur DC PV",`${bPV} A · ${Udc} V DC`,"Coupure du champ avant le "+(hyb?"onduleur":"régulateur")],
+    ["Interrupteur-sectionneur DC PV",`${bPV} A · ${Udc} V DC`,"Coupure du champ avant "+(hyb?"l'onduleur":"le régulateur")],
     ["Parafoudre DC type 2",`Ucpv ≥ ${Udc} V`,"Dans le coffret DC, relié à la terre"],
     ...(hyb?[]:[["Disjoncteur DC régulateur → batteries",`${bReg} A · ${vsys} V DC`,nReg>1?`${nReg} pièces (une par régulateur)`:"Au plus près des batteries"]]),
     ["Disjoncteur ou fusible batteries",`${bBat} A · ${vsys} V DC`,"Fusible NH/ANL ou disjoncteur DC, au plus près du + batterie"],
@@ -355,12 +412,14 @@ function calcPV(){
     ["Parafoudre AC type 2","230 V · 20 kA","Dans le tableau AC"],
     ["Mise à la terre","Piquet 1,5 m + câble 16 mm²","Cadres des panneaux, structure et coffrets reliés (6 mm² minimum)"]];
   const S2=calcStruct(N,pn,p.st,+S.site.lat||0);
-  return {Ej,Pt,Psim,Ppk,vsys,batNom,nbS,nbP,nbBat,Cneed,Cinst,Ebat,Eutil,autoReal,Pc,Nmin,vmpMin,st,N,Pinst,prod,Ireg,reg,nReg,Pinv,hyb,Ibat,Iac,C,P,W,S:S2,ns,np,fuse,bPV,bReg,bBat,bAC,ddr,Udc,li};
+  const R={b,nInv,Ej,Pt,Psim,Ppk,vsys,batNom,nbS,nbP,nbBat,Cneed,Cinst,Ebat,Eutil,autoReal,Pc,Nmin,vmpMin,st,N,Pinst,prod,Ireg,reg,nReg,Pinv,hyb,Ibat,Iac,C,P,W,S:S2,ns,np,fuse,bPV,bReg,bBat,bAC,ddr,Udc,li};
+  checkPV(W,R);return R;
 }
 
 /* ================= Calcul pompage ================= */
 function calcPump(){
-  const u=S.pump,pn=S.panel,hsp=+S.site.hsp||1,W=[];
+  const u0=S.pump,pn=safePanel(),hsp=sv(S.site.hsp,5),W=[];
+  const u={...u0,q:Math.max(0,+u0.q||0),eta:sv(u0.eta,0.45),fp:sv(u0.fp,0.8),cos:sv(u0.cos,0.82),du:sv(u0.du,3),vocMax:sv(u0.vocMax,450),udc:sv(u0.udc,48),mat:sv(u0.mat,150)};
   const Qh=u.q/hsp, Qs=Qh/3600, D=u.d/1000, Chw=+u.mat;
   const Lp=u.inst+u.hres+u.dist, Hg=u.ndyn+u.hres;
   const J=D>0?10.67*Lp*Math.pow(Qs,1.852)/(Math.pow(Chw,1.852)*Math.pow(D,4.87))*1.1:0;
@@ -373,10 +432,6 @@ function calcPump(){
   if(st.err)W.push(["bad",st.err]);
   oversize(W,st,Nmin,"du variateur de pompe");
   const N=st.tot,Pinst=N*pn.p,ns=st.ns,np=st.np;
-  if(v>1.5)W.push(["warn",`Vitesse de l'eau élevée (${fmt(v,2)} m/s) : augmentez le diamètre de la conduite.`]);
-  if(v<0.3&&u.q>0)W.push(["warn",`Vitesse de l'eau faible (${fmt(v,2)} m/s) : la conduite est surdimensionnée.`]);
-  if(u.inst<u.ndyn+3)W.push(["bad","La pompe doit être immergée au moins 3 m sous le niveau dynamique."]);
-  if(J>0.15*Hg)W.push(["warn",`Pertes de charge importantes (${fmt(J,1)} m) : augmentez le diamètre ou réduisez la longueur.`]);
   if(Pc2>Pc1)W.push(["ok","Le champ PV est dimensionné par la puissance de démarrage de la pompe (1,3 × puissance moteur)."]);
   const U=u.type==="tri"?380:u.type==="mono"?230:u.udc;
   const Im=u.type==="tri"?Pmot*1000/(Math.sqrt(3)*380*u.cos*0.85):u.type==="mono"?Pmot*1000/(230*u.cos*0.85):Pmot*1000/(u.udc*0.85);
@@ -393,8 +448,9 @@ function calcPump(){
     ["Flotteur de réservoir","Contact sec","Arrête la pompe quand le réservoir est plein"],
     ["Protection moteur","Intégrée au variateur","Surintensité, sous-tension, marche à sec"],
     ["Mise à la terre","Piquet 1,5 m + câble 16 mm²","Variateur, structure, cadres des panneaux"]];
-  return {Qh,Qs,D,Lp,Hg,J,HMT,v,Ehyd,Phyd,Pel,Pmot,Pc1,Pc2,Pc,Nmin,st,N,Pinst,ns,np,U,Im,C,P,W,fuse,bPV,Udc,
+  const R={Qh,Qs,D,Lp,Hg,J,HMT,v,Ehyd,Phyd,Pel,Pmot,Pc1,Pc2,Pc,Nmin,st,N,Pinst,ns,np,U,Im,C,P,W,fuse,bPV,Udc,
     res:u.q*u.res, S:calcStruct(N,pn,u.st,+S.site.lat||0)};
+  checkPump(W,R);return R;
 }
 
 /* ================= Formulaires ================= */
@@ -406,29 +462,31 @@ const panelF=()=>[sel("panel.model","Modèle",[...Object.entries(PANELS).map(([k
 const structF=pre=>[num(pre+".st.perRow","Panneaux par rangée","",1),sel(pre+".st.orient","Pose des panneaux",[["portrait","Portrait"],["paysage","Paysage"]]),num(pre+".st.h0","Hauteur du bord bas","m",0.1)];
 const FORMS={
   pv:[
+    {t:"",intro:true},
     {t:"Appareils à alimenter",loads:true,open:true},
-    {t:"Batteries",open:true,f:[sel("pv.bat.model","Modèle",[...Object.entries(BATS).map(([k,v])=>[k,v.n]),["custom","Personnalisée"]]),
+    {adv:true,t:"Batteries",f:[sel("pv.bat.model","Modèle",[["auto","Automatique (recommandé)"],...Object.entries(BATS).map(([k,v])=>[k,v.n]),["custom","Personnalisée"]]),
       num("pv.bat.v","Tension d'une batterie","V",0.1),num("pv.bat.ah","Capacité d'une batterie","Ah",1),num("pv.bat.dod","Décharge maximale","%",5),
       num("pv.autonomie","Autonomie sans soleil","jours",0.5),sel("pv.vsys","Tension du système",[["auto","Automatique"],["12","12 V"],["24","24 V"],["48","48 V"]])]},
-    {t:"Panneaux solaires",f:panelF()},
-    {t:"Onduleur et régulateur",f:[sel("pv.archi","Architecture",[["hybride","Onduleur hybride (MPPT intégré)"],["separe","Onduleur + régulateur MPPT séparés"]]),
+    {adv:true,t:"Panneaux solaires",f:panelF()},
+    {adv:true,t:"Onduleur et régulateur",f:[sel("pv.archi","Architecture",[["hybride","Onduleur hybride (MPPT intégré)"],["separe","Onduleur + régulateur MPPT séparés"]]),
       num("pv.vocMax","Tension PV max du MPPT","V",1),num("pv.vmpMin","Tension MPPT minimale (0 = auto)","V",1),
       num("pv.etaInv","Rendement onduleur","",0.01),num("pv.pr","Coefficient de pertes PV","",0.01),num("pv.simult","Coefficient de simultanéité","",0.05)]},
-    {t:"Longueurs de câbles",f:[num("pv.L.str","Chaîne PV → coffret DC","m",1),num("pv.L.pv","Coffret DC → régulateur / onduleur","m",1),
+    {adv:true,t:"Longueurs de câbles",f:[num("pv.L.str","Chaîne PV → coffret DC","m",1),num("pv.L.pv","Coffret DC → régulateur / onduleur","m",1),
       num("pv.L.reg","Régulateur → batteries","m",0.5),num("pv.L.bat","Batteries → onduleur","m",0.5),num("pv.L.ac","Onduleur → tableau AC","m",1),
       num("pv.du.pv","Chute de tension DC PV","%",0.5),num("pv.du.bat","Chute de tension batterie","%",0.5),num("pv.du.ac","Chute de tension AC","%",0.5)]},
-    {t:"Structure (cadres)",f:structF("pv")}],
+    {adv:true,t:"Structure (cadres)",f:structF("pv")}],
   pump:[
+    {t:"",intro:true,pump:true},
     {t:"Besoin en eau",open:true,f:[num("pump.q","Volume d'eau par jour","m³/j",1),num("pump.res","Réserve du château d'eau","jours",0.5)]},
     {t:"Forage et réservoir",open:true,f:[num("pump.ndyn","Niveau dynamique","m",1),num("pump.inst","Profondeur de la pompe","m",1),
       num("pump.hres","Hauteur d'arrivée au réservoir","m",0.5),num("pump.dist","Distance forage → réservoir","m",5)]},
     {t:"Conduite",open:true,f:[sel("pump.mat","Matériau",[["150","PEHD / PVC"],["120","Acier galvanisé"]]),num("pump.d","Diamètre intérieur","mm",1)]},
-    {t:"Pompe et variateur",f:[sel("pump.type","Type de pompe",[["tri","AC triphasée 380 V"],["mono","AC monophasée 230 V"],["dc","Pompe DC"]]),
+    {adv:true,t:"Pompe et variateur",f:[sel("pump.type","Type de pompe",[["tri","AC triphasée 380 V"],["mono","AC monophasée 230 V"],["dc","Pompe DC"]]),
       num("pump.udc","Tension de la pompe DC","V",1),num("pump.eta","Rendement moto-pompe","",0.01),num("pump.cos","cos φ du moteur","",0.01),
       num("pump.fp","Coefficient de pertes PV","",0.01),num("pump.vmpMin","Tension MPPT minimale","V",1),num("pump.vocMax","Tension PV max du variateur","V",1)]},
-    {t:"Panneaux solaires",f:panelF()},
-    {t:"Câbles",f:[num("pump.lpv","Champ PV → variateur","m",1),num("pump.lcab","Variateur → tête de forage","m",1),num("pump.du","Chute de tension max","%",0.5)]},
-    {t:"Structure (cadres)",f:structF("pump")}]
+    {adv:true,t:"Panneaux solaires",f:panelF()},
+    {adv:true,t:"Câbles",f:[num("pump.lpv","Champ PV → variateur","m",1),num("pump.lcab","Variateur → tête de forage","m",1),num("pump.du","Chute de tension max","%",0.5)]},
+    {adv:true,t:"Structure (cadres)",f:structF("pump")}]
 };
 function fieldHTML(x,scope){
   const id=`in-${scope}-${x.k.replace(/\./g,"-")}`;
@@ -441,13 +499,25 @@ function citySelectHTML(){
     Object.entries(CITY_GROUPS).map(([g,o])=>grp(g,o)).join("")+grp("Mes villes",MY_CITIES)}<option value="custom">Autre lieu…</option></select></div></label>`;
 }
 function buildForms(){
-  $("siteBar").innerHTML=citySelectHTML()+[num("site.hsp","Ensoleillement","kWh/m²/j",0.1),num("site.lat","Latitude","°",0.1)].map(x=>fieldHTML(x,"site")).join("")+
-    `<div class="row" id="citySave" style="grid-column:1/-1" hidden><label class="f" for="city-name"><span>Nom du lieu à enregistrer</span><div class="in"><input id="city-name" placeholder="Ex. : Podor"></div></label><button class="btn sm" id="citySaveBtn">Enregistrer cette ville</button></div>`+
-    `<div class="hint">Ensoleillement moyen annuel indicatif. Pour un site autonome, prenez de préférence la valeur du mois le moins ensoleillé (PVGIS). Pour une nouvelle ville : choisissez « Autre lieu… », entrez son ensoleillement et sa latitude, puis enregistrez-la.</div>`;
+  $("siteBar").innerHTML=`<div class="loc">
+      <div class="row"><label class="f grow" for="loc-q"><span>Rechercher un lieu : ville, village, quartier…</span><div class="in"><input id="loc-q" placeholder="Ex. : Ndioum, Sénégal" enterkeyhint="search" autocomplete="off"></div></label>
+        <button class="btn sm pri" id="locSearch">Rechercher</button>
+        <button class="btn sm" id="locGps"><svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M6 0a5 5 0 0 0-5 5c0 3.6 5 9 5 9s5-5.4 5-9a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" fill="currentColor"/></svg>Ma position</button></div>
+      <div class="locmsg" id="locMsg" hidden></div><div class="locres" id="locRes"></div></div>`+
+    citySelectHTML()+[num("site.hsp","Ensoleillement","kWh/m²/j",0.01),num("site.lat","Latitude","°",0.01)].map(x=>fieldHTML(x,"site")).join("")+
+    `<div class="row" id="citySave" style="grid-column:1/-1" hidden><label class="f" for="city-name"><span>Nom du lieu à enregistrer dans « Mes villes »</span><div class="in"><input id="city-name" placeholder="Ex. : Podor"></div></label><button class="btn sm" id="citySaveBtn">Enregistrer cette ville</button></div>`+
+    `<details class="locd" id="locD" style="grid-column:1/-1"><summary id="locSum">Carte et ensoleillement du lieu</summary><div class="locbody"><div id="locMap"></div><div id="locInfo"></div></div></details>`+
+    `<div class="hint">Ensoleillement : données NASA POWER (moyennes sur plus de 20 ans, plan horizontal). Recherchez un lieu ou utilisez « Ma position » : le logiciel le place sur la carte et propose son ensoleillement. Touchez la carte pour préciser l'emplacement exact.</div>`;
   for(const tab of ["pv","pump"]){
-    $("f-"+tab).innerHTML=FORMS[tab].map((s,i)=>`<details class="sec" ${s.open?"open":""}><summary>${s.t}</summary>${s.loads?`<div class="loads" id="loads"></div>`:`<div class="fields">${s.f.map(x=>fieldHTML(x,tab)).join("")}</div>`}</details>`).join("");
+    const sec=s=>s.intro?(s.pump?`<div class="intro"><b>Entrez le volume d'eau, la profondeur du forage et la distance.</b> SOL ELECTRO calcule la pompe, les panneaux, le variateur, les câbles, les protections et tous les accessoires.</div>`
+        :`<div class="intro"><b>Entrez seulement vos appareils</b> (puissance, quantité, heures par jour). SOL ELECTRO calcule automatiquement les panneaux, les batteries, l'onduleur hybride, les câbles, les protections, la structure et tous les accessoires.</div>`)
+      :`<details class="sec" ${s.open?"open":""}><summary>${s.t}</summary>${s.loads?`<div class="loads" id="loads"></div>`:`<div class="fields">${s.f.map(x=>fieldHTML(x,tab)).join("")}</div>`}</details>`;
+    $("f-"+tab).innerHTML=FORMS[tab].filter(s=>!s.adv).map(sec).join("")+
+      `<details class="adv"><summary>Réglages avancés <span>facultatif · pour les techniciens</span></summary><div class="form">${FORMS[tab].filter(s=>s.adv).map(sec).join("")}</div></details>`;
   }
   renderLoads();
+  $("locD").addEventListener("toggle",()=>{if($("locD").open)showMap()});
+  renderLocInfo(false);
 }
 function syncInputs(skip){
   document.querySelectorAll("[data-k]").forEach(el=>{if(el===skip)return;const v=getP(S,el.dataset.k);if(v!==undefined&&String(el.value)!==String(v))el.value=v});
@@ -457,16 +527,114 @@ function onField(el){
   const v=el.tagName==="SELECT"?raw:(raw===""?0:parseFloat(raw.replace(",",".")));
   if(el.tagName!=="SELECT"&&!isFinite(v))return;
   setP(S,k,v);
-  if(k==="site.city"&&CITIES[v]){S.site.hsp=CITIES[v][0];S.site.lat=CITIES[v][1]}
-  else if(k==="site.hsp"||k==="site.lat")S.site.city="custom";
+  if(k==="site.city"&&CITIES[v]){setSiteFromCity(v);renderLocInfo(true)}
+  else if(k==="site.city"&&v==="custom"){S.site.place=S.site.place||""}
+  else if(k==="site.lat"){S.site.city="custom";S.site.lon="";S.site.months=[];S.site.place=""}
+  else if(k==="site.hsp"&&CITIES[S.site.city]){S.site.place=S.site.city;S.site.city="custom"}
   if(k==="panel.model"&&PANELS[v]){const {n,...d}=PANELS[v];Object.assign(S.panel,d)}
   else if(k.startsWith("panel.")&&k!=="panel.model")S.panel.model="custom";
   if(k==="pv.bat.model"&&BATS[v]){const {n,...d}=BATS[v];Object.assign(S.pv.bat,d)}
   else if(k.startsWith("pv.bat.")&&k!=="pv.bat.model")S.pv.bat.model="custom";
-  if(k==="pv.archi")Object.assign(S.pv,v==="hybride"?{vocMax:500,vmpMin:120}:{vocMax:150,vmpMin:0});
+  if(k==="pv.archi")Object.assign(S.pv,v==="hybride"?{vocMax:500,vmpMin:0}:{vocMax:150,vmpMin:0});
   if(k==="pump.type")Object.assign(S.pump,{tri:{vmpMin:450,vocMax:800},mono:{vmpMin:250,vocMax:450},dc:{vmpMin:Math.round(S.pump.udc*1.2),vocMax:200}}[v]);
   syncInputs(el.tagName==="SELECT"?null:el);
   refresh();
+}
+
+/* ================= Lieu : recherche, GPS, carte, ensoleillement NASA ================= */
+const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const NASA_K=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+const r2=x=>Math.round(x*100)/100;
+const hasLon=()=>S.site.lon!==""&&S.site.lon!=null&&isFinite(S.site.lon);
+const placeName=()=>S.site.city!=="custom"?S.site.city:(S.site.place||"Lieu personnalisé");
+const monthsOK=()=>Array.isArray(S.site.months)&&S.site.months.length===12&&S.site.months.every(x=>x>0);
+const annual=()=>monthsOK()?r2(S.site.months.reduce((a,b)=>a+b,0)/12):null;
+const worst=()=>{if(!monthsOK())return null;const m=S.site.months,i=m.indexOf(Math.min(...m));return {v:m[i],i}};
+function setSiteFromCity(c){
+  const d=CITIES[c];if(!d)return;
+  Object.assign(S.site,{city:c,place:"",hsp:d[0],lat:d[1],lon:d[2]??"",months:Array.isArray(d[3])?d[3].slice():[]});
+}
+let LOC={results:[],busy:false},MAP=null,MARK=null;
+const NET_MSG="Pas de connexion Internet (ou service indisponible). Choisissez une ville de la liste ou entrez l'ensoleillement à la main.";
+function locMsg(t){const el=$("locMsg");if(!el)return;el.textContent=t||"";el.hidden=!t}
+function renderLocRes(){
+  $("locRes").innerHTML=LOC.results.map((x,i)=>`<button data-loc="${i}">${esc(x.name)}<small>${esc(x.full)}</small></button>`).join("");
+}
+async function locSearch(){
+  const q=$("loc-q").value.trim();if(!q){$("loc-q").focus();return}
+  locMsg("Recherche du lieu…");LOC.results=[];renderLocRes();
+  try{
+    const r=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=fr&q=${encodeURIComponent(q)}`);
+    if(!r.ok)throw 0;const j=await r.json();
+    LOC.results=j.map(x=>({name:x.name||x.display_name.split(",")[0],full:x.display_name,lat:+x.lat,lon:+x.lon}));
+    if(!LOC.results.length){locMsg("Aucun lieu trouvé. Ajoutez le pays, par exemple : « Ndioum, Sénégal ».");return}
+    if(LOC.results.length===1){pickLoc(0);return}
+    locMsg("Choisissez le bon lieu :");renderLocRes();
+  }catch(e){locMsg(NET_MSG)}
+}
+function locGps(){
+  if(!navigator.geolocation){locMsg("La localisation n'est pas disponible sur cet appareil.");return}
+  locMsg("Localisation en cours… Autorisez l'accès à votre position si le téléphone le demande.");
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const lat=pos.coords.latitude,lon=pos.coords.longitude;let name="Ma position",full=`${fmt(lat,4)}, ${fmt(lon,4)}`;
+    try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=14&accept-language=fr&lat=${lat}&lon=${lon}`);
+      if(r.ok){const j=await r.json();if(j&&j.display_name){full=j.display_name;name=j.name||j.address?.village||j.address?.town||j.address?.city||name}}}catch(e){}
+    LOC.results=[{name,full,lat,lon}];pickLoc(0);
+  },err=>locMsg(err.code===1?"Localisation refusée : autorisez l'accès à la position dans les réglages, ou recherchez le lieu par son nom.":"Position introuvable. Activez le GPS ou recherchez le lieu par son nom."),
+  {enableHighAccuracy:true,timeout:20000,maximumAge:60000});
+}
+async function pickLoc(i,keepName){
+  const x=LOC.results[i];LOC.results=[];renderLocRes();
+  Object.assign(S.site,{city:"custom",place:keepName?S.site.place:x.name,lat:r2(x.lat),lon:r2(x.lon),months:[]});
+  syncInputs();refresh();renderLocInfo(true);
+  locMsg("Récupération de l'ensoleillement (NASA)…");
+  try{
+    const r=await fetch(`https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=ALLSKY_SFC_SW_DWN&community=RE&longitude=${x.lon.toFixed(4)}&latitude=${x.lat.toFixed(4)}&format=JSON`);
+    if(!r.ok)throw 0;const d=(await r.json()).properties.parameter.ALLSKY_SFC_SW_DWN;
+    const m=NASA_K.map(k=>r2(+d[k]));if(!m.every(v=>v>0&&v<12))throw 0;
+    S.site.months=m;S.site.hsp=annual();locMsg("");
+    toast(`Ensoleillement de ${S.site.place} : ${fmt(S.site.hsp,2)} kWh/m²/j`);
+  }catch(e){locMsg("Lieu trouvé, mais l'ensoleillement n'a pas pu être récupéré. "+NET_MSG)}
+  syncInputs();refresh();renderLocInfo(true);
+}
+function renderLocInfo(open){
+  const info=$("locInfo");if(!info)return;
+  const a=annual(),w=worst(),m=S.site.months,mx=monthsOK()?Math.max(...m):1;
+  $("locSum").textContent=`Carte et ensoleillement : ${placeName()}`;
+  info.innerHTML=`<div><b>${esc(placeName())}</b><div class="muted" style="font-size:.82rem">Latitude ${fmt(S.site.lat,2)}°${hasLon()?` · longitude ${fmt(S.site.lon,2)}°`:""}</div></div>`+
+    (monthsOK()?`<div class="mbars" role="img" aria-label="Ensoleillement mensuel">${m.map((v,i)=>`<div class="${i===w.i?"min":""}" style="height:${v/mx*100}%" title="${MOIS[i]} : ${fmt(v,2)} kWh/m²/j"></div>`).join("")}</div>
+      <div class="mlab">${MOIS.map(x=>`<span>${x[0].toUpperCase()}</span>`).join("")}</div>
+      <div class="irr">
+        <button data-irr="ann" aria-pressed="${Math.abs(S.site.hsp-a)<0.01}"><b>${fmt(a,2)}</b><span>Moyenne annuelle · pompage, réseau</span></button>
+        <button data-irr="min" aria-pressed="${Math.abs(S.site.hsp-w.v)<0.01}"><b>${fmt(w.v,2)}</b><span>Mois le plus faible (${MOIS[w.i]}) · site autonome</span></button>
+      </div>`:`<p class="note">Ensoleillement mensuel inconnu pour ce lieu. Recherchez-le ou utilisez « Ma position » pour l'obtenir.</p>`);
+  const d=$("locD");if(open&&d)d.open=true;
+  showMap();
+}
+function loadLeaflet(){
+  if(window.L)return Promise.resolve();
+  if(loadLeaflet.p)return loadLeaflet.p;
+  return loadLeaflet.p=new Promise((res,rej)=>{
+    const l=document.createElement("link");l.rel="stylesheet";l.href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css";document.head.appendChild(l);
+    const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";
+    s.onload=res;s.onerror=()=>{loadLeaflet.p=null;rej()};document.head.appendChild(s);
+  });
+}
+async function showMap(){
+  const el=$("locMap");if(!el)return;
+  if(!hasLon()){el.hidden=true;return}
+  el.hidden=false;
+  if(!$("locD").open)return;
+  try{await loadLeaflet()}catch(e){el.hidden=true;return}
+  const ll=[+S.site.lat,+S.site.lon];
+  if(!MAP||MAP.getContainer()!==el){
+    if(MAP)MAP.remove();
+    MAP=L.map(el).setView(ll,12);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(MAP);
+    MARK=L.circleMarker(ll,{radius:9,color:"#c0352b",weight:3,fillColor:"#f0b23a",fillOpacity:1}).addTo(MAP);
+    MAP.on("click",e=>{LOC.results=[{name:S.site.place||"Point choisi",full:"",lat:e.latlng.lat,lon:e.latlng.lng}];pickLoc(0,true)});
+  }else{MARK.setLatLng(ll);MAP.setView(ll,Math.max(MAP.getZoom(),10))}
+  setTimeout(()=>MAP&&MAP.invalidateSize(),50);
 }
 
 /* Appareils */
@@ -488,7 +656,99 @@ function renderLoads(){
 
 /* ================= Rendu des résultats ================= */
 const rowsKV=rows=>`<div class="tw"><table><tbody>${rows.map(([k,v])=>`<tr><td class="k">${k}</td><td class="v">${v}</td></tr>`).join("")}</tbody></table></div>`;
-const alertsHTML=W=>W.length?`<div class="alerts">${W.map(([c,t])=>`<div class="al ${c}">${esc(t)}</div>`).join("")}</div>`:`<div class="alerts"><div class="al ok">Dimensionnement cohérent : aucune alerte.</div></div>`;
+let FIXES=[];
+const LV={bad:"Erreur",warn:"Attention",tip:"Conseil",ok:"Info"},ORD={bad:0,warn:1,tip:2,ok:3};
+function alertsHTML(W){
+  FIXES=[];
+  const L=W.slice().sort((a,b)=>ORD[a[0]]-ORD[b[0]]);
+  const nb=L.filter(x=>x[0]==="bad").length,nw=L.filter(x=>x[0]==="warn").length;
+  const head=nb?`${nb} erreur(s) à corriger avant d'utiliser ce dimensionnement`:nw?`Dimensionnement utilisable, ${nw} point(s) à vérifier`:"Aucune erreur détectée";
+  return `<div class="alerts"><h4>Vérification et conseils · ${head}</h4>${L.length?"":`<div class="al ok"><span class="t"><span class="lv">OK</span>Les valeurs saisies sont cohérentes.</span></div>`}${
+    L.map(([c,t,f])=>{let b="";if(f){FIXES.push(f);b=`<button class="fix" data-fix="${FIXES.length-1}">${esc(f.label)}</button>`}
+      return `<div class="al ${c}"><span class="t"><span class="lv">${LV[c]}</span>${esc(t)}</span>${b}</div>`}).join("")}</div>`;
+}
+function applyFix(i){
+  const f=FIXES[i];if(!f)return;
+  if(f.set)for(const k in f.set)setP(S,k,f.set[k]);
+  if(f.fn)f.fn();
+  renderLoads();syncInputs();refresh();renderLocInfo(false);toast("Corrigé : "+f.label.replace(/^Corriger : |^Appliquer : /,""));
+}
+/* ---- Contrôles de saisie et conseils ---- */
+const sv=(v,d)=>(+v>0&&isFinite(+v)?+v:d);
+function safePanel(){const d=PANELS.p550,p=S.panel;return {...p,p:sv(p.p,d.p),voc:sv(p.voc,d.voc),vmp:sv(p.vmp,d.vmp),isc:sv(p.isc,d.isc),imp:sv(p.imp,d.imp),L:sv(p.L,d.L),W:sv(p.W,d.W)}}
+const between=(v,a,b)=>+v>=a&&+v<=b;
+const PEHD=[[32,26.2],[40,32.6],[50,40.8],[63,51.4],[75,61.4],[90,73.6],[110,90],[125,102.2],[140,114.6],[160,130.8]];
+const MOTOR_RE=/split|clim|frig|réfrig|refrig|congél|congel|pompe|machine|moteur|compress|lave/i;
+function batChem(b){if(String(b.model).startsWith("li"))return "li";if(b.model==="agm100"||b.model==="gel200")return "pb";return [12.8,25.6,51.2].some(x=>Math.abs(x-b.v)<0.05)?"li":"pb"}
+function checkSite(W,forPump){
+  const h=+S.site.hsp,a=annual(),w=worst();
+  if(!between(h,2,8))W.push(["bad",`Ensoleillement de ${fmt(h,2)} kWh/m²/j impossible en Afrique de l'Ouest (valeurs normales : 4 à 6,5).`,{label:`Corriger : ${fmt(a||5,2)}`,set:{"site.hsp":a||5}}]);
+  else if(!forPump&&w&&h>w.v+0.05)W.push(["tip",`Installation solaire : en ${MOIS[w.i]}, l'ensoleillement tombe à ${fmt(w.v,2)} kWh/m²/j. Dimensionner sur ce mois évite de manquer d'énergie en saison des pluies.`,{label:`Appliquer : ${fmt(w.v,2)} (${MOIS[w.i]})`,set:{"site.hsp":w.v}}]);
+  else if(forPump&&w&&a)W.push(["ok",`En ${MOIS[w.i]} (mois le plus faible), la pompe donnera environ ${fmt(S.pump.q*w.v/h,1)} m³/jour au lieu de ${fmt(S.pump.q)} m³.`]);
+  if(!monthsOK()&&S.site.city==="custom")W.push(["tip","Ensoleillement saisi à la main. Utilisez « Rechercher un lieu » ou « Ma position » pour obtenir la valeur NASA du lieu exact."]);
+}
+function checkPV(W,r){
+  const p=S.pv,b=r.b,pn=S.panel,chem=batChem(b);
+  checkSite(W,false);
+  if(!r.Ej)W.push(["warn","Aucune consommation : ajoutez les appareils à alimenter."]);
+  const motorTip=new Set();let heavy=null,split=false;
+  p.loads.forEach((l,i)=>{
+    const [n,pw,q,h,k]=l,nm=`« ${n||"Appareil "+(i+1)} »`;
+    if(+h>24)W.push(["bad",`${nm} : ${fmt(h)} h par jour, c'est plus que 24 h.`,{label:"Corriger : 24 h",fn:()=>{p.loads[i][3]=24}}]);
+    if(+pw<0||+q<0||+h<0)W.push(["bad",`${nm} : valeur négative.`,{label:"Corriger",fn:()=>{p.loads[i]=[n,Math.abs(+pw),Math.abs(+q),Math.abs(+h),k]}}]);
+    else if(!(+pw>0)||!(+q>0))W.push(["warn",`${nm} : puissance ou quantité nulle, l'appareil n'est pas compté.`]);
+    if(MOTOR_RE.test(n)&&+k<2&&!motorTip.has(i)){motorTip.add(i);W.push(["warn",`${nm} a un moteur ou un compresseur : au démarrage il appelle environ 3 fois sa puissance.`,{label:"Corriger : démarrage × 3",fn:()=>{p.loads[i][4]=3}}])}
+    if(/frig|réfrig|refrig|congél|congel/i.test(n)&&+h>0&&+h<8)W.push(["warn",`${nm} : branché en permanence, son compresseur tourne environ 10 à 12 h par jour.`,{label:"Corriger : 10 h",fn:()=>{p.loads[i][3]=10}}]);
+    if(/ampoule|lampe|néon|neon/i.test(n)&&+pw>=30)W.push(["tip",`${nm} de ${fmt(pw)} W : une ampoule LED de 10 W éclaire autant et consomme beaucoup moins.`,{label:"Appliquer : LED 10 W",fn:()=>{p.loads[i][1]=10}}]);
+    if(/split|clim/i.test(n))split=true;
+    if(+pw*+q>=1000&&+h>=1&&(!heavy||pw*q>heavy[1]))heavy=[n,pw*q];
+  });
+  if(split)W.push(["tip","Climatiseurs : un split « Inverter » consomme environ 30 à 40 % de moins qu'un split classique et démarre en douceur."]);
+  if(heavy)W.push(["tip",`Faites fonctionner « ${heavy[0]} » en journée, quand le soleil brille : l'énergie passe directement des panneaux à l'appareil et il faut moins de batteries.`]);
+  if(!between(p.pr,0.5,0.9))W.push(["warn",`Coefficient de pertes PV de ${fmt(p.pr,2)} anormal (habituel : 0,60 à 0,75 en site autonome).`,{label:"Corriger : 0,65",set:{"pv.pr":0.65}}]);
+  if(!between(p.etaInv,0.8,0.98))W.push(["warn",`Rendement onduleur de ${fmt(p.etaInv,2)} anormal (habituel : 0,90 à 0,95).`,{label:"Corriger : 0,92",set:{"pv.etaInv":0.92}}]);
+  if(!between(p.simult,0.3,1))W.push(["warn",`Coefficient de simultanéité de ${fmt(p.simult,2)} anormal (habituel : 0,6 à 1).`,{label:"Corriger : 0,8",set:{"pv.simult":0.8}}]);
+  if(!(+b.dod>=20&&+b.dod<=100))W.push(["bad",`Décharge maximale de ${fmt(b.dod)} % impossible.`,{label:`Corriger : ${chem==="li"?80:50} %`,set:{"pv.bat.dod":chem==="li"?80:50}}]);
+  else if(chem==="pb"&&+b.dod>60)W.push(["warn",`Batteries plomb/gel déchargées à ${fmt(b.dod)} % : leur durée de vie chute fortement. Restez à 50 % (60 % pour le gel).`,{label:"Corriger : 50 %",set:{"pv.bat.dod":50}}]);
+  else if(chem==="li"&&+b.dod>90)W.push(["warn",`Batteries lithium déchargées à ${fmt(b.dod)} % : gardez une marge, 80 % est conseillé.`,{label:"Corriger : 80 %",set:{"pv.bat.dod":80}}]);
+  if(!(+b.ah>0))W.push(["bad","Capacité de batterie nulle.",{label:"Corriger : 100 Ah",set:{"pv.bat.ah":100}}]);
+  if(!(+b.v>0))W.push(["bad","Tension de batterie nulle.",{label:"Corriger : 12 V",set:{"pv.bat.v":12}}]);
+  else if(![2,6,12,12.8,24,25.6,48,51.2].some(x=>Math.abs(x-b.v)<0.05))W.push(["warn",`Tension de batterie de ${fmt(b.v,1)} V inhabituelle (2, 6, 12, 24 ou 48 V ; lithium 12,8, 25,6 ou 51,2 V).`]);
+  if(+p.autonomie>5)W.push(["warn",`${fmt(p.autonomie,1)} jours d'autonomie : parc de batteries très coûteux. 1 à 2 jours suffisent en général.`,{label:"Corriger : 2 jours",set:{"pv.autonomie":2}}]);
+  else if(+p.autonomie<1)W.push(["warn","Moins d'un jour d'autonomie : les batteries ne couvriront pas une nuit suivie d'un jour nuageux.",{label:"Corriger : 1,5 jour",set:{"pv.autonomie":1.5}}]);
+  if(p.vsys==="12"&&r.Ej>2000)W.push(["warn",`${fmt(r.Ej)} Wh/jour en 12 V : courants et câbles trop gros.`,{label:"Corriger : tension automatique",set:{"pv.vsys":"auto"}}]);
+  if(chem==="pb"&&r.Ej>8000)W.push(["tip","Au-delà de 8 kWh/jour, le lithium revient moins cher sur la durée (environ 6 000 cycles contre 1 200 pour le plomb).",{label:"Appliquer : lithium 51,2 V",fn:()=>{const {n,...d}=BATS.li48;Object.assign(p.bat,{model:"li48",...d})}}]);
+  if(!(+pn.vmp<+pn.voc))W.push(["bad",`Panneau : Vmp (${fmt(pn.vmp,1)} V) doit être inférieur à Voc (${fmt(pn.voc,1)} V). Les deux valeurs sont probablement inversées.`,{label:"Corriger : inverser",fn:()=>{const t=pn.vmp;pn.vmp=pn.voc;pn.voc=t;pn.model="custom"}}]);
+  if(!(+pn.imp<+pn.isc))W.push(["bad",`Panneau : Imp (${fmt(pn.imp,1)} A) doit être inférieur à Isc (${fmt(pn.isc,1)} A). Les deux valeurs sont probablement inversées.`,{label:"Corriger : inverser",fn:()=>{const t=pn.imp;pn.imp=pn.isc;pn.isc=t;pn.model="custom"}}]);
+  else if(+pn.vmp<+pn.voc&&+pn.p>0&&Math.abs(pn.vmp*pn.imp-pn.p)/pn.p>0.1)W.push(["warn",`Panneau : Vmp × Imp = ${fmt(pn.vmp*pn.imp)} W, différent de la puissance indiquée (${fmt(pn.p)} W). Vérifiez la fiche technique.`,{label:`Corriger : ${fmt(Math.round(pn.vmp*pn.imp))} W`,fn:()=>{pn.p=Math.round(pn.vmp*pn.imp);pn.model="custom"}}]);
+  if(p.archi==="hybride"&&+p.vocMax<150)W.push(["warn",`Tension PV max de ${fmt(p.vocMax)} V : un onduleur hybride accepte en général 450 à 500 V. Vérifiez la fiche technique.`,{label:"Corriger : 500 V",set:{"pv.vocMax":500,"pv.vmpMin":0}}]);
+  if(+p.L.bat>3)W.push(["warn",`${fmt(p.L.bat,1)} m entre batteries et onduleur : courant très fort, placez-les côte à côte.`,{label:"Corriger : 2 m",set:{"pv.L.bat":2}}]);
+  [["pv.du.pv",p.du.pv,0.5,5,3,"DC PV"],["pv.du.bat",p.du.bat,0.25,2,1,"batterie"],["pv.du.ac",p.du.ac,0.5,5,3,"AC"]].forEach(([k,v,a,bmax,d,nm])=>{
+    if(!between(v,a,bmax))W.push(["warn",`Chute de tension ${nm} de ${fmt(v,1)} % hors des usages (${fmt(a,1)} à ${fmt(bmax,1)} %).`,{label:`Corriger : ${fmt(d)} %`,set:{[k]:d}}])});
+  if(!(+p.st.perRow>=1))W.push(["warn","Nombre de panneaux par rangée invalide.",{label:"Corriger : 4",set:{"pv.st.perRow":4}}]);
+}
+function checkPump(W,r){
+  const u=S.pump;
+  checkSite(W,true);
+  if(!(+u.q>0))W.push(["warn","Volume d'eau nul : indiquez le besoin en m³ par jour."]);
+  if(!(+u.ndyn>0))W.push(["bad","Niveau dynamique nul : indiquez la profondeur de l'eau en pompage (essai de pompage du forage)."]);
+  if(+u.inst<+u.ndyn+3)W.push(["bad",`La pompe (à ${fmt(u.inst)} m) doit être au moins 3 m sous le niveau dynamique (${fmt(u.ndyn)} m).`,{label:`Corriger : ${fmt(+u.ndyn+5)} m`,set:{"pump.inst":+u.ndyn+5}}]);
+  if(+u.hres<0)W.push(["bad","Hauteur du réservoir négative.",{label:"Corriger : 0 m",set:{"pump.hres":0}}]);
+  if(+u.q>0&&+u.d>0&&(r.v>1.5||r.v<0.3||r.J>0.15*r.Hg)){
+    const best=PEHD.find(([e,di])=>r.Qs/(Math.PI*(di/1000)**2/4)<=1.2)||PEHD.at(-1);
+    if(Math.abs(best[1]-u.d)>0.5)W.push(["warn",r.v<0.3?`Conduite trop grosse : l'eau circule à ${fmt(r.v,2)} m/s, la conduite coûte cher pour rien.`:`Conduite trop petite : l'eau circule à ${fmt(r.v,2)} m/s et les pertes de charge atteignent ${fmt(r.J,1)} m.`,
+      {label:`Corriger : PEHD Ø${best[0]} (${fmt(best[1],1)} mm int.)`,set:{"pump.d":best[1]}}]);
+  }
+  if(!(+u.d>0))W.push(["bad","Diamètre de conduite nul.",{label:"Corriger : PEHD Ø50",set:{"pump.d":40.8}}]);
+  if(!between(u.eta,0.3,0.7))W.push(["warn",`Rendement moto-pompe de ${fmt(u.eta,2)} anormal (habituel : 0,40 à 0,55).`,{label:"Corriger : 0,45",set:{"pump.eta":0.45}}]);
+  if(!between(u.fp,0.6,0.95))W.push(["warn",`Coefficient de pertes PV de ${fmt(u.fp,2)} anormal (habituel : 0,75 à 0,85).`,{label:"Corriger : 0,8",set:{"pump.fp":0.8}}]);
+  if(!between(u.cos,0.6,1))W.push(["warn",`cos φ de ${fmt(u.cos,2)} anormal (habituel : 0,75 à 0,88).`,{label:"Corriger : 0,82",set:{"pump.cos":0.82}}]);
+  if(!between(u.du,0.5,5))W.push(["warn",`Chute de tension de ${fmt(u.du,1)} % hors des usages (1 à 5 %).`,{label:"Corriger : 3 %",set:{"pump.du":3}}]);
+  if(u.type==="tri"&&r.Pmot<=1.5)W.push(["tip",`Pompe de ${fmt(r.Pmot,2)} kW : une pompe monophasée 220 V demande une tension plus basse, donc moins de panneaux en série.`,{label:"Appliquer : monophasée",set:{"pump.type":"mono","pump.vmpMin":250,"pump.vocMax":450}}]);
+  if(u.type==="mono"&&r.Pmot>2.2)W.push(["warn",`Pompe de ${fmt(r.Pmot,2)} kW : les variateurs monophasés dépassent rarement 2,2 kW. Passez en triphasé.`,{label:"Appliquer : triphasée",set:{"pump.type":"tri","pump.vmpMin":450,"pump.vocMax":800}}]);
+  if(u.type==="dc"&&r.Pmot>1.5)W.push(["tip",`Au-delà de 1,5 kW, une pompe AC avec variateur solaire est plus courante et moins chère qu'une pompe DC.`,{label:"Appliquer : triphasée",set:{"pump.type":"tri","pump.vmpMin":450,"pump.vocMax":800}}]);
+  if(+u.res<1)W.push(["tip","Prévoyez au moins 1 jour de réserve d'eau pour les journées nuageuses (1,5 à 2 jours conseillés).",{label:"Appliquer : 1,5 jour",set:{"pump.res":1.5}}]);
+}
 function cablesHTML(C){
   return `<div class="tw"><table><thead><tr><th>Liaison</th><th class="n">Courant</th><th class="n">Longueur</th><th class="n">Calculée</th><th class="n">Retenue</th><th class="n">Chute réelle</th></tr></thead><tbody>${
     C.map(c=>`<tr><td>${c.nom}<br><span class="muted" style="font-size:.78rem">${fmt(c.U)} V · max ${fmt(c.du,1)} %</span></td><td class="n">${fmt(c.I,1)} A</td><td class="n">${fmt(c.L,1)} m</td><td class="n">${fmt(c.sCalc,2)} mm²</td><td class="n"><span class="tag">${c.s?fs(c.s)+" mm²":"—"}</span></td><td class="n">${c.real!=null?fmt(c.real,2)+" %":"—"}</td></tr>`).join("")}</tbody></table></div>
@@ -514,20 +774,22 @@ function structHTML(s,pn){
 }
 
 function renderPV(){
-  const r=calcPV(),pn=S.panel,b=S.pv.bat,p=S.pv;
+  const r=calcPV(),pn=S.panel,b=r.b,p=S.pv;
   const cov=r.Ej?Math.min(200,r.prod/r.Ej*100):0;
   $("ltot")&&($("ltot").innerHTML=`Total : <b class="num">${fmt(r.Ej)} Wh/jour</b> · puissance installée ${fmt(r.Pt)} W`);
   $("r-pv").innerHTML=`
-  <div class="sheet-h"><div><h2>${esc(S.project.name||"Site autonome")}</h2><p>${S.site.city==="custom"?"Lieu personnalisé":esc(S.site.city)} · ${fmt(S.site.hsp,1)} kWh/m²/j · système ${r.vsys} V</p></div>
-    <button class="btn sm" id="copyPV">Copier le rapport</button></div>
+  <div class="sheet-h"><div><h2>${esc(S.project.name||"Installation solaire")}</h2><p>${esc(placeName())} · ${fmt(S.site.hsp,1)} kWh/m²/j · système ${r.vsys} V</p></div>
+    <div class="row"><button class="btn sm" id="copyPV">Copier le rapport</button></div></div>
   <div class="stats">
     <div class="stat k-sun"><span>Consommation</span><b>${fmt(r.Ej)} Wh</b><i>par jour</i></div>
     <div class="stat k-pv"><span>Panneaux</span><b>${r.st.err?"À revoir":r.N+" × "+fmt(pn.p)+" W"}</b><i>${r.st.err?"montage impossible, voir l'alerte":fmt(r.Pinst/1000,2)+" kWc · "+r.ns+" S × "+r.np+" P"}</i></div>
     <div class="stat"><span>Batteries</span><b>${r.nbBat} × ${fmt(b.ah)} Ah</b><i>${fmt(b.v,1)} V · ${fmt(r.Ebat,1)} kWh stockés</i></div>
-    <div class="stat"><span>Onduleur</span><b>${fmt(r.Pinv)} W</b><i>${r.hyb?"hybride ":""}${r.vsys} V / 230 V</i></div>
+    <div class="stat"><span>Onduleur</span><b>${r.nInv>1?r.nInv+" × ":""}${fmt(r.Pinv)} W</b><i>${r.hyb?"hybride ":""}${r.vsys} V / 230 V</i></div>
     <div class="stat"><span>${r.hyb?"MPPT de l'onduleur":"Régulateur MPPT"}</span><b>${r.nReg>1?r.nReg+" × ":""}${r.reg} A</b><i>Voc ≤ ${fmt(p.vocMax)} V</i></div>
   </div>
   ${alertsHTML(r.W)}
+  <div class="blk next"><button class="btn pri" data-goto="pv">Voir la liste du matériel et le devis</button><button class="btn" data-word="pv">Télécharger l'étude (Word)</button></div>
+  <details class="tech"><summary>Détails techniques <span>calculs, câbles, protections, structure</span></summary>
   <div class="blk"><h3>Bilan énergétique</h3>
     <div class="bar" title="Production estimée / consommation"><div style="width:${Math.min(100,cov/2)}%;background:var(--sun)"></div></div>
     <div class="legend"><span><i style="background:var(--sun)"></i>Production estimée ${fmt(r.prod)} Wh/j, soit ${fmt(cov)} % du besoin (la barre pleine correspond à 200 %)</span></div>
@@ -539,28 +801,30 @@ function renderPV(){
     ["Voc d'une chaîne (à froid, +10 %)",`${fmt(r.ns*pn.voc*1.1,1)} V`],["Vmp d'une chaîne",`${fmt(r.ns*pn.vmp,1)} V`],
     ["Courant Isc total",`${fmt(r.np*pn.isc,1)} A`],["Puissance installée",`${fmt(r.Pinst)} Wc`]])}</div>
   <div class="blk"><h3>Parc de batteries <small>C = E × N / (DoD × U × η)</small></h3>${rowsKV([
+    ["Batterie choisie",b.auto?`${b.auto} (choix automatique)`:`${fmt(b.v,1)} V ${fmt(b.ah)} Ah`],
     ["Capacité nécessaire",`${fmt(r.Cneed)} Ah sous ${r.vsys} V`],
     ["Montage",`${r.nbS} en série × ${r.nbP} en parallèle = ${r.nbBat} batteries`],
     ["Capacité installée",`${fmt(r.Cinst)} Ah sous ${r.vsys} V`],
     ["Énergie stockée / utilisable",`${fmt(r.Ebat,1)} kWh / ${fmt(r.Eutil,1)} kWh`],
     ["Autonomie réelle sans soleil",`${fmt(r.autoReal,1)} jour(s)`]])}</div>
   <div class="blk"><h3>Onduleur et régulateur</h3>${rowsKV([
-    ["Onduleur recommandé",`${fmt(r.Pinv)} W · pointe ≥ ${fmt(r.Ppk)} W`],
+    ["Onduleur recommandé",`${r.nInv>1?r.nInv+" × ":""}${fmt(r.Pinv)} W · pointe ≥ ${fmt(r.Ppk)} W`],
     ["Courant côté batteries",`${fmt(r.Ibat)} A`],["Courant de sortie AC",`${fmt(r.Iac,1)} A`],
     ["Courant de charge MPPT",`${fmt(r.Ireg)} A → ${r.nReg>1?r.nReg+" × ":""}${r.reg} A`],
     ["Plage MPPT requise",`${fmt(r.vmpMin)} à ${fmt(p.vocMax)} V`]])}</div>
   <div class="blk"><h3>Câblage</h3>${cablesHTML(r.C)}</div>
   <div class="blk"><h3>Protections</h3>${protHTML(r.P)}</div>
-  ${structHTML(r.S,pn)}`;
+  ${structHTML(r.S,pn)}</details>`;
   $("copyPV").onclick=()=>copyText(reportPV(r));
+  if(S.pv.bat.model==="auto")[["v",1],["ah",0],["dod",0]].forEach(([k])=>{const el=$("in-pv-pv-bat-"+k);if(el&&document.activeElement!==el)el.value=b[k]});
 }
 
 function renderPump(){
   const r=calcPump(),pn=S.panel,u=S.pump;
   const typ={tri:"triphasée 380 V",mono:"monophasée 230 V",dc:`DC ${u.udc} V`}[u.type];
   $("r-pump").innerHTML=`
-  <div class="sheet-h"><div><h2>${esc(S.project.name||"Pompage solaire")}</h2><p>${S.site.city==="custom"?"Lieu personnalisé":esc(S.site.city)} · ${fmt(S.site.hsp,1)} kWh/m²/j · ${fmt(u.q)} m³/jour</p></div>
-    <button class="btn sm" id="copyPump">Copier le rapport</button></div>
+  <div class="sheet-h"><div><h2>${esc(S.project.name||"Pompage solaire")}</h2><p>${esc(placeName())} · ${fmt(S.site.hsp,1)} kWh/m²/j · ${fmt(u.q)} m³/jour</p></div>
+    <div class="row"><button class="btn sm" id="copyPump">Copier le rapport</button></div></div>
   <div class="stats">
     <div class="stat k-w"><span>Hauteur manométrique</span><b>${fmt(r.HMT,1)} m</b><i>HMT totale</i></div>
     <div class="stat k-w"><span>Débit de la pompe</span><b>${fmt(r.Qh,2)} m³/h</b><i>sur ${fmt(S.site.hsp,1)} h équivalentes</i></div>
@@ -569,6 +833,8 @@ function renderPump(){
     <div class="stat"><span>Château d'eau</span><b>${fmt(r.res,1)} m³</b><i>${fmt(u.res,1)} jour(s) de réserve</i></div>
   </div>
   ${alertsHTML(r.W)}
+  <div class="blk next"><button class="btn pri" data-goto="pump">Voir la liste du matériel et le devis</button><button class="btn" data-word="pump">Télécharger l'étude (Word)</button></div>
+  <details class="tech"><summary>Détails techniques <span>hydraulique, câbles, protections, structure</span></summary>
   <div class="blk"><h3>Hydraulique <small>HMT = Hg + pertes</small></h3>
     <div class="bar"><div style="width:${r.HMT?u.ndyn/r.HMT*100:0}%;background:var(--water)"></div><div style="width:${r.HMT?u.hres/r.HMT*100:0}%;background:var(--pv)"></div><div style="width:${r.HMT?r.J/r.HMT*100:0}%;background:var(--warn)"></div></div>
     <div class="legend"><span><i style="background:var(--water)"></i>Niveau dynamique ${fmt(u.ndyn)} m</span><span><i style="background:var(--pv)"></i>Réservoir ${fmt(u.hres,1)} m</span><span><i style="background:var(--warn)"></i>Pertes de charge ${fmt(r.J,1)} m</span></div>
@@ -586,20 +852,20 @@ function renderPump(){
     ["Puissance installée",`${fmt(r.Pinst)} Wc`]])}</div>
   <div class="blk"><h3>Câblage</h3>${cablesHTML(r.C)}</div>
   <div class="blk"><h3>Protections</h3>${protHTML(r.P)}</div>
-  ${structHTML(r.S,pn)}`;
+  ${structHTML(r.S,pn)}</details>`;
   $("copyPump").onclick=()=>copyText(reportPump(r));
 }
 
 /* ================= Rapports texte ================= */
-const lieu=()=>S.site.city==="custom"?"Lieu personnalisé":S.site.city;
+const lieu=placeName;
 function reportPV(r){
-  const pn=S.panel,b=S.pv.bat;
-  return ["DIALLO DIMEN SOL/POM",`DIMENSIONNEMENT SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
+  const pn=S.panel,b=r.b;
+  return ["SOL ELECTRO",`DIMENSIONNEMENT SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
   `Site : ${lieu()} · ${fmt(S.site.hsp,1)} kWh/m²/j · latitude ${fmt(S.site.lat,1)}°`,"",
   `Besoins : ${fmt(r.Ej)} Wh/jour · puissance simultanée ${fmt(r.Psim)} W · pointe ${fmt(r.Ppk)} W`,
   `Panneaux : ${r.N} × ${pn.p} Wc (${r.ns} série × ${r.np} parallèle) = ${fmt(r.Pinst)} Wc`,
   `Batteries : ${r.nbBat} × ${fmt(b.v,1)} V ${b.ah} Ah (${r.nbS} série × ${r.nbP} parallèle) = ${fmt(r.Ebat,1)} kWh`,
-  `Onduleur : ${fmt(r.Pinv)} W ${r.hyb?"hybride ":""}${r.vsys} V`,
+  `Onduleur : ${r.nInv>1?r.nInv+" × ":""}${fmt(r.Pinv)} W ${r.hyb?"hybride ":""}${r.vsys} V`,
   `Régulateur MPPT : ${r.nReg>1?r.nReg+" × ":""}${r.reg} A${r.hyb?" (intégré à l'onduleur)":""}`,"",
   "Câbles :",...r.C.map(c=>`- ${c.nom} : ${c.s?fs(c.s)+" mm²":"?"} sur ${fmt(c.L,1)} m`),"",
   "Protections :",...r.P.map(p=>`- ${p[0]} : ${p[1]}`),"",
@@ -607,7 +873,7 @@ function reportPV(r){
 }
 function reportPump(r){
   const pn=S.panel,u=S.pump;
-  return ["DIALLO DIMEN SOL/POM",`POMPAGE SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
+  return ["SOL ELECTRO",`POMPAGE SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
   `Site : ${lieu()} · ${fmt(S.site.hsp,1)} kWh/m²/j`,"",
   `Besoin : ${fmt(u.q)} m³/jour · HMT ${fmt(r.HMT,1)} m (niveau ${u.ndyn} m + réservoir ${u.hres} m + pertes ${fmt(r.J,1)} m)`,
   `Pompe : ${fmt(r.Pmot,2)} kW, ${fmt(r.Qh,2)} m³/h à ${fmt(r.HMT,1)} m`,
@@ -636,11 +902,11 @@ function bom(src){
   const pn=S.panel;
   const cab=(c,mult,extra)=>c.s&&add(`cable-${c.type}-${c.s}`,{solaire:`Câble solaire ${fs(c.s)} mm² (rouge + noir)`,batterie:`Câble souple ${fs(c.s)} mm² (rouge + noir)`,ac:`Câble 3G${fs(c.s)} mm²`,"immergé":extra}[c.type]||c.nom,Math.ceil(c.L*mult),"m");
   if(src==="pv"){
-    const r=calcPV(),b=S.pv.bat,p=S.pv;
+    const r=calcPV(),b=r.b,p=S.pv;
     add("panel-"+pn.p,`Panneau solaire ${pn.p} Wc`,r.N,"u");
     add(`bat-${b.v}-${b.ah}`,`Batterie ${fmt(b.v,1)} V ${b.ah} Ah`,r.nbBat,"u");
-    if(r.hyb)add(`ondh-${r.Pinv}-${r.vsys}`,`Onduleur hybride ${fmt(r.Pinv)} W ${r.vsys} V (MPPT ≥ ${r.reg} A, Voc ≥ ${fmt(r.ns*pn.voc*1.1)} V)`,1,"u");
-    else{add(`ond-${r.Pinv}-${r.vsys}`,`Onduleur ${fmt(r.Pinv)} W ${r.vsys} V pur sinus`,1,"u");add(`reg-${r.reg}`,`Régulateur MPPT ${r.reg} A ${r.vsys} V (Voc ≥ ${fmt(r.ns*pn.voc*1.1)} V)`,r.nReg,"u")}
+    if(r.hyb)add(`ondh-${r.Pinv}-${r.vsys}`,`Onduleur hybride ${fmt(r.Pinv)} W ${r.vsys} V (MPPT ≥ ${r.reg} A, Voc ≥ ${fmt(r.ns*pn.voc*1.1)} V)`,r.nInv,"u");
+    else{add(`ond-${r.Pinv}-${r.vsys}`,`Onduleur ${fmt(r.Pinv)} W ${r.vsys} V pur sinus`,r.nInv,"u");add(`reg-${r.reg}`,`Régulateur MPPT ${r.reg} A ${r.vsys} V (Voc ≥ ${fmt(r.ns*pn.voc*1.1)} V)`,r.nReg,"u")}
     r.C.forEach(c=>cab(c,c.id==="str"?2*r.np:c.id==="ac"?1:2));
     if(r.nbBat>1){const c=r.C.find(x=>x.id==="bat");c&&c.s&&add(`liaison-${c.s}`,`Câble de liaison batteries ${fs(c.s)} mm² avec cosses`,r.nbBat,"u")}
     add("mc4","Connecteurs MC4 (paires)",r.np*2+2,"paire");
@@ -692,19 +958,136 @@ function renderBom(){
     <div class="row" style="justify-content:space-between">
       <div><h2 style="font-size:1.4rem">Liste de matériel et devis</h2><p class="muted" style="margin:2px 0 0">${esc(S.project.name)}${S.project.client?" · "+esc(S.project.client):""}. Les prix sont gardés sur cet appareil.</p></div>
       <div class="row">
-        <div class="seg" role="group" aria-label="Installation"><button data-src="pv" aria-pressed="${S.bomSrc==="pv"}">Site autonome</button><button data-src="pump" aria-pressed="${S.bomSrc==="pump"}">Pompage</button></div>
+        <div class="seg" role="group" aria-label="Installation"><button data-src="pv" aria-pressed="${S.bomSrc==="pv"}">Solaire</button><button data-src="pump" aria-pressed="${S.bomSrc==="pump"}">Pompage</button></div>
         <label class="f" for="cur"><span>Devise</span><div class="in"><select id="cur">${CURRENCIES.map(c=>`<option ${c===CUR?"selected":""}>${c}</option>`).join("")}</select></div></label>
       </div></div>
     <div class="tw" style="margin-top:14px"><table><thead><tr><th>Désignation</th><th class="n">Quantité</th><th class="n">Prix unitaire</th><th class="n">Total (${CUR})</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
     <div class="row" style="justify-content:space-between;margin-top:14px">
-      <div class="row"><button class="btn sm" id="addExtra">+ Ligne libre</button><button class="btn sm" id="copyBom">Copier le devis</button></div>
+      <div class="row"><button class="btn sm" id="addExtra">+ Ligne libre</button><button class="btn sm pri" data-word="bom">Télécharger le devis (Word)</button><button class="btn sm" id="copyBom">Copier le devis</button></div>
       <div style="text-align:right"><span class="muted">Total</span><div class="total" id="bomTotal">${fmt(tot)} ${CUR}</div></div></div>
     <p class="note">Quantités de câbles en aller-retour, sans chutes : ajoutez 10 % à la commande.</p></div>`;
 }
 function bomText(){
   const L=bom(S.bomSrc);let tot=0;
   const lines=L.map(it=>{const pr=+PRICES[it.key]||0,t=pr*it.q;tot+=t;return `- ${it.n} : ${fmt(it.q,it.q%1?1:0)} ${pl(it)}${pr?` × ${fmt(pr)} = ${fmt(t)} ${CUR}`:""}`});
-  return ["DIALLO DIMEN SOL/POM",`DEVIS — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,`${S.bomSrc==="pv"?"Installation solaire autonome":"Pompage solaire"} · ${new Date().toLocaleDateString("fr-FR")}`,"",...lines,"",`TOTAL : ${fmt(tot)} ${CUR}`].join("\n");
+  return ["SOL ELECTRO",`DEVIS — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,`${S.bomSrc==="pv"?"Installation solaire autonome":"Pompage solaire"} · ${new Date().toLocaleDateString("fr-FR")}`,"",...lines,"",`TOTAL : ${fmt(tot)} ${CUR}`].join("\n");
+}
+
+/* ================= Export Word (.docx), sans bibliothèque externe ================= */
+const W_NS='xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
+const xe=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function wRuns(text,o={}){
+  const rp=`<w:rPr>${o.b?"<w:b/>":""}${o.i?"<w:i/>":""}${o.color?`<w:color w:val="${o.color}"/>`:""}${o.sz?`<w:sz w:val="${o.sz}"/>`:""}</w:rPr>`;
+  return String(text??"").split("\n").map((t,i)=>`${i?`<w:r>${rp}<w:br/></w:r>`:""}<w:r>${rp}<w:t xml:space="preserve">${xe(t)}</w:t></w:r>`).join("");
+}
+function wP(text,o={}){
+  const pp=`<w:pPr>${o.style?`<w:pStyle w:val="${o.style}"/>`:""}${o.align?`<w:jc w:val="${o.align}"/>`:""}${o.after!=null?`<w:spacing w:after="${o.after}"/>`:""}${o.shade?`<w:shd w:val="clear" w:color="auto" w:fill="${o.shade}"/>`:""}</w:pPr>`;
+  return `<w:p>${pp}${wRuns(text,o)}</w:p>`;
+}
+function wTable(rows,o={}){
+  const n=Math.max(...rows.map(r=>r.length)),total=9638,w=o.widths||Array(n).fill(Math.floor(total/n));
+  const cell=(t,i,hdr,last)=>`<w:tc><w:tcPr><w:tcW w:w="${w[i]}" w:type="dxa"/>${hdr?'<w:shd w:val="clear" w:color="auto" w:fill="1D2A24"/>':last?'<w:shd w:val="clear" w:color="auto" w:fill="EEF1EC"/>':""}</w:tcPr><w:p><w:pPr><w:spacing w:after="0"/>${o.right&&o.right.includes(i)?'<w:jc w:val="right"/>':""}</w:pPr>${wRuns(t,{b:hdr||last||(o.boldCol0&&i===0?false:false),color:hdr?"FFFFFF":null,sz:19})}</w:p></w:tc>`;
+  return `<w:tbl><w:tblPr><w:tblW w:w="${total}" w:type="dxa"/><w:tblBorders>${["top","left","bottom","right","insideH","insideV"].map(b=>`<w:${b} w:val="single" w:sz="4" w:color="BFC7C1"/>`).join("")}</w:tblBorders><w:tblCellMar><w:left w:w="90" w:type="dxa"/><w:right w:w="90" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${w.map(x=>`<w:gridCol w:w="${x}"/>`).join("")}</w:tblGrid>${
+    rows.map((r,ri)=>`<w:tr>${ri===0&&o.header?'<w:trPr><w:tblHeader/></w:trPr>':""}${Array.from({length:n},(_,i)=>cell(r[i]??"",i,ri===0&&o.header,o.totalRow&&ri===rows.length-1)).join("")}</w:tr>`).join("")}</w:tbl>${wP("",{after:60})}`;
+}
+const wKV=rows=>wTable(rows,{widths:[4600,5038]});
+const wH=(t,l=1)=>wP(t,{style:"Heading"+l});
+function docxBlob(bodyXml){
+  const enc=new TextEncoder();
+  const files={
+    "[Content_Types].xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>`,
+    "_rels/.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`,
+    "word/_rels/document.xml.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`,
+    "word/styles.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles ${W_NS}><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:sz w:val="21"/><w:lang w:val="fr-FR"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="100" w:line="264" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>
+      <w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style>
+      <w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:basedOn w:val="Normal"/><w:pPr><w:spacing w:after="40"/></w:pPr><w:rPr><w:b/><w:color w:val="1D2A24"/><w:sz w:val="40"/></w:rPr></w:style>
+      <w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:before="280" w:after="100"/><w:pBdr><w:bottom w:val="single" w:sz="8" w:space="2" w:color="D98F00"/></w:pBdr><w:outlineLvl w:val="0"/></w:pPr><w:rPr><w:b/><w:color w:val="1D2A24"/><w:sz w:val="28"/></w:rPr></w:style>
+      <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:before="160" w:after="60"/><w:outlineLvl w:val="1"/></w:pPr><w:rPr><w:b/><w:color w:val="1743B3"/><w:sz w:val="23"/></w:rPr></w:style>
+      </w:styles>`,
+    "word/document.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W_NS}><w:body>${bodyXml}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>`
+  };
+  return zipStore(Object.entries(files).map(([name,s])=>({name,data:enc.encode(s.replace(/>\s+</g,"><"))})),"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+}
+const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(u){let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRC_T[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function zipStore(files,type){
+  const enc=new TextEncoder(),parts=[],cen=[];let off=0;
+  for(const f of files){
+    const nm=enc.encode(f.name),d=f.data,crc=crc32(d);
+    const h=new DataView(new ArrayBuffer(30));
+    [[0,0x04034b50,4],[4,20,2],[6,0x0800,2],[8,0,2],[10,0,2],[12,0x21,2],[14,crc,4],[18,d.length,4],[22,d.length,4],[26,nm.length,2],[28,0,2]].forEach(([o,v,s])=>s===4?h.setUint32(o,v,true):h.setUint16(o,v,true));
+    parts.push(new Uint8Array(h.buffer),nm,d);
+    const c=new DataView(new ArrayBuffer(46));
+    [[0,0x02014b50,4],[4,20,2],[6,20,2],[8,0x0800,2],[10,0,2],[12,0,2],[14,0x21,2],[16,crc,4],[20,d.length,4],[24,d.length,4],[28,nm.length,2],[30,0,2],[32,0,2],[34,0,2],[36,0,2],[38,0,4],[42,off,4]].forEach(([o,v,s])=>s===4?c.setUint32(o,v,true):c.setUint16(o,v,true));
+    cen.push(new Uint8Array(c.buffer),nm);off+=30+nm.length+d.length;
+  }
+  const cs=cen.reduce((a,b)=>a+b.length,0),e=new DataView(new ArrayBuffer(22));
+  e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+  return new Blob([...parts,...cen,new Uint8Array(e.buffer)],{type});
+}
+const cellTxt=el=>{const c=el.cloneNode(true);c.querySelectorAll("br").forEach(b=>b.replaceWith("\n"));return c.textContent.replace(/ /g," ").split("\n").map(s=>s.replace(/\s+/g," ").trim()).filter(Boolean).join("\n")};
+function wordHeader(kind){
+  const today=new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+  return wP("SOL ELECTRO",{style:"Title"})+wP(kind,{b:true,sz:26,color:"D98F00",after:200})+
+    wKV([["Projet",S.project.name||"—"],["Client",S.project.client||"—"],["Date de l'étude",today],["Lieu",placeName()],
+      ["Coordonnées",`Latitude ${fmt(S.site.lat,2)}°`+(hasLon()?` · longitude ${fmt(S.site.lon,2)}°`:"")],
+      ["Ensoleillement retenu",`${fmt(S.site.hsp,2)} kWh/m²/jour`+(monthsOK()?` (moyenne annuelle ${fmt(annual(),2)}, mois le plus faible ${fmt(worst().v,2)} en ${MOIS[worst().i]} — source NASA POWER)`:"")]]);
+}
+function wordFromView(tab){
+  const root=$("r-"+tab);let n=0,x="";const H=t=>wH(`${++n}. ${t}`);
+  x+=wordHeader(tab==="pv"?"Étude de dimensionnement – installation solaire autonome":"Étude de dimensionnement – pompage solaire");
+  if(tab==="pv"){
+    x+=H("Besoins énergétiques");
+    let tot=0;const rows=[["Appareil","Puissance (W)","Quantité","Heures / jour","Énergie (Wh/j)"]];
+    S.pv.loads.forEach(([nm,p,q,h])=>{const e=(+p||0)*(+q||0)*(+h||0);tot+=e;rows.push([nm,fmt(p),fmt(q),fmt(h,1),fmt(e)])});
+    rows.push(["Total","","","",fmt(tot)]);
+    x+=wTable(rows,{header:true,totalRow:true,widths:[3600,1500,1300,1500,1738],right:[1,2,3,4]});
+  }else{
+    const u=S.pump;x+=H("Données du forage et du besoin");
+    x+=wKV([["Volume d'eau par jour",`${fmt(u.q)} m³`],["Niveau dynamique",`${fmt(u.ndyn)} m`],["Profondeur de la pompe",`${fmt(u.inst)} m`],
+      ["Hauteur d'arrivée au réservoir",`${fmt(u.hres,1)} m`],["Distance forage → réservoir",`${fmt(u.dist)} m`],["Conduite",`${u.mat==="120"?"Acier galvanisé":"PEHD / PVC"}, Ø ${fmt(u.d,1)} mm intérieur`]]);
+  }
+  x+=H("Résultats principaux");
+  x+=wKV([...root.querySelectorAll(".stat")].map(s=>[cellTxt(s.querySelector("span")),cellTxt(s.querySelector("b"))+(s.querySelector("i")?" — "+cellTxt(s.querySelector("i")):"")]));
+  root.querySelectorAll(".blk").forEach(b=>{
+    const h=b.querySelector("h3");if(!h)return;
+    x+=H(h.childNodes[0].textContent.trim());
+    b.querySelectorAll("table").forEach(t=>{
+      const head=[...t.querySelectorAll("thead th")].map(cellTxt).filter((_,i,a)=>i<a.length);
+      const body=[...t.querySelectorAll("tbody tr")].map(tr=>[...tr.children].map(cellTxt).filter(Boolean));
+      if(head.length){const hd=head.filter(Boolean);x+=wTable([hd,...body.map(r=>r.slice(0,hd.length))],{header:true})}
+      else x+=wKV(body);
+    });
+    b.querySelectorAll(".note").forEach(p=>x+=wP(cellTxt(p),{i:true,color:"5B6A62",sz:18}));
+  });
+  x+=H("Vérification et conseils");
+  const al=[...root.querySelectorAll(".al")];
+  if(!al.length)x+=wP("Aucune erreur détectée.");
+  al.forEach(a=>{const lv=a.querySelector(".lv"),t=a.querySelector(".t");const lab=lv?lv.textContent:"";const txt=t?cellTxt(t).slice(lab.length).trim():cellTxt(a);
+    x+=wP(`${lab} : ${txt}`,{color:{Erreur:"C0352B",Attention:"A96400",Conseil:"1743B3"}[lab]||"2C8547"})});
+  x+=H("Liste de matériel et devis")+bomDocx(tab);
+  x+=wP("Ce dimensionnement est une aide à la conception. Vérifiez les fiches techniques des fabricants (plage MPPT, courbe de la pompe, courants admissibles) avant la commande et l'installation.",{i:true,color:"5B6A62",sz:17});
+  return x;
+}
+function bomDocx(src){
+  const L=bom(src);let tot=0,priced=false;
+  const rows=[["Désignation","Quantité","Prix unitaire","Total"]];
+  L.forEach(it=>{const pr=+PRICES[it.key]||0,t=pr*it.q;tot+=t;if(pr)priced=true;rows.push([it.n,`${fmt(it.q,it.q%1?1:0)} ${pl(it)}`,pr?`${fmt(pr)} ${CUR}`:"",t?`${fmt(t)} ${CUR}`:""])});
+  rows.push(["TOTAL","","",priced?`${fmt(tot)} ${CUR}`:"À compléter"]);
+  return wTable(rows,{header:true,totalRow:true,widths:[4900,1500,1600,1638],right:[1,2,3]})+wP("Quantités de câbles en aller-retour, sans chutes : prévoir 10 % de plus à la commande.",{i:true,color:"5B6A62",sz:17});
+}
+function downloadWord(kind){
+  try{
+    let body,label;
+    if(kind==="bom"){body=wordHeader(S.bomSrc==="pv"?"Devis – installation solaire autonome":"Devis – pompage solaire")+wH("Liste de matériel et devis")+bomDocx(S.bomSrc);label="Devis"}
+    else{body=wordFromView(kind);label=kind==="pv"?"Etude_solaire":"Etude_pompage"}
+    const name=`${label}_${(S.project.name||"projet").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^\w-]+/g,"_").slice(0,40)}_${new Date().toISOString().slice(0,10)}.docx`;
+    const blob=docxBlob(body),a=document.createElement("a");
+    window.__lastDocx=blob;
+    a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},5000);
+    toast("Document Word téléchargé : "+name);
+  }catch(e){toast("Impossible de créer le document Word sur cet appareil.")}
 }
 
 /* ================= Projets ================= */
@@ -731,7 +1114,7 @@ function renderProj(){
 
 /* ================= Navigation et événements ================= */
 function refresh(){
-  $("citySave").hidden=S.site.city!=="custom";
+  $("citySave").hidden=S.site.city!=="custom";if(!$("citySave").hidden&&!$("city-name").value&&S.site.place)$("city-name").value=S.site.place;
   saveDraft();
   if(S.tab==="pv")renderPV();else if(S.tab==="pump")renderPump();else if(S.tab==="bom")renderBom();else renderProj();
 }
@@ -752,6 +1135,7 @@ document.addEventListener("input",e=>{
   if(el.id==="pj-name"){S.project.name=el.value;saveDraft()}
   if(el.id==="pj-client"){S.project.client=el.value;saveDraft()}
 });
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="loc-q"){e.preventDefault();locSearch()}});
 document.addEventListener("change",e=>{
   const el=e.target;
   if(el.dataset.k&&el.tagName==="SELECT")return onField(el);
@@ -761,12 +1145,19 @@ document.addEventListener("change",e=>{
 document.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;
   if(b.dataset.tab)return showTab(b.dataset.tab);
+  if(b.dataset.fix!==undefined)return applyFix(+b.dataset.fix);
+  if(b.dataset.word)return downloadWord(b.dataset.word);
+  if(b.dataset.goto){S.bomSrc=b.dataset.goto;showTab("bom");scrollTo(0,0);return}
+  if(b.id==="locSearch")return locSearch();
+  if(b.id==="locGps")return locGps();
+  if(b.dataset.loc!==undefined)return pickLoc(+b.dataset.loc);
+  if(b.dataset.irr){const v=b.dataset.irr==="min"?worst().v:annual();S.site.hsp=v;syncInputs();refresh();renderLocInfo(false);toast(`Ensoleillement : ${fmt(v,2)} kWh/m²/j`);return}
   if(b.dataset.del!==undefined){S.pv.loads.splice(+b.dataset.del,1);renderLoads();refresh();return}
   if(b.id==="addLoad"){S.pv.loads.push(["Nouvel appareil",100,1,4,1]);renderLoads();refresh();$(`ld-${S.pv.loads.length-1}-0`).select();return}
   if(b.dataset.quick!==undefined){S.pv.loads.push([...QUICK[+b.dataset.quick]]);renderLoads();refresh();return}
   if(b.dataset.src){S.bomSrc=b.dataset.src;refresh();return}
   if(b.id==="citySaveBtn"){const n=$("city-name").value.trim();if(!n){toast("Entrez le nom de la ville");$("city-name").focus();return}
-    MY_CITIES[n]=[+S.site.hsp,+S.site.lat];try{localStorage.setItem("sd.cities",JSON.stringify(MY_CITIES))}catch(e){}
+    MY_CITIES[n]=[+S.site.hsp,+S.site.lat,hasLon()?+S.site.lon:"",monthsOK()?S.site.months.slice():[]];try{localStorage.setItem("sd.cities",JSON.stringify(MY_CITIES))}catch(e){}
     buildCities();S.site.city=n;buildForms();syncInputs();refresh();toast(`Ville « ${n} » enregistrée`);return}
   if(b.id==="addExtra"){S.extra.push(["Autre",1,"u"]);refresh();return}
   if(b.dataset.exdel!==undefined){S.extra.splice(+b.dataset.exdel,1);refresh();return}
