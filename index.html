@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17231e">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icone-192.png">
+<link rel="apple-touch-icon" href="icone-192.png">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body><title>DIALLO DIMEN SOL/POM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout : barre de site + onglets en haut ; formulaire à gauche, fiche de résultats à droite (empilés sur téléphone) */
+:root{
+  --bg:#eef1ec; --surface:#ffffff; --sunk:#f5f7f4; --ink:#17231e; --muted:#5b6a62; --line:#d4dbd5;
+  --sun:#d98f00; --pv:#1743b3; --water:#0d7681; --ok:#2c8547; --warn:#a96400; --bad:#c0352b;
+  --f-disp:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1513; --surface:#18201d; --sunk:#131a17; --ink:#e4ebe7; --muted:#93a39a; --line:#2b3631;
+  --sun:#f0b23a; --pv:#86a3ff; --water:#4cc3cc; --ok:#62c482; --warn:#eaa443; --bad:#ff7366; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1513; --surface:#18201d; --sunk:#131a17; --ink:#e4ebe7; --muted:#93a39a; --line:#2b3631;
+  --sun:#f0b23a; --pv:#86a3ff; --water:#4cc3cc; --ok:#62c482; --warn:#eaa443; --bad:#ff7366; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px}
+h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pv);outline-offset:2px}
+.num,td.n,.mono{font-variant-numeric:tabular-nums}
+
+/* En-tête */
+.top{background:var(--ink);color:var(--bg)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{flex:none}
+.brand h1{font-size:1.55rem;font-weight:700;line-height:1}
+.brand small{display:block;font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.tabs button{background:transparent;border:1px solid transparent;color:inherit;padding:7px 12px;border-radius:999px;font-weight:500;opacity:.75}
+.tabs button[aria-selected="true"]{background:var(--sun);color:#1b1300;opacity:1;font-weight:600}
+.tabs button:hover{opacity:1}
+
+/* Site */
+.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.site .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;padding-block:10px;align-items:end}
+.site .hint{font-size:.78rem;color:var(--muted);grid-column:1/-1;margin-top:-4px}
+
+main.wrap{padding-block:18px 40px}
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Formulaire */
+.form{display:grid;gap:10px;min-width:0}
+details.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+details.sec>summary{list-style:none;cursor:pointer;padding:11px 14px;font:600 1.05rem var(--f-disp);display:flex;justify-content:space-between;align-items:center;gap:8px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";font:500 1.1rem var(--f-mono);color:var(--muted)}
+details.sec[open]>summary::after{content:"–"}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;padding:0 14px 14px}
+label.f{display:grid;gap:3px;min-width:0}
+label.f>span{font-size:.8rem;color:var(--muted);line-height:1.25}
+.in{display:flex;align-items:center;background:var(--sunk);border:1px solid var(--line);border-radius:7px;min-width:0}
+.in:focus-within{border-color:var(--pv)}
+.in input,.in select{border:0;background:transparent;padding:7px 9px;width:100%;min-width:0;outline:none}
+.in em{font:500 .75rem var(--f-mono);color:var(--muted);padding-right:9px;white-space:nowrap;font-style:normal}
+.site .in{background:var(--bg)}
+
+/* Tableau des appareils */
+.loads{padding:0 14px 14px;display:grid;gap:8px}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) 64px 46px 50px 46px 30px;gap:5px;align-items:center}
+.lrow.head{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.lrow input{width:100%;min-width:0;padding:6px 7px;border:1px solid var(--line);border-radius:6px;background:var(--sunk)}
+.lrow .x{border:0;background:transparent;color:var(--muted);font-size:1.1rem;padding:0}
+.lrow .x:hover{color:var(--bad)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{border:1px dashed var(--line);background:transparent;border-radius:999px;padding:3px 10px;font-size:.8rem;color:var(--muted)}
+.chip:hover{border-color:var(--pv);color:var(--pv)}
+.ltot{font-size:.85rem;color:var(--muted)}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:500}
+.btn:hover{border-color:var(--ink)}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.danger{color:var(--bad)}
+.btn.sm{padding:5px 10px;font-size:.85rem}
+
+/* Résultats */
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);min-width:0;overflow:hidden}
+.sheet-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sheet-h h2{font-size:1.35rem}
+.sheet-h p{margin:0;color:var(--muted);font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-bottom:1px solid var(--line)}
+.stat{padding:12px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.stat b{display:block;font:700 1.55rem/1.1 var(--f-disp);font-variant-numeric:tabular-nums}
+.stat span{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.stat i{display:block;font-style:normal;font-size:.8rem;color:var(--muted)}
+.stat.k-pv b{color:var(--pv)} .stat.k-sun b{color:var(--sun)} .stat.k-w b{color:var(--water)}
+.blk{padding:14px 16px;border-bottom:1px solid var(--line);min-width:0}
+.blk:last-child{border-bottom:0}
+.blk h3{font-size:1.1rem;margin-bottom:8px;display:flex;align-items:baseline;gap:8px}
+.blk h3 small{font:500 .72rem var(--f-mono);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th{font-weight:500;text-align:left;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;padding:5px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;white-space:nowrap}
+td.k{color:var(--muted);width:52%}
+td.v{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font:500 .78rem var(--f-mono);padding:1px 7px;border-radius:5px;background:var(--sunk);border:1px solid var(--line);white-space:nowrap}
+.alerts{display:grid;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.al{padding:8px 11px;border-radius:7px;font-size:.88rem;border-left:4px solid}
+.al.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.al.warn{border-color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent)}
+.al.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.bar{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--sunk);margin:6px 0 2px}
+.bar>div{height:100%}
+.legend{font-size:.78rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:0}
+.note{font-size:.82rem;color:var(--muted);margin:8px 0 0}
+
+/* Devis / projets */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:7px 14px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.price{width:110px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--sunk);text-align:right}
+.qty{width:70px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--sunk);text-align:right}
+.total{font:700 1.6rem var(--f-disp);font-variant-numeric:tabular-nums}
+.plist{display:grid;gap:8px;margin-top:12px}
+.pitem{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--sunk)}
+.pitem b{font-weight:600}
+.pitem small{color:var(--muted);display:block}
+textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;background:var(--sunk);padding:8px;font:500 .8rem var(--f-mono)}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:.9rem;z-index:20}
+.muted{color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.tabs button,.btn,.chip{transition:background .15s,border-color .15s,color .15s}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="24" cy="10" r="6" fill="#f0b23a"/><path d="M3 30 L9 16 H27 L31 30 Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 23 H29 M15 16 L13 30 M21 16 L22 30" stroke="currentColor" stroke-width="1.4"/></svg>
+      <div><h1>DIALLO DIMEN SOL/POM</h1><small>Dimensionnement solaire · pompage · devis</small></div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="pv" id="tab-pv">Site autonome</button>
+      <button role="tab" data-tab="pump" id="tab-pump">Pompage solaire</button>
+      <button role="tab" data-tab="bom" id="tab-bom">Matériel &amp; devis</button>
+      <button role="tab" data-tab="proj" id="tab-proj">Projets</button>
+    </nav>
+  </div>
+</header>
+
+<section class="site"><div class="wrap" id="siteBar"></div></section>
+
+<main class="wrap">
+  <div id="v-pv" class="grid" hidden>
+    <div class="form" id="f-pv"></div>
+    <div class="sheet" id="r-pv"></div>
+  </div>
+  <div id="v-pump" class="grid" hidden>
+    <div class="form" id="f-pump"></div>
+    <div class="sheet" id="r-pump"></div>
+  </div>
+  <div id="v-bom" hidden></div>
+  <div id="v-proj" hidden></div>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ================= Données de référence ================= */
+const CITIES={"Conakry":[4.9,9.5],"Kindia":[5.1,10.1],"Boké":[5.0,10.9],"Mamou":[5.2,10.4],"Labé":[5.3,11.3],"Faranah":[5.4,10.0],"Kankan":[5.6,10.4],"Siguiri":[5.8,11.4],"N'Zérékoré":[4.8,7.8],"Bamako":[5.7,12.6],"Dakar":[5.6,14.7],"Bissau":[5.3,11.9],"Freetown":[4.8,8.5],"Monrovia":[4.6,6.3],"Abidjan":[4.6,5.3],"Ouagadougou":[5.8,12.4],"Niamey":[6.0,13.5],"Lomé":[5.0,6.1],"Cotonou":[5.0,6.4],"Nouakchott":[5.9,18.1]};
+const PANELS={
+  p100:{n:"100 W (12 V)",p:100,voc:22.5,vmp:18.5,isc:5.8,imp:5.4,L:1.01,W:0.67},
+  p330:{n:"330 W polycristallin",p:330,voc:46,vmp:37.6,isc:9.3,imp:8.8,L:1.956,W:0.992},
+  p450:{n:"450 W monocristallin",p:450,voc:49.5,vmp:41.4,isc:11.6,imp:10.9,L:2.094,W:1.038},
+  p550:{n:"550 W monocristallin",p:550,voc:49.9,vmp:42.0,isc:14.0,imp:13.1,L:2.279,W:1.134}};
+const BATS={
+  agm100:{n:"AGM 12 V 100 Ah",v:12,ah:100,dod:50},
+  gel200:{n:"Gel 12 V 200 Ah",v:12,ah:200,dod:60},
+  li24:{n:"LiFePO4 25,6 V 100 Ah",v:25.6,ah:100,dod:80},
+  li48:{n:"LiFePO4 51,2 V 100 Ah",v:51.2,ah:100,dod:80},
+  li48b:{n:"LiFePO4 51,2 V 200 Ah",v:51.2,ah:200,dod:80}};
+const QUICK=[["Ampoule LED",10,1,6,1],["Ventilateur",60,1,8,2],["Télévision",100,1,5,1],["Réfrigérateur",150,1,10,3],["Congélateur",200,1,12,3],["Ordinateur portable",65,1,4,1],["Routeur / box",15,1,24,1],["Chargeur téléphone",10,1,3,1],["Split 1 CV",900,1,8,3],["Split 1,5 CV",1200,1,8,3],["Split 2,5 CV",2000,1,8,3],["Split 3 CV",2500,1,8,3],["Air fryer",1500,1,0.5,1],["Micro-ondes",1200,1,0.3,1.5],["Machine à laver",500,1,1,3],["Pompe de surface 0,75 kW",750,1,2,3],["Fer à repasser",1000,1,0.5,1],["Machine à coudre",100,1,4,2]];
+const STD_INV=[300,500,800,1000,1500,2000,3000,3500,4000,5000,6000,8000,10000,12000,15000,20000,30000];
+const STD_REG=[10,20,30,40,50,60,80,100,120,150,200];
+const STD_BRK=[6,10,16,20,25,32,40,50,63,80,100,125,160,200,250,315,400,500,630];
+const STD_FUSE=[10,12,15,16,20,25,30,32];
+const STD_DDR=[25,40,63,80,100,125];
+const STD_U=[150,250,500,600,800,1000,1500];
+const PUMPS=[0.37,0.55,0.75,1.1,1.5,2.2,3,4,5.5,7.5,9.2,11,15,18.5,22,30,37,45,55];
+const SECTIONS=[1.5,2.5,4,6,10,16,25,35,50,70,95,120,150,185,240];
+const AMPA={1.5:17.5,2.5:24,4:32,6:41,10:57,16:76,25:101,35:125,50:151,70:192,95:232,120:269,150:309,185:353,240:415};
+const RHO=0.0225; // Ω·mm²/m, cuivre à chaud
+const CURRENCIES=["GNF","FCFA","EUR","USD"];
+
+const DEF={
+  tab:"pv", bomSrc:"pv",
+  project:{name:"Maison exemple",client:""},
+  site:{city:"Conakry",hsp:4.9,lat:9.5},
+  panel:{model:"p550",...PANELS.p550},
+  pv:{loads:[["Ampoule LED",10,8,6,1],["Ventilateur",60,2,8,2],["Télévision",100,1,5,1],["Réfrigérateur",150,1,10,3],["Ordinateur portable",65,1,4,1],["Chargeur téléphone",10,4,3,1],["Routeur / box",15,1,24,1]],
+      simult:0.8,vsys:"auto",autonomie:1.5,pr:0.65,etaInv:0.92,archi:"hybride",vocMax:500,vmpMin:120,
+      bat:{model:"li48",v:51.2,ah:100,dod:80},
+      L:{str:12,pv:8,reg:2,bat:2,ac:15},du:{pv:3,bat:1,ac:3},
+      st:{perRow:4,orient:"portrait",h0:0.5}},
+  pump:{q:20,res:1.5,ndyn:40,inst:55,hres:6,dist:150,mat:"150",d:50,type:"mono",udc:72,eta:0.45,cos:0.82,fp:0.8,vmpMin:250,vocMax:450,lpv:15,lcab:10,du:3,
+      st:{perRow:6,orient:"portrait",h0:0.6}},
+  extra:[["Main d'œuvre d'installation",1,"forfait"],["Transport",1,"forfait"]]
+};
+
+/* ================= Stockage local ================= */
+const store={
+  get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+const clone=o=>JSON.parse(JSON.stringify(o));
+function merge(d,s){if(s===undefined||s===null)return clone(d);if(Array.isArray(d))return Array.isArray(s)?clone(s):clone(d);
+  if(typeof d==="object"){const o={};for(const k in d)o[k]=merge(d[k],s[k]);return o}return s}
+let S=merge(DEF,store.get("sd.draft",null));
+if(S.pump.type==="tri"&&S.pump.vmpMin===500)S.pump.vmpMin=450; // anciens réglages
+if(S.pump.type==="mono"&&S.pump.vmpMin===300)S.pump.vmpMin=250;
+let PRICES=store.get("sd.prices",{}), CUR=store.get("sd.cur","GNF");
+
+/* ================= Utilitaires ================= */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=(n,d=0)=>(n==null||!isFinite(n))?"—":Number(n).toLocaleString("fr-FR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const up=(arr,v)=>{const x=arr.find(a=>a>=v-1e-9);return x===undefined?null:x};
+const getP=(o,p)=>p.split(".").reduce((a,k)=>a?.[k],o);
+function setP(o,p,v){const ks=p.split(".");let a=o;ks.slice(0,-1).forEach(k=>a=a[k]);a[ks.at(-1)]=v}
+function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+function copyText(t){
+  const done=()=>toast("Copié dans le presse-papiers");
+  const fallback=()=>{const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done()}catch(e){toast("Sélectionnez le texte et copiez-le manuellement")}ta.remove()};
+  try{navigator.clipboard.writeText(t).then(done,fallback)}catch(e){fallback()}
+}
+function saveDraft(){store.set("sd.draft",S)}
+
+/* Section de câble : chute de tension + courant admissible (Iz) */
+function cable(o){
+  const k=o.mode==="tri"?Math.sqrt(3)*(o.cos||0.85):o.mode==="mono"?2*(o.cos||1):2;
+  const dU=o.U*o.du/100;
+  const sCalc=RHO*k*o.L*o.I/dU;
+  const need=Math.max(o.I,o.Iz||0);
+  const s=SECTIONS.find(x=>x>=sCalc&&x>=(o.min||1.5)&&AMPA[x]>=need)??null;
+  return {...o,sCalc,s,real:s?RHO*k*o.L*o.I/s/o.U*100:null};
+}
+/* Configuration série / parallèle des panneaux */
+function strings(Nmin,pn,vmpMin,vocMax){
+  const nsMax=Math.floor(vocMax/(pn.voc*1.1));
+  const nsMin=Math.max(1,Math.ceil(vmpMin/(pn.vmp*0.88)));
+  if(nsMax<1||nsMin>nsMax)return {err:`Aucune configuration possible : il faut au moins ${nsMin} panneau(x) en série pour atteindre la tension MPPT minimale, mais ${Math.max(nsMax,0)} au maximum pour rester sous ${fmt(vocMax)} V. Changez de panneau, de régulateur ou de variateur.`,nsMin,nsMax,ns:1,np:Nmin,tot:Nmin};
+  let b=null;
+  for(let ns=nsMin;ns<=nsMax;ns++){const np=Math.ceil(Nmin/ns),tot=ns*np;if(!b||tot<b.tot||(tot===b.tot&&ns>b.ns))b={ns,np,tot}}
+  return {...b,nsMin,nsMax};
+}
+const uClass=v=>up(STD_U,v)||1500;
+const fs=s=>fmt(s,s%1?1:0);
+const pl=it=>it.q>1&&["barre","paire"].includes(it.u)?it.u+"s":it.u;
+function oversize(W,st,Nmin,what){if(!st.err&&st.tot>=Nmin*1.8&&st.tot-Nmin>=2)W.push(["warn",`La tension minimale ${what} impose ${st.ns} panneaux en série : ${st.tot} panneaux au lieu de ${Nmin} nécessaires. Choisissez un appareil acceptant une tension plus basse${what.includes("variateur")?" (variateur et pompe monophasés 220 V pour une petite pompe)":""}, ou des panneaux de plus forte tension.`])}
+
+/* Structure : portiques acier + rails alu */
+function calcStruct(n,pn,st,lat){
+  if(!n)return null;
+  const tilt=Math.max(15,Math.round(Math.abs(lat)+5)),t=tilt*Math.PI/180;
+  const w=st.orient==="portrait"?pn.W:pn.L, D=st.orient==="portrait"?pn.L:pn.W;
+  const per=Math.max(1,Math.min(Math.round(st.perRow)||1,n)), rows=Math.ceil(n/per);
+  let railBars=0,rails=0,mid=0,end=0,port=0,maxLen=0,frameLen=0;
+  for(let r=0;r<rows;r++){
+    const k=r<rows-1?per:n-per*(rows-1), len=k*w+(k-1)*0.02;
+    maxLen=Math.max(maxLen,len);frameLen+=len;
+    rails+=2*(len+0.1);railBars+=2*Math.ceil((len+0.1)/4.2);
+    mid+=2*(k-1);end+=4;port+=Math.ceil(len/1.5)+1;
+  }
+  const hRear=st.h0+D*Math.sin(t), proj=D*Math.cos(t), diag=Math.hypot(proj,hRear-st.h0+0.3);
+  const steel=port*(st.h0+hRear+D+diag);
+  const elev=Math.max(20,90-Math.abs(lat)-23.45);
+  const pitch=proj+D*Math.sin(t)/Math.tan(elev*Math.PI/180);
+  return {tilt,rows,per,rails,railBars,mid,end,port,hRear,proj,pitch,maxLen,frameLen,
+    steel,steelBars:Math.ceil(steel/6),anchors:port*2,bolts:port*6,
+    area:((rows-1)*pitch+proj)*maxLen, face:lat>=0?"plein Sud":"plein Nord"};
+}
+
+/* ================= Calcul site autonome ================= */
+function calcPV(){
+  const p=S.pv,pn=S.panel,b=p.bat,hsp=+S.site.hsp||1,W=[];
+  let Ej=0,Pt=0,surge=0;
+  p.loads.forEach(([,pw,q,h,k])=>{const P=(+pw||0)*(+q||0);Ej+=P*(+h||0);Pt+=P;surge=Math.max(surge,(+pw||0)*((+k||1)-1))});
+  const Psim=Pt*p.simult, Ppk=Psim+surge;
+  let vsys=p.vsys==="auto"?(Ej<=1500?12:Ej<=4500?24:48):+p.vsys;
+  const batNom=b.v>40?48:b.v>20?24:12;
+  if(vsys<batNom){vsys=batNom;if(p.vsys!=="auto")W.push(["warn",`Tension système relevée à ${vsys} V pour correspondre à la batterie choisie.`])}
+  const nbS=Math.max(1,Math.round(vsys/batNom));
+  const Cneed=Ej*p.autonomie/((b.dod/100)*vsys*p.etaInv);
+  const nbP=Math.max(1,Math.ceil(Cneed/b.ah)), nbBat=nbS*nbP, Cinst=nbP*b.ah;
+  const Ebat=nbBat*b.v*b.ah/1000, Eutil=Ebat*b.dod/100, autoReal=Ej?Eutil*1000*p.etaInv/Ej:0;
+  const Pc=Ej/(hsp*p.pr), Nmin=Math.max(1,Math.ceil(Pc/pn.p));
+  const vmpMin=p.vmpMin>0?p.vmpMin:vsys*1.25;
+  const st=strings(Nmin,pn,vmpMin,p.vocMax);
+  if(st.err)W.push(["bad",st.err]);
+  oversize(W,st,Nmin,"du MPPT");
+  const N=st.tot, Pinst=N*pn.p, prod=Pinst*hsp*p.pr;
+  const Ireg=Pinst/vsys;
+  let nReg=1,reg=up(STD_REG,Ireg*1.1);if(!reg){nReg=Math.ceil(Ireg*1.1/100);reg=100}
+  const hyb=p.archi==="hybride";
+  const invMin=hyb?({12:1000,24:1500,48:3000}[vsys]||0):0; // plus petits onduleurs hybrides du commerce
+  const Pinv=up(STD_INV,Math.max(Psim*1.25,Ppk/2,invMin))||STD_INV.at(-1);
+  if(Psim*1.25>STD_INV.at(-1))W.push(["bad","Puissance trop élevée pour un seul onduleur : prévoyez plusieurs onduleurs en parallèle."]);
+  const Ibat=Pinv/(vsys*0.9), Iac=Pinv/230;
+  const li=b.dod>=70, cRate=Ireg/Cinst;
+  if(cRate>(li?0.5:0.2))W.push(["warn",`Courant de charge élevé (${fmt(Ireg)} A pour ${fmt(Cinst)} Ah, soit ${fmt(cRate,2)} C). Augmentez la capacité des batteries ou limitez le courant de charge dans le régulateur.`]);
+  if(!li&&cRate<0.05)W.push(["warn","Courant de charge faible (moins de C/20) : des batteries plomb risquent de rester sous-chargées. Ajoutez des panneaux."]);
+  if(vsys===12&&Pinv>1500)W.push(["warn","En 12 V, un onduleur de plus de 1 500 W demande des câbles très gros. Passez en 24 V ou 48 V."]);
+  if(!li&&nbP>4)W.push(["warn",`${nbP} rangées de batteries plomb en parallèle : préférez des batteries de plus grande capacité (4 en parallèle au maximum).`]);
+  // protections
+  const ns=st.ns,np=st.np,isc=pn.isc,Udc=uClass(1.2*ns*pn.voc);
+  const fuse=np>=3?up(STD_FUSE,1.5*isc):null;
+  const bPV=up(STD_BRK,1.25*isc*np), bReg=up(STD_BRK,1.25*Ireg/nReg), bBat=up(STD_BRK,1.25*Ibat), bAC=up(STD_BRK,1.25*Iac), ddr=up(STD_DDR,bAC)||bAC;
+  const C=[
+    {id:"str",nom:"Chaîne PV → coffret DC",...cable({I:1.25*isc,L:p.L.str,U:ns*pn.vmp,du:p.du.pv/2,mode:"dc",min:4,Iz:fuse||0}),type:"solaire"},
+    {id:"pv",nom:"Coffret DC → "+(hyb?"onduleur hybride":"régulateur"),...cable({I:1.25*isc*np,L:p.L.pv,U:ns*pn.vmp,du:p.du.pv/2,mode:"dc",min:4,Iz:bPV}),type:"solaire"},
+    ...(hyb?[]:[{id:"reg",nom:"Régulateur → batteries",...cable({I:Ireg/nReg,L:p.L.reg,U:vsys,du:p.du.bat,mode:"dc",min:6,Iz:bReg}),type:"batterie"}]),
+    {id:"bat",nom:"Batteries → onduleur",...cable({I:Ibat,L:p.L.bat,U:vsys,du:p.du.bat,mode:"dc",min:10,Iz:bBat}),type:"batterie"},
+    {id:"ac",nom:"Onduleur → tableau AC",...cable({I:Iac,L:p.L.ac,U:230,du:p.du.ac,mode:"mono",cos:1,min:2.5,Iz:bAC}),type:"ac"}];
+  C.forEach(c=>{if(!c.s)W.push(["bad",`Câble « ${c.nom} » : aucune section standard ne convient. Raccourcissez la liaison ou augmentez la tension.`])});
+  const P=[
+    ...(fuse?[["Fusibles gPV par chaîne",`${fuse} A · 1000 V DC`,`${np*2} fusibles (+ et −) avec porte-fusibles`]]:[["Fusibles de chaîne","Non obligatoires",`${np} chaîne(s) en parallèle (obligatoires à partir de 3)`]]),
+    ["Interrupteur-sectionneur DC PV",`${bPV} A · ${Udc} V DC`,"Coupure du champ avant le "+(hyb?"onduleur":"régulateur")],
+    ["Parafoudre DC type 2",`Ucpv ≥ ${Udc} V`,"Dans le coffret DC, relié à la terre"],
+    ...(hyb?[]:[["Disjoncteur DC régulateur → batteries",`${bReg} A · ${vsys} V DC`,nReg>1?`${nReg} pièces (une par régulateur)`:"Au plus près des batteries"]]),
+    ["Disjoncteur ou fusible batteries",`${bBat} A · ${vsys} V DC`,"Fusible NH/ANL ou disjoncteur DC, au plus près du + batterie"],
+    ["Disjoncteur AC de sortie",`${bAC} A · courbe C`,"Départ onduleur vers le tableau"],
+    ["Interrupteur différentiel",`${ddr} A · 30 mA type A`,"Protection des personnes"],
+    ["Parafoudre AC type 2","230 V · 20 kA","Dans le tableau AC"],
+    ["Mise à la terre","Piquet 1,5 m + câble 16 mm²","Cadres des panneaux, structure et coffrets reliés (6 mm² minimum)"]];
+  const S2=calcStruct(N,pn,p.st,+S.site.lat||0);
+  return {Ej,Pt,Psim,Ppk,vsys,batNom,nbS,nbP,nbBat,Cneed,Cinst,Ebat,Eutil,autoReal,Pc,Nmin,vmpMin,st,N,Pinst,prod,Ireg,reg,nReg,Pinv,hyb,Ibat,Iac,C,P,W,S:S2,ns,np,fuse,bPV,bReg,bBat,bAC,ddr,Udc,li};
+}
+
+/* ================= Calcul pompage ================= */
+function calcPump(){
+  const u=S.pump,pn=S.panel,hsp=+S.site.hsp||1,W=[];
+  const Qh=u.q/hsp, Qs=Qh/3600, D=u.d/1000, Chw=+u.mat;
+  const Lp=u.inst+u.hres+u.dist, Hg=u.ndyn+u.hres;
+  const J=D>0?10.67*Lp*Math.pow(Qs,1.852)/(Math.pow(Chw,1.852)*Math.pow(D,4.87))*1.1:0;
+  const HMT=Hg+J, v=D>0?Qs/(Math.PI*D*D/4):0;
+  const Ehyd=2.725*u.q*HMT, Phyd=2.725*Qh*HMT, Pel=Phyd/u.eta;
+  const Pmot=up(PUMPS,Pel/1000)||PUMPS.at(-1);
+  const Pc1=Ehyd/(u.eta*hsp*u.fp), Pc2=1.3*Pmot*1000, Pc=Math.max(Pc1,Pc2);
+  const Nmin=Math.max(1,Math.ceil(Pc/pn.p));
+  const st=strings(Nmin,pn,u.vmpMin,u.vocMax);
+  if(st.err)W.push(["bad",st.err]);
+  oversize(W,st,Nmin,"du variateur de pompe");
+  const N=st.tot,Pinst=N*pn.p,ns=st.ns,np=st.np;
+  if(v>1.5)W.push(["warn",`Vitesse de l'eau élevée (${fmt(v,2)} m/s) : augmentez le diamètre de la conduite.`]);
+  if(v<0.3&&u.q>0)W.push(["warn",`Vitesse de l'eau faible (${fmt(v,2)} m/s) : la conduite est surdimensionnée.`]);
+  if(u.inst<u.ndyn+3)W.push(["bad","La pompe doit être immergée au moins 3 m sous le niveau dynamique."]);
+  if(J>0.15*Hg)W.push(["warn",`Pertes de charge importantes (${fmt(J,1)} m) : augmentez le diamètre ou réduisez la longueur.`]);
+  if(Pc2>Pc1)W.push(["ok","Le champ PV est dimensionné par la puissance de démarrage de la pompe (1,3 × puissance moteur)."]);
+  const U=u.type==="tri"?380:u.type==="mono"?230:u.udc;
+  const Im=u.type==="tri"?Pmot*1000/(Math.sqrt(3)*380*u.cos*0.85):u.type==="mono"?Pmot*1000/(230*u.cos*0.85):Pmot*1000/(u.udc*0.85);
+  const isc=pn.isc,Udc=uClass(1.2*ns*pn.voc),fuse=np>=3?up(STD_FUSE,1.5*isc):null,bPV=up(STD_BRK,1.25*isc*np);
+  const C=[
+    {id:"pv",nom:"Champ PV → variateur",...cable({I:1.25*isc*np,L:u.lpv,U:ns*pn.vmp,du:u.du,mode:"dc",min:4,Iz:bPV}),type:"solaire"},
+    {id:"pompe",nom:"Variateur → pompe (câble immergé)",...cable({I:Im,L:u.inst+u.lcab,U,du:u.du,mode:u.type==="tri"?"tri":u.type==="mono"?"mono":"dc",cos:u.cos,min:1.5,Iz:Im*1.25}),type:"immergé"}];
+  C.forEach(c=>{if(!c.s)W.push(["bad",`Câble « ${c.nom} » : aucune section standard ne convient.`])});
+  const P=[
+    ...(fuse?[["Fusibles gPV par chaîne",`${fuse} A · 1000 V DC`,`${np*2} fusibles avec porte-fusibles`]]:[["Fusibles de chaîne","Non obligatoires",`${np} chaîne(s) en parallèle`]]),
+    ["Interrupteur-sectionneur DC PV",`${bPV} A · ${Udc} V DC`,"Entre le champ PV et le variateur"],
+    ["Parafoudre DC type 2",`Ucpv ≥ ${Udc} V`,"Coffret DC, relié à la terre"],
+    ["Sonde de niveau bas","Électrodes ou flotteur","Arrête la pompe si le forage est à sec"],
+    ["Flotteur de réservoir","Contact sec","Arrête la pompe quand le réservoir est plein"],
+    ["Protection moteur","Intégrée au variateur","Surintensité, sous-tension, marche à sec"],
+    ["Mise à la terre","Piquet 1,5 m + câble 16 mm²","Variateur, structure, cadres des panneaux"]];
+  return {Qh,Qs,D,Lp,Hg,J,HMT,v,Ehyd,Phyd,Pel,Pmot,Pc1,Pc2,Pc,Nmin,st,N,Pinst,ns,np,U,Im,C,P,W,fuse,bPV,Udc,
+    res:u.q*u.res, S:calcStruct(N,pn,u.st,+S.site.lat||0)};
+}
+
+/* ================= Formulaires ================= */
+const num=(k,l,u,step=1)=>({k,l,u,step});
+const sel=(k,l,o)=>({k,l,o});
+const panelF=()=>[sel("panel.model","Modèle",[...Object.entries(PANELS).map(([k,v])=>[k,v.n]),["custom","Personnalisé"]]),
+  num("panel.p","Puissance","Wc",5),num("panel.voc","Tension à vide Voc","V",0.1),num("panel.vmp","Tension Vmp","V",0.1),
+  num("panel.isc","Courant Isc","A",0.1),num("panel.imp","Courant Imp","A",0.1),num("panel.L","Longueur","m",0.01),num("panel.W","Largeur","m",0.01)];
+const structF=pre=>[num(pre+".st.perRow","Panneaux par rangée","",1),sel(pre+".st.orient","Pose des panneaux",[["portrait","Portrait"],["paysage","Paysage"]]),num(pre+".st.h0","Hauteur du bord bas","m",0.1)];
+const FORMS={
+  pv:[
+    {t:"Appareils à alimenter",loads:true,open:true},
+    {t:"Batteries",open:true,f:[sel("pv.bat.model","Modèle",[...Object.entries(BATS).map(([k,v])=>[k,v.n]),["custom","Personnalisée"]]),
+      num("pv.bat.v","Tension d'une batterie","V",0.1),num("pv.bat.ah","Capacité d'une batterie","Ah",1),num("pv.bat.dod","Décharge maximale","%",5),
+      num("pv.autonomie","Autonomie sans soleil","jours",0.5),sel("pv.vsys","Tension du système",[["auto","Automatique"],["12","12 V"],["24","24 V"],["48","48 V"]])]},
+    {t:"Panneaux solaires",f:panelF()},
+    {t:"Onduleur et régulateur",f:[sel("pv.archi","Architecture",[["hybride","Onduleur hybride (MPPT intégré)"],["separe","Onduleur + régulateur MPPT séparés"]]),
+      num("pv.vocMax","Tension PV max du MPPT","V",1),num("pv.vmpMin","Tension MPPT minimale (0 = auto)","V",1),
+      num("pv.etaInv","Rendement onduleur","",0.01),num("pv.pr","Coefficient de pertes PV","",0.01),num("pv.simult","Coefficient de simultanéité","",0.05)]},
+    {t:"Longueurs de câbles",f:[num("pv.L.str","Chaîne PV → coffret DC","m",1),num("pv.L.pv","Coffret DC → régulateur / onduleur","m",1),
+      num("pv.L.reg","Régulateur → batteries","m",0.5),num("pv.L.bat","Batteries → onduleur","m",0.5),num("pv.L.ac","Onduleur → tableau AC","m",1),
+      num("pv.du.pv","Chute de tension DC PV","%",0.5),num("pv.du.bat","Chute de tension batterie","%",0.5),num("pv.du.ac","Chute de tension AC","%",0.5)]},
+    {t:"Structure (cadres)",f:structF("pv")}],
+  pump:[
+    {t:"Besoin en eau",open:true,f:[num("pump.q","Volume d'eau par jour","m³/j",1),num("pump.res","Réserve du château d'eau","jours",0.5)]},
+    {t:"Forage et réservoir",open:true,f:[num("pump.ndyn","Niveau dynamique","m",1),num("pump.inst","Profondeur de la pompe","m",1),
+      num("pump.hres","Hauteur d'arrivée au réservoir","m",0.5),num("pump.dist","Distance forage → réservoir","m",5)]},
+    {t:"Conduite",open:true,f:[sel("pump.mat","Matériau",[["150","PEHD / PVC"],["120","Acier galvanisé"]]),num("pump.d","Diamètre intérieur","mm",1)]},
+    {t:"Pompe et variateur",f:[sel("pump.type","Type de pompe",[["tri","AC triphasée 380 V"],["mono","AC monophasée 230 V"],["dc","Pompe DC"]]),
+      num("pump.udc","Tension de la pompe DC","V",1),num("pump.eta","Rendement moto-pompe","",0.01),num("pump.cos","cos φ du moteur","",0.01),
+      num("pump.fp","Coefficient de pertes PV","",0.01),num("pump.vmpMin","Tension MPPT minimale","V",1),num("pump.vocMax","Tension PV max du variateur","V",1)]},
+    {t:"Panneaux solaires",f:panelF()},
+    {t:"Câbles",f:[num("pump.lpv","Champ PV → variateur","m",1),num("pump.lcab","Variateur → tête de forage","m",1),num("pump.du","Chute de tension max","%",0.5)]},
+    {t:"Structure (cadres)",f:structF("pump")}]
+};
+function fieldHTML(x,scope){
+  const id=`in-${scope}-${x.k.replace(/\./g,"-")}`;
+  if(x.o)return `<label class="f" for="${id}"><span>${x.l}</span><div class="in"><select id="${id}" data-k="${x.k}">${x.o.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("")}</select></div></label>`;
+  return `<label class="f" for="${id}"><span>${x.l}</span><div class="in"><input id="${id}" data-k="${x.k}" type="number" step="${x.step}" inputmode="decimal">${x.u?`<em>${x.u}</em>`:""}</div></label>`;
+}
+function buildForms(){
+  $("siteBar").innerHTML=[sel("site.city","Ville",[...Object.keys(CITIES).map(c=>[c,c]),["custom","Autre lieu"]]),
+    num("site.hsp","Ensoleillement","kWh/m²/j",0.1),num("site.lat","Latitude","°",0.1)].map(x=>fieldHTML(x,"site")).join("")+
+    `<div class="hint">Ensoleillement moyen annuel indicatif. Pour un site autonome, prenez de préférence la valeur du mois le moins ensoleillé (PVGIS).</div>`;
+  for(const tab of ["pv","pump"]){
+    $("f-"+tab).innerHTML=FORMS[tab].map((s,i)=>`<details class="sec" ${s.open?"open":""}><summary>${s.t}</summary>${s.loads?`<div class="loads" id="loads"></div>`:`<div class="fields">${s.f.map(x=>fieldHTML(x,tab)).join("")}</div>`}</details>`).join("");
+  }
+  renderLoads();
+}
+function syncInputs(skip){
+  document.querySelectorAll("[data-k]").forEach(el=>{if(el===skip)return;const v=getP(S,el.dataset.k);if(v!==undefined&&String(el.value)!==String(v))el.value=v});
+}
+function onField(el){
+  const k=el.dataset.k, raw=el.value;
+  const v=el.tagName==="SELECT"?raw:(raw===""?0:parseFloat(raw.replace(",",".")));
+  if(el.tagName!=="SELECT"&&!isFinite(v))return;
+  setP(S,k,v);
+  if(k==="site.city"&&CITIES[v]){S.site.hsp=CITIES[v][0];S.site.lat=CITIES[v][1]}
+  else if(k==="site.hsp"||k==="site.lat")S.site.city="custom";
+  if(k==="panel.model"&&PANELS[v]){const {n,...d}=PANELS[v];Object.assign(S.panel,d)}
+  else if(k.startsWith("panel.")&&k!=="panel.model")S.panel.model="custom";
+  if(k==="pv.bat.model"&&BATS[v]){const {n,...d}=BATS[v];Object.assign(S.pv.bat,d)}
+  else if(k.startsWith("pv.bat.")&&k!=="pv.bat.model")S.pv.bat.model="custom";
+  if(k==="pv.archi")Object.assign(S.pv,v==="hybride"?{vocMax:500,vmpMin:120}:{vocMax:150,vmpMin:0});
+  if(k==="pump.type")Object.assign(S.pump,{tri:{vmpMin:450,vocMax:800},mono:{vmpMin:250,vocMax:450},dc:{vmpMin:Math.round(S.pump.udc*1.2),vocMax:200}}[v]);
+  syncInputs(el.tagName==="SELECT"?null:el);
+  refresh();
+}
+
+/* Appareils */
+function renderLoads(){
+  const L=S.pv.loads;
+  $("loads").innerHTML=`<div class="lrow head"><span>Appareil</span><span>Watts</span><span>Qté</span><span>h/jour</span><span title="Coefficient de démarrage (moteurs, compresseurs : 3)">Démar.</span><span></span></div>`+
+    L.map((l,i)=>`<div class="lrow">
+      <input id="ld-${i}-0" aria-label="Appareil" value="${esc(l[0])}" data-l="${i},0">
+      <input id="ld-${i}-1" aria-label="Puissance (W)" type="number" inputmode="decimal" value="${l[1]}" data-l="${i},1">
+      <input id="ld-${i}-2" aria-label="Quantité" type="number" inputmode="numeric" value="${l[2]}" data-l="${i},2">
+      <input id="ld-${i}-3" aria-label="Heures par jour" type="number" step="0.5" inputmode="decimal" value="${l[3]}" data-l="${i},3">
+      <input id="ld-${i}-4" aria-label="Coefficient de démarrage" type="number" step="0.5" inputmode="decimal" value="${l[4]}" data-l="${i},4">
+      <button class="x" data-del="${i}" aria-label="Supprimer ${esc(l[0])}">×</button></div>`).join("")+
+    `<div class="ltot" id="ltot"></div>
+     <div><button class="btn sm" id="addLoad">+ Ajouter un appareil</button></div>
+     <div class="chips">${QUICK.map((q,i)=>`<button class="chip" data-quick="${i}">+ ${q[0]} ${q[1]} W</button>`).join("")}</div>
+     <p class="note">« Démar. » : pointe au démarrage (1 pour l'éclairage, 2 pour un ventilateur, 3 pour un réfrigérateur, une pompe ou un climatiseur).</p>`;
+}
+
+/* ================= Rendu des résultats ================= */
+const rowsKV=rows=>`<div class="tw"><table><tbody>${rows.map(([k,v])=>`<tr><td class="k">${k}</td><td class="v">${v}</td></tr>`).join("")}</tbody></table></div>`;
+const alertsHTML=W=>W.length?`<div class="alerts">${W.map(([c,t])=>`<div class="al ${c}">${esc(t)}</div>`).join("")}</div>`:`<div class="alerts"><div class="al ok">Dimensionnement cohérent : aucune alerte.</div></div>`;
+function cablesHTML(C){
+  return `<div class="tw"><table><thead><tr><th>Liaison</th><th class="n">Courant</th><th class="n">Longueur</th><th class="n">Calculée</th><th class="n">Retenue</th><th class="n">Chute réelle</th></tr></thead><tbody>${
+    C.map(c=>`<tr><td>${c.nom}<br><span class="muted" style="font-size:.78rem">${fmt(c.U)} V · max ${fmt(c.du,1)} %</span></td><td class="n">${fmt(c.I,1)} A</td><td class="n">${fmt(c.L,1)} m</td><td class="n">${fmt(c.sCalc,2)} mm²</td><td class="n"><span class="tag">${c.s?fs(c.s)+" mm²":"—"}</span></td><td class="n">${c.real!=null?fmt(c.real,2)+" %":"—"}</td></tr>`).join("")}</tbody></table></div>
+    <p class="note">Section = ρ × k × L × I / ΔU avec ρ = 0,0225 Ω·mm²/m (cuivre à chaud), puis vérification du courant admissible et du calibre de la protection.</p>`;
+}
+function protHTML(P){return `<div class="tw"><table><thead><tr><th>Protection</th><th>Calibre</th><th>Rôle / remarque</th></tr></thead><tbody>${P.map(([a,b,c])=>`<tr><td>${a}</td><td><span class="tag">${b}</span></td><td class="muted">${c}</td></tr>`).join("")}</tbody></table></div>`}
+function structHTML(s,pn){
+  if(!s)return "";
+  return `<div class="blk"><h3>Structure et cadres <small>${s.rows} rangée(s)</small></h3>${rowsKV([
+    ["Orientation · inclinaison",`${s.face} · ${s.tilt}°`],
+    ["Disposition",`${s.rows} rangée(s) de ${s.per} panneau(x)`],
+    ["Longueur de rangée la plus grande",`${fmt(s.maxLen,2)} m`],
+    ["Hauteur du bord haut",`${fmt(s.hRear,2)} m`],
+    ["Écart entre rangées (sans ombrage à midi)",`${fmt(s.pitch,2)} m`],
+    ["Surface au sol",`${fmt(s.area,1)} m²`],
+    ["Portiques (tous les 1,5 m max.)",`${s.port}`],
+    ["Rails aluminium (barres de 4,2 m)",`${s.railBars} barres · ${fmt(s.rails,1)} m`],
+    ["Cornière acier 40×40×4 (barres de 6 m)",`${s.steelBars} barres · ${fmt(s.steel,1)} m`],
+    ["Brides intermédiaires / d'extrémité",`${s.mid} / ${s.end}`],
+    ["Ancrages (platines + chevilles)",`${s.anchors}`],
+    ["Boulons M10 galvanisés",`${s.bolts}`]])}
+    <p class="note">Laissez 2 cm entre panneaux. Les panneaux s'orientent vers l'équateur ; une inclinaison d'au moins 15° permet à la pluie de les nettoyer.</p></div>`;
+}
+
+function renderPV(){
+  const r=calcPV(),pn=S.panel,b=S.pv.bat,p=S.pv;
+  const cov=r.Ej?Math.min(200,r.prod/r.Ej*100):0;
+  $("ltot")&&($("ltot").innerHTML=`Total : <b class="num">${fmt(r.Ej)} Wh/jour</b> · puissance installée ${fmt(r.Pt)} W`);
+  $("r-pv").innerHTML=`
+  <div class="sheet-h"><div><h2>${esc(S.project.name||"Site autonome")}</h2><p>${S.site.city==="custom"?"Lieu personnalisé":esc(S.site.city)} · ${fmt(S.site.hsp,1)} kWh/m²/j · système ${r.vsys} V</p></div>
+    <button class="btn sm" id="copyPV">Copier le rapport</button></div>
+  <div class="stats">
+    <div class="stat k-sun"><span>Consommation</span><b>${fmt(r.Ej)} Wh</b><i>par jour</i></div>
+    <div class="stat k-pv"><span>Panneaux</span><b>${r.st.err?"À revoir":r.N+" × "+fmt(pn.p)+" W"}</b><i>${r.st.err?"montage impossible, voir l'alerte":fmt(r.Pinst/1000,2)+" kWc · "+r.ns+" S × "+r.np+" P"}</i></div>
+    <div class="stat"><span>Batteries</span><b>${r.nbBat} × ${fmt(b.ah)} Ah</b><i>${fmt(b.v,1)} V · ${fmt(r.Ebat,1)} kWh stockés</i></div>
+    <div class="stat"><span>Onduleur</span><b>${fmt(r.Pinv)} W</b><i>${r.hyb?"hybride ":""}${r.vsys} V / 230 V</i></div>
+    <div class="stat"><span>${r.hyb?"MPPT de l'onduleur":"Régulateur MPPT"}</span><b>${r.nReg>1?r.nReg+" × ":""}${r.reg} A</b><i>Voc ≤ ${fmt(p.vocMax)} V</i></div>
+  </div>
+  ${alertsHTML(r.W)}
+  <div class="blk"><h3>Bilan énergétique</h3>
+    <div class="bar" title="Production estimée / consommation"><div style="width:${Math.min(100,cov/2)}%;background:var(--sun)"></div></div>
+    <div class="legend"><span><i style="background:var(--sun)"></i>Production estimée ${fmt(r.prod)} Wh/j, soit ${fmt(cov)} % du besoin (la barre pleine correspond à 200 %)</span></div>
+    ${rowsKV([["Puissance des appareils",`${fmt(r.Pt)} W`],["Puissance simultanée (× "+fmt(p.simult,2)+")",`${fmt(r.Psim)} W`],["Pointe au démarrage",`${fmt(r.Ppk)} W`]])}</div>
+  <div class="blk"><h3>Champ photovoltaïque <small>Pc = E / (HSP × K)</small></h3>${rowsKV([
+    ["Puissance crête nécessaire",`${fmt(r.Pc)} Wc`],["Panneaux minimum",`${r.Nmin}`],
+    ["Montage retenu",r.st.err?"Impossible : voir l'alerte":`${r.ns} en série × ${r.np} en parallèle = ${r.N} panneaux`],
+    ["Panneaux en série possibles",r.st.err?"—":`de ${r.st.nsMin} à ${r.st.nsMax}`],
+    ["Voc d'une chaîne (à froid, +10 %)",`${fmt(r.ns*pn.voc*1.1,1)} V`],["Vmp d'une chaîne",`${fmt(r.ns*pn.vmp,1)} V`],
+    ["Courant Isc total",`${fmt(r.np*pn.isc,1)} A`],["Puissance installée",`${fmt(r.Pinst)} Wc`]])}</div>
+  <div class="blk"><h3>Parc de batteries <small>C = E × N / (DoD × U × η)</small></h3>${rowsKV([
+    ["Capacité nécessaire",`${fmt(r.Cneed)} Ah sous ${r.vsys} V`],
+    ["Montage",`${r.nbS} en série × ${r.nbP} en parallèle = ${r.nbBat} batteries`],
+    ["Capacité installée",`${fmt(r.Cinst)} Ah sous ${r.vsys} V`],
+    ["Énergie stockée / utilisable",`${fmt(r.Ebat,1)} kWh / ${fmt(r.Eutil,1)} kWh`],
+    ["Autonomie réelle sans soleil",`${fmt(r.autoReal,1)} jour(s)`]])}</div>
+  <div class="blk"><h3>Onduleur et régulateur</h3>${rowsKV([
+    ["Onduleur recommandé",`${fmt(r.Pinv)} W · pointe ≥ ${fmt(r.Ppk)} W`],
+    ["Courant côté batteries",`${fmt(r.Ibat)} A`],["Courant de sortie AC",`${fmt(r.Iac,1)} A`],
+    ["Courant de charge MPPT",`${fmt(r.Ireg)} A → ${r.nReg>1?r.nReg+" × ":""}${r.reg} A`],
+    ["Plage MPPT requise",`${fmt(r.vmpMin)} à ${fmt(p.vocMax)} V`]])}</div>
+  <div class="blk"><h3>Câblage</h3>${cablesHTML(r.C)}</div>
+  <div class="blk"><h3>Protections</h3>${protHTML(r.P)}</div>
+  ${structHTML(r.S,pn)}`;
+  $("copyPV").onclick=()=>copyText(reportPV(r));
+}
+
+function renderPump(){
+  const r=calcPump(),pn=S.panel,u=S.pump;
+  const typ={tri:"triphasée 380 V",mono:"monophasée 230 V",dc:`DC ${u.udc} V`}[u.type];
+  $("r-pump").innerHTML=`
+  <div class="sheet-h"><div><h2>${esc(S.project.name||"Pompage solaire")}</h2><p>${S.site.city==="custom"?"Lieu personnalisé":esc(S.site.city)} · ${fmt(S.site.hsp,1)} kWh/m²/j · ${fmt(u.q)} m³/jour</p></div>
+    <button class="btn sm" id="copyPump">Copier le rapport</button></div>
+  <div class="stats">
+    <div class="stat k-w"><span>Hauteur manométrique</span><b>${fmt(r.HMT,1)} m</b><i>HMT totale</i></div>
+    <div class="stat k-w"><span>Débit de la pompe</span><b>${fmt(r.Qh,2)} m³/h</b><i>sur ${fmt(S.site.hsp,1)} h équivalentes</i></div>
+    <div class="stat"><span>Pompe immergée</span><b>${fmt(r.Pmot,2)} kW</b><i>${typ}</i></div>
+    <div class="stat k-pv"><span>Panneaux</span><b>${r.st.err?"À revoir":r.N+" × "+fmt(pn.p)+" W"}</b><i>${r.st.err?"montage impossible, voir l'alerte":fmt(r.Pinst/1000,2)+" kWc · "+r.ns+" S × "+r.np+" P"}</i></div>
+    <div class="stat"><span>Château d'eau</span><b>${fmt(r.res,1)} m³</b><i>${fmt(u.res,1)} jour(s) de réserve</i></div>
+  </div>
+  ${alertsHTML(r.W)}
+  <div class="blk"><h3>Hydraulique <small>HMT = Hg + pertes</small></h3>
+    <div class="bar"><div style="width:${r.HMT?u.ndyn/r.HMT*100:0}%;background:var(--water)"></div><div style="width:${r.HMT?u.hres/r.HMT*100:0}%;background:var(--pv)"></div><div style="width:${r.HMT?r.J/r.HMT*100:0}%;background:var(--warn)"></div></div>
+    <div class="legend"><span><i style="background:var(--water)"></i>Niveau dynamique ${fmt(u.ndyn)} m</span><span><i style="background:var(--pv)"></i>Réservoir ${fmt(u.hres,1)} m</span><span><i style="background:var(--warn)"></i>Pertes de charge ${fmt(r.J,1)} m</span></div>
+    ${rowsKV([["Hauteur géométrique",`${fmt(r.Hg,1)} m`],["Longueur de conduite",`${fmt(r.Lp)} m`],["Pertes de charge (Hazen-Williams + 10 %)",`${fmt(r.J,2)} m`],
+      ["Vitesse de l'eau",`${fmt(r.v,2)} m/s`],["Énergie hydraulique",`${fmt(r.Ehyd)} Wh/j`],["Puissance hydraulique",`${fmt(r.Phyd)} W`],["Puissance électrique absorbée",`${fmt(r.Pel)} W`]])}</div>
+  <div class="blk"><h3>Pompe et variateur</h3>${rowsKV([
+    ["Pompe à choisir",`${fmt(r.Pmot,2)} kW · ${fmt(r.Qh,2)} m³/h à ${fmt(r.HMT,1)} m`],
+    ["Variateur / contrôleur solaire",`${fmt(r.Pmot,2)} kW minimum`],["Courant moteur estimé",`${fmt(r.Im,1)} A`]])}
+    <p class="note">Vérifiez sur la courbe du fabricant que la pompe donne bien ${fmt(r.Qh,2)} m³/h à ${fmt(r.HMT,1)} m de HMT.</p></div>
+  <div class="blk"><h3>Champ photovoltaïque</h3>${rowsKV([
+    ["Puissance pour le volume d'eau",`${fmt(r.Pc1)} Wc`],["Puissance pour le démarrage (1,3 × moteur)",`${fmt(r.Pc2)} Wc`],
+    ["Montage retenu",r.st.err?"Impossible : voir l'alerte":`${r.ns} en série × ${r.np} en parallèle = ${r.N} panneaux`],
+    ["Panneaux en série possibles",r.st.err?"—":`de ${r.st.nsMin} à ${r.st.nsMax}`],
+    ["Voc d'une chaîne (à froid, +10 %)",`${fmt(r.ns*pn.voc*1.1,1)} V`],["Vmp d'une chaîne",`${fmt(r.ns*pn.vmp,1)} V`],
+    ["Puissance installée",`${fmt(r.Pinst)} Wc`]])}</div>
+  <div class="blk"><h3>Câblage</h3>${cablesHTML(r.C)}</div>
+  <div class="blk"><h3>Protections</h3>${protHTML(r.P)}</div>
+  ${structHTML(r.S,pn)}`;
+  $("copyPump").onclick=()=>copyText(reportPump(r));
+}
+
+/* ================= Rapports texte ================= */
+const lieu=()=>S.site.city==="custom"?"Lieu personnalisé":S.site.city;
+function reportPV(r){
+  const pn=S.panel,b=S.pv.bat;
+  return ["DIALLO DIMEN SOL/POM",`DIMENSIONNEMENT SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
+  `Site : ${lieu()} · ${fmt(S.site.hsp,1)} kWh/m²/j · latitude ${fmt(S.site.lat,1)}°`,"",
+  `Besoins : ${fmt(r.Ej)} Wh/jour · puissance simultanée ${fmt(r.Psim)} W · pointe ${fmt(r.Ppk)} W`,
+  `Panneaux : ${r.N} × ${pn.p} Wc (${r.ns} série × ${r.np} parallèle) = ${fmt(r.Pinst)} Wc`,
+  `Batteries : ${r.nbBat} × ${fmt(b.v,1)} V ${b.ah} Ah (${r.nbS} série × ${r.nbP} parallèle) = ${fmt(r.Ebat,1)} kWh`,
+  `Onduleur : ${fmt(r.Pinv)} W ${r.hyb?"hybride ":""}${r.vsys} V`,
+  `Régulateur MPPT : ${r.nReg>1?r.nReg+" × ":""}${r.reg} A${r.hyb?" (intégré à l'onduleur)":""}`,"",
+  "Câbles :",...r.C.map(c=>`- ${c.nom} : ${c.s?fs(c.s)+" mm²":"?"} sur ${fmt(c.L,1)} m`),"",
+  "Protections :",...r.P.map(p=>`- ${p[0]} : ${p[1]}`),"",
+  r.S?`Structure : ${r.S.rows} rangée(s) de ${r.S.per}, ${r.S.face}, inclinaison ${r.S.tilt}°, ${r.S.railBars} rails 4,2 m, ${r.S.steelBars} cornières 6 m`:""].join("\n");
+}
+function reportPump(r){
+  const pn=S.panel,u=S.pump;
+  return ["DIALLO DIMEN SOL/POM",`POMPAGE SOLAIRE — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,
+  `Site : ${lieu()} · ${fmt(S.site.hsp,1)} kWh/m²/j`,"",
+  `Besoin : ${fmt(u.q)} m³/jour · HMT ${fmt(r.HMT,1)} m (niveau ${u.ndyn} m + réservoir ${u.hres} m + pertes ${fmt(r.J,1)} m)`,
+  `Pompe : ${fmt(r.Pmot,2)} kW, ${fmt(r.Qh,2)} m³/h à ${fmt(r.HMT,1)} m`,
+  `Variateur solaire : ${fmt(r.Pmot,2)} kW`,
+  `Panneaux : ${r.N} × ${pn.p} Wc (${r.ns} série × ${r.np} parallèle) = ${fmt(r.Pinst)} Wc`,
+  `Conduite : Ø${u.d} mm intérieur sur ${fmt(r.Lp)} m · vitesse ${fmt(r.v,2)} m/s`,
+  `Réservoir : ${fmt(r.res,1)} m³`,"",
+  "Câbles :",...r.C.map(c=>`- ${c.nom} : ${c.s?fs(c.s)+" mm²":"?"} sur ${fmt(c.L,1)} m`),"",
+  "Protections :",...r.P.map(p=>`- ${p[0]} : ${p[1]}`),"",
+  r.S?`Structure : ${r.S.rows} rangée(s) de ${r.S.per}, ${r.S.face}, inclinaison ${r.S.tilt}°`:""].join("\n");
+}
+
+/* ================= Liste de matériel ================= */
+function structBom(add,s){
+  if(!s)return;
+  add("rail","Rail aluminium 4,2 m",s.railBars,"barre");
+  add("corniere","Cornière acier galvanisé 40×40×4 (6 m)",s.steelBars,"barre");
+  add("bride-mid","Bride intermédiaire",s.mid,"u");
+  add("bride-end","Bride d'extrémité",s.end,"u");
+  add("ancrage","Platine d'ancrage + chevilles",s.anchors,"u");
+  add("boulon","Boulon M10 galvanisé",s.bolts,"u");
+}
+function bom(src){
+  const L=[],idx={};
+  const add=(key,n,q,u)=>{if(!q)return;q=Math.ceil(q*10)/10;if(idx[key]!==undefined){L[idx[key]].q+=q}else{idx[key]=L.length;L.push({key,n,q,u})}};
+  const pn=S.panel;
+  const cab=(c,mult,extra)=>c.s&&add(`cable-${c.type}-${c.s}`,{solaire:`Câble solaire ${fs(c.s)} mm² (rouge + noir)`,batterie:`Câble souple ${fs(c.s)} mm² (rouge + noir)`,ac:`Câble 3G${fs(c.s)} mm²`,"immergé":extra}[c.type]||c.nom,Math.ceil(c.L*mult),"m");
+  if(src==="pv"){
+    const r=calcPV(),b=S.pv.bat,p=S.pv;
+    add("panel-"+pn.p,`Panneau solaire ${pn.p} Wc`,r.N,"u");
+    add(`bat-${b.v}-${b.ah}`,`Batterie ${fmt(b.v,1)} V ${b.ah} Ah`,r.nbBat,"u");
+    if(r.hyb)add(`ondh-${r.Pinv}-${r.vsys}`,`Onduleur hybride ${fmt(r.Pinv)} W ${r.vsys} V (MPPT ≥ ${r.reg} A, Voc ≥ ${fmt(r.ns*pn.voc*1.1)} V)`,1,"u");
+    else{add(`ond-${r.Pinv}-${r.vsys}`,`Onduleur ${fmt(r.Pinv)} W ${r.vsys} V pur sinus`,1,"u");add(`reg-${r.reg}`,`Régulateur MPPT ${r.reg} A ${r.vsys} V (Voc ≥ ${fmt(r.ns*pn.voc*1.1)} V)`,r.nReg,"u")}
+    r.C.forEach(c=>cab(c,c.id==="str"?2*r.np:c.id==="ac"?1:2));
+    if(r.nbBat>1){const c=r.C.find(x=>x.id==="bat");c&&c.s&&add(`liaison-${c.s}`,`Câble de liaison batteries ${fs(c.s)} mm² avec cosses`,r.nbBat,"u")}
+    add("mc4","Connecteurs MC4 (paires)",r.np*2+2,"paire");
+    if(r.fuse)add(`fgpv-${r.fuse}`,`Fusible gPV ${r.fuse} A 1000 V + porte-fusible`,r.np*2,"u");
+    add(`sect-${r.bPV}-${r.Udc}`,`Interrupteur-sectionneur DC ${r.bPV} A ${r.Udc} V`,1,"u");
+    add(`spddc-${r.Udc}`,`Parafoudre DC type 2 ${r.Udc} V`,1,"u");
+    if(!r.hyb)add(`dcb-${r.bReg}`,`Disjoncteur DC ${r.bReg} A (régulateur → batteries)`,r.nReg,"u");
+    add(`dcb-${r.bBat}`,`Disjoncteur ou fusible DC ${r.bBat} A (batteries)`,1,"u");
+    add(`acb-${r.bAC}`,`Disjoncteur AC ${r.bAC} A courbe C`,1,"u");
+    add(`ddr-${r.ddr}`,`Interrupteur différentiel ${r.ddr} A 30 mA type A`,1,"u");
+    add("spdac","Parafoudre AC type 2 230 V",1,"u");
+    add("coffret-dc","Coffret DC étanche IP65",1,"u");add("coffret-ac","Coffret / tableau AC",1,"u");
+    add("terre","Piquet de terre 1,5 m + raccord",1,"u");add("vj16","Câble vert-jaune 16 mm²",10,"m");
+    r.S&&add("vj6","Câble vert-jaune 6 mm² (masses)",Math.ceil(r.S.frameLen+10),"m");
+    structBom(add,r.S);
+  }else{
+    const r=calcPump(),u=S.pump,typ={tri:"triphasée 380 V",mono:"monophasée 230 V",dc:`DC ${u.udc} V`}[u.type];
+    const cores=u.type==="tri"?"4G":u.type==="mono"?"3G":"2×";
+    add(`pompe-${r.Pmot}`,`Pompe immergée ${fmt(r.Pmot,2)} kW ${typ} · ${fmt(r.Qh,1)} m³/h à ${fmt(r.HMT)} m`,1,"u");
+    add(`var-${r.Pmot}`,`Variateur solaire de pompe ${fmt(r.Pmot,2)} kW`,1,"u");
+    add("panel-"+pn.p,`Panneau solaire ${pn.p} Wc`,r.N,"u");
+    r.C.forEach(c=>cab(c,c.id==="pv"?2:1,`Câble immergé ${cores}${fs(c.s)} mm²`));
+    add(`conduite-${u.mat}-${u.d}`,`Conduite ${u.mat==="120"?"acier galvanisé":"PEHD"} Ø${u.d} mm intérieur`,Math.ceil(r.Lp),"m");
+    add(`reservoir-${r.res}`,`Réservoir / château d'eau ${fmt(r.res,1)} m³`,1,"u");
+    add("sonde","Sonde de niveau bas (marche à sec)",1,"u");add("flotteur","Flotteur de réservoir plein",1,"u");
+    add("corde","Câble inox de sécurité de la pompe",Math.ceil(u.inst+5),"m");
+    add("clapet","Clapet anti-retour + vanne",1,"u");add("compteur","Compteur d'eau",1,"u");
+    add("mc4","Connecteurs MC4 (paires)",r.np*2+2,"paire");
+    if(r.fuse)add(`fgpv-${r.fuse}`,`Fusible gPV ${r.fuse} A 1000 V + porte-fusible`,r.np*2,"u");
+    add(`sect-${r.bPV}-${r.Udc}`,`Interrupteur-sectionneur DC ${r.bPV} A ${r.Udc} V`,1,"u");
+    add(`spddc-${r.Udc}`,`Parafoudre DC type 2 ${r.Udc} V`,1,"u");
+    add("coffret-dc","Coffret DC étanche IP65",1,"u");
+    add("terre","Piquet de terre 1,5 m + raccord",1,"u");add("vj16","Câble vert-jaune 16 mm²",10,"m");
+    r.S&&add("vj6","Câble vert-jaune 6 mm² (masses)",Math.ceil(r.S.frameLen+10),"m");
+    structBom(add,r.S);
+  }
+  S.extra.forEach((e,i)=>add("extra-"+i,e[0],+e[1]||0,e[2]));
+  return L;
+}
+function renderBom(){
+  const L=bom(S.bomSrc);let tot=0;
+  const rows=L.map(it=>{const pr=+PRICES[it.key]||0,t=pr*it.q;tot+=t;
+    const isExtra=it.key.startsWith("extra-"),i=isExtra?+it.key.slice(6):-1;
+    return `<tr><td>${isExtra?`<input class="price" style="width:100%;text-align:left" id="ex-n-${i}" data-ex="${i},0" value="${esc(it.n)}">`:esc(it.n)}</td>
+      <td class="n">${isExtra?`<input class="qty" id="ex-q-${i}" data-ex="${i},1" type="number" value="${it.q}">`:fmt(it.q,it.q%1?1:0)} ${esc(pl(it))}</td>
+      <td class="n"><input class="price" id="pr-${esc(it.key)}" data-price="${esc(it.key)}" type="number" inputmode="decimal" value="${pr||""}" placeholder="0"></td>
+      <td class="n num">${t?fmt(t):"—"}</td><td>${isExtra?`<button class="x btn sm danger" data-exdel="${i}" aria-label="Supprimer la ligne">×</button>`:""}</td></tr>`}).join("");
+  $("v-bom").innerHTML=`<div class="panel">
+    <div class="row" style="justify-content:space-between">
+      <div><h2 style="font-size:1.4rem">Liste de matériel et devis</h2><p class="muted" style="margin:2px 0 0">${esc(S.project.name)}${S.project.client?" · "+esc(S.project.client):""}. Les prix sont gardés sur cet appareil.</p></div>
+      <div class="row">
+        <div class="seg" role="group" aria-label="Installation"><button data-src="pv" aria-pressed="${S.bomSrc==="pv"}">Site autonome</button><button data-src="pump" aria-pressed="${S.bomSrc==="pump"}">Pompage</button></div>
+        <label class="f" for="cur"><span>Devise</span><div class="in"><select id="cur">${CURRENCIES.map(c=>`<option ${c===CUR?"selected":""}>${c}</option>`).join("")}</select></div></label>
+      </div></div>
+    <div class="tw" style="margin-top:14px"><table><thead><tr><th>Désignation</th><th class="n">Quantité</th><th class="n">Prix unitaire</th><th class="n">Total (${CUR})</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="row" style="justify-content:space-between;margin-top:14px">
+      <div class="row"><button class="btn sm" id="addExtra">+ Ligne libre</button><button class="btn sm" id="copyBom">Copier le devis</button></div>
+      <div style="text-align:right"><span class="muted">Total</span><div class="total" id="bomTotal">${fmt(tot)} ${CUR}</div></div></div>
+    <p class="note">Quantités de câbles en aller-retour, sans chutes : ajoutez 10 % à la commande.</p></div>`;
+}
+function bomText(){
+  const L=bom(S.bomSrc);let tot=0;
+  const lines=L.map(it=>{const pr=+PRICES[it.key]||0,t=pr*it.q;tot+=t;return `- ${it.n} : ${fmt(it.q,it.q%1?1:0)} ${pl(it)}${pr?` × ${fmt(pr)} = ${fmt(t)} ${CUR}`:""}`});
+  return ["DIALLO DIMEN SOL/POM",`DEVIS — ${S.project.name}${S.project.client?" ("+S.project.client+")":""}`,`${S.bomSrc==="pv"?"Installation solaire autonome":"Pompage solaire"} · ${new Date().toLocaleDateString("fr-FR")}`,"",...lines,"",`TOTAL : ${fmt(tot)} ${CUR}`].join("\n");
+}
+
+/* ================= Projets ================= */
+let pendingDel=null;
+function renderProj(){
+  const list=store.get("sd.projects",[]);
+  $("v-proj").innerHTML=`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+   <div class="panel"><h2 style="font-size:1.4rem">Projet en cours</h2>
+     <div class="fields" style="padding:12px 0 0">
+       <label class="f" for="pj-name"><span>Nom du projet</span><div class="in"><input id="pj-name" value="${esc(S.project.name)}"></div></label>
+       <label class="f" for="pj-client"><span>Client</span><div class="in"><input id="pj-client" value="${esc(S.project.client)}"></div></label></div>
+     <div class="row" style="margin-top:12px"><button class="btn pri" id="pjSave">Enregistrer le projet</button><button class="btn" id="pjNew">Nouveau projet</button></div>
+     <h3 style="font-size:1.1rem;margin-top:22px">Transférer vers un autre appareil</h3>
+     <p class="note" style="margin-top:2px">Copiez le code du projet, envoyez-le (WhatsApp, e-mail), puis collez-le ici sur l'autre téléphone ou ordinateur.</p>
+     <div class="row" style="margin:8px 0"><button class="btn sm" id="pjCopy">Copier le code du projet</button></div>
+     <label class="f" for="pj-import"><span>Coller un code de projet</span><textarea id="pj-import" placeholder="Collez ici le code copié…"></textarea></label>
+     <div class="row" style="margin-top:8px"><button class="btn sm" id="pjImport">Importer</button></div>
+   </div>
+   <div class="panel"><h2 style="font-size:1.4rem">Projets enregistrés <span class="muted" style="font:500 .9rem var(--f-body)">sur cet appareil</span></h2>
+     <div class="plist">${list.length?list.map(p=>`<div class="pitem"><div><b>${esc(p.name)}</b><small>${esc(p.client||"Sans client")} · ${new Date(p.date).toLocaleDateString("fr-FR")}</small></div>
+       <div class="row"><button class="btn sm" data-load="${p.id}">Ouvrir</button><button class="btn sm danger" data-del-p="${p.id}">${pendingDel===p.id?"Confirmer la suppression":"Supprimer"}</button></div></div>`).join("")
+       :`<p class="muted">Aucun projet enregistré. Remplissez un dimensionnement puis cliquez sur « Enregistrer le projet ».</p>`}</div></div></div>`;
+}
+
+/* ================= Navigation et événements ================= */
+function refresh(){
+  saveDraft();
+  if(S.tab==="pv")renderPV();else if(S.tab==="pump")renderPump();else if(S.tab==="bom")renderBom();else renderProj();
+}
+function showTab(t){
+  S.tab=t;
+  ["pv","pump","bom","proj"].forEach(x=>{$("v-"+x).hidden=x!==t;$("tab-"+x).setAttribute("aria-selected",x===t)});
+  document.querySelector(".site").hidden=!(t==="pv"||t==="pump");
+  refresh();
+}
+document.addEventListener("input",e=>{
+  const el=e.target;
+  if(el.dataset.k&&el.tagName!=="SELECT")return onField(el);
+  if(el.dataset.l){const [i,j]=el.dataset.l.split(",").map(Number);S.pv.loads[i][j]=j===0?el.value:(parseFloat(el.value)||0);refresh();return}
+  if(el.dataset.price!==undefined){PRICES[el.dataset.price]=parseFloat(el.value)||0;store.set("sd.prices",PRICES);
+    const L=bom(S.bomSrc);const tot=L.reduce((a,it)=>a+(+PRICES[it.key]||0)*it.q,0);$("bomTotal").textContent=`${fmt(tot)} ${CUR}`;
+    const td=el.closest("tr").children[3];const it=L.find(x=>x.key===el.dataset.price);td.textContent=it&&PRICES[it.key]?fmt(PRICES[it.key]*it.q):"—";return}
+  if(el.dataset.ex){const [i,j]=el.dataset.ex.split(",").map(Number);S.extra[i][j]=j===1?(parseFloat(el.value)||0):el.value;saveDraft();return}
+  if(el.id==="pj-name"){S.project.name=el.value;saveDraft()}
+  if(el.id==="pj-client"){S.project.client=el.value;saveDraft()}
+});
+document.addEventListener("change",e=>{
+  const el=e.target;
+  if(el.dataset.k&&el.tagName==="SELECT")return onField(el);
+  if(el.id==="cur"){CUR=el.value;store.set("sd.cur",CUR);renderBom()}
+  if(el.dataset.ex)renderBom();
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.tab)return showTab(b.dataset.tab);
+  if(b.dataset.del!==undefined){S.pv.loads.splice(+b.dataset.del,1);renderLoads();refresh();return}
+  if(b.id==="addLoad"){S.pv.loads.push(["Nouvel appareil",100,1,4,1]);renderLoads();refresh();$(`ld-${S.pv.loads.length-1}-0`).select();return}
+  if(b.dataset.quick!==undefined){S.pv.loads.push([...QUICK[+b.dataset.quick]]);renderLoads();refresh();return}
+  if(b.dataset.src){S.bomSrc=b.dataset.src;refresh();return}
+  if(b.id==="addExtra"){S.extra.push(["Autre",1,"u"]);refresh();return}
+  if(b.dataset.exdel!==undefined){S.extra.splice(+b.dataset.exdel,1);refresh();return}
+  if(b.id==="copyBom")return copyText(bomText());
+  if(b.id==="pjSave"){const list=store.get("sd.projects",[]);const name=S.project.name||"Projet sans nom";
+    const i=list.findIndex(p=>p.name===name&&p.client===S.project.client);const item={id:i>=0?list[i].id:Date.now(),name,client:S.project.client,date:Date.now(),data:clone(S)};
+    if(i>=0)list[i]=item;else list.unshift(item);store.set("sd.projects",list);toast(i>=0?"Projet mis à jour":"Projet enregistré");renderProj();return}
+  if(b.id==="pjNew"){S=merge(DEF,{tab:"pv",project:{name:"Nouveau projet",client:""}});buildForms();syncInputs();showTab("pv");toast("Nouveau projet");return}
+  if(b.dataset.load){const p=store.get("sd.projects",[]).find(x=>String(x.id)===b.dataset.load);if(p){S=merge(DEF,p.data);buildForms();syncInputs();showTab("pv");toast(`Projet « ${p.name} » ouvert`)}return}
+  if(b.dataset.delP){if(pendingDel!==+b.dataset.delP){pendingDel=+b.dataset.delP;renderProj();return}
+    store.set("sd.projects",store.get("sd.projects",[]).filter(x=>x.id!==pendingDel));pendingDel=null;toast("Projet supprimé");renderProj();return}
+  if(b.id==="pjCopy")return copyText("SOLAIRE1:"+btoa(unescape(encodeURIComponent(JSON.stringify(S)))));
+  if(b.id==="pjImport"){try{const t=$("pj-import").value.trim().replace(/^SOLAIRE1:/,"");S=merge(DEF,JSON.parse(decodeURIComponent(escape(atob(t)))));buildForms();syncInputs();showTab("pv");toast("Projet importé")}
+    catch(err){toast("Code invalide : copiez le code complet, il commence par SOLAIRE1:")}return}
+});
+
+buildForms();
+syncInputs();
+showTab(["pv","pump","bom","proj"].includes(S.tab)?S.tab:"pv");
+</script>
+
+<script>
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>

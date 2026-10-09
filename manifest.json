@@ -1,0 +1,15 @@
+{
+  "name": "DIALLO DIMEN SOL/POM",
+  "short_name": "DIMEN SOL/POM",
+  "description": "Dimensionnement de sites solaires autonomes et de pompage solaire",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#17231e",
+  "theme_color": "#17231e",
+  "icons": [
+    { "src": "icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
